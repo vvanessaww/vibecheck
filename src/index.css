@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700;800&family=Inter:wght@400;600;800;900&family=Caveat:wght@700&display=swap');
+
+@theme {
+  --color-teal-dark: #0a3d47;
+  --color-teal-mid: #0d4a57;
+  --color-teal-card: #135c6b;
+  --color-purple-dark: #1a1721;
+  --color-orange: #ff5c00;
+  --color-orange-dark: #b32400;
+  --color-orange-red: #cc2900;
+  --color-accent-teal: #4bb8cc;
+  --color-pink: #ff007a;
+  --color-grass: #1f4a2c;
+  --color-grass-border: #3a6b4c;
+  --font-oswald: 'Oswald', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-caveat: 'Caveat', cursive;
+}
+
+::-webkit-scrollbar { display: none; }
+body { -ms-overflow-style: none; scrollbar-width: none; }
+
+::selection { background-color: #ff5c00; color: white; }
