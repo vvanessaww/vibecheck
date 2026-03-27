@@ -3,17 +3,17 @@ export const FRIDAY_LINEUP = [
   { id: 'f2', name: 'Peggy Gou', time: '9:30 PM', stage: 'Sahara', weights: { sahara: 3 } },
   { id: 'f3', name: 'Justice', time: '8:15 PM', stage: 'Outdoor Theatre', weights: { feels: 2, sahara: 1 } },
   { id: 'f4', name: 'Deftones', time: '7:00 PM', stage: 'Main Stage', weights: { campground: 2 } },
-  { id: 'f5', name: 'Bicep', time: '6:30 PM', stage: 'Mojave', weights: { sahara: 2, dolab: 1 } },
+  { id: 'f5', name: 'Bicep', time: '6:30 PM', stage: 'Yuma', weights: { scientist: 2, sahara: 1 } },
   { id: 'f6', name: 'Jungle', time: '5:00 PM', stage: 'Outdoor Theatre', weights: { feels: 2, influencer: 1 } },
   { id: 'f7', name: "L'Impératrice", time: '4:15 PM', stage: 'Gobi', weights: { dolab: 2, feels: 1 } },
-  { id: 'f8', name: 'Clown Core', time: '3:00 PM', stage: 'Sonora', weights: { dolab: 3 } },
+  { id: 'f8', name: 'Clown Core', time: '3:00 PM', stage: 'Quasar', weights: { quasar: 2, dolab: 1 } },
   { id: 'f9', name: 'Neil Frances', time: '2:00 PM', stage: 'Mojave', weights: { dolab: 2, campground: 1 } },
 ];
 
 export const ARTIST_RECOMMENDATIONS = {
   sahara: [
     { name: 'Peggy Gou', stage: 'Sahara', day: 'Friday' },
-    { name: 'Bicep', stage: 'Mojave', day: 'Friday' },
+    { name: 'Bicep', stage: 'Yuma', day: 'Friday' },
     { name: 'Nia Archives', stage: 'Sahara', day: 'Saturday' },
   ],
   feels: [
@@ -22,7 +22,7 @@ export const ARTIST_RECOMMENDATIONS = {
     { name: 'LCD Soundsystem', stage: 'Main Stage', day: 'Friday' },
   ],
   dolab: [
-    { name: 'Clown Core', stage: 'Sonora', day: 'Friday' },
+    { name: 'Clown Core', stage: 'Quasar', day: 'Friday' },
     { name: 'Neil Frances', stage: 'Mojave', day: 'Friday' },
     { name: "L'Impératrice", stage: 'Gobi', day: 'Friday' },
   ],
@@ -34,11 +34,16 @@ export const ARTIST_RECOMMENDATIONS = {
   campground: [
     { name: 'Deftones', stage: 'Main Stage', day: 'Friday' },
     { name: 'Neil Frances', stage: 'Mojave', day: 'Friday' },
-    { name: 'Clown Core', stage: 'Sonora', day: 'Friday' },
+    { name: 'Clown Core', stage: 'Quasar', day: 'Friday' },
   ],
   scientist: [
-    { name: 'LCD Soundsystem', stage: 'Main Stage', day: 'Friday' },
+    { name: 'Bicep', stage: 'Yuma', day: 'Friday' },
     { name: 'Justice', stage: 'Outdoor Theatre', day: 'Friday' },
-    { name: 'Bicep', stage: 'Mojave', day: 'Friday' },
+    { name: 'LCD Soundsystem', stage: 'Main Stage', day: 'Friday' },
+  ],
+  quasar: [
+    { name: 'Clown Core', stage: 'Quasar', day: 'Friday' },
+    { name: 'Jungle', stage: 'Outdoor Theatre', day: 'Friday' },
+    { name: "L'Impératrice", stage: 'Gobi', day: 'Friday' },
   ],
 };
