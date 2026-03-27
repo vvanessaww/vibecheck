@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import PhoneFrame from './components/layout/PhoneFrame';
 
 function App() {
   return (
-    <div className="w-full min-h-dvh bg-teal-dark text-white font-inter flex justify-center items-center">
-      <p className="text-accent-teal tracking-widest uppercase text-xs font-bold">
-        Vibe Check — Coming Soon
-      </p>
-    </div>
+    <PhoneFrame>
+      <div className="flex flex-col items-center justify-center text-center">
+        <p className="text-accent-teal tracking-widest uppercase text-xs font-bold">
+          Vibe Check — Coming Soon
+        </p>
+      </div>
+    </PhoneFrame>
   );
 }
 
