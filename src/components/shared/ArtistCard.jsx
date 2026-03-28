@@ -27,7 +27,7 @@ export default function ArtistCard({ artist, isSelected, isDeselected, onSelect 
         }`}
         style={isSelected ? { boxShadow: '0 0 10px rgba(255,92,0,0.8)' } : {}}
       >
-        {isSelected ? 'Selected' : 'Tap to Vote'}
+        {isSelected ? 'Selected' : 'Not Selected'}
       </div>
 
       <div className="relative z-10 p-5 w-full text-center pb-8">
