@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import PhoneFrame from './components/layout/PhoneFrame';
 import StartScreen from './components/screens/StartScreen';
 import WelcomeScreen from './components/screens/WelcomeScreen';
@@ -14,11 +14,13 @@ import ResultScreen from './components/screens/ResultScreen';
 import ShareCard from './components/screens/ShareCard';
 import CompareScreen from './components/screens/CompareScreen';
 import { useQuiz, SCREENS } from './hooks/useQuiz';
-import { decodeQuizState, decodeChallengeData } from './utils/shareUrl';
+import { decodeQuizState, decodeChallengeData, parseChallengeParam } from './utils/shareUrl';
+import { savePlayer, getPlayer } from './lib/players';
 
 function App() {
   const quiz = useQuiz();
   const screenBackRef = useRef(null);
+  const [myPlayerId, setMyPlayerId] = useState(null);
 
   const handleBack = useCallback(() => {
     if (screenBackRef.current) {
@@ -28,15 +30,30 @@ function App() {
     }
   }, [quiz.prevScreen]);
 
+  // Parse challenge URL on mount — supports both ?c=<id> and legacy ?challenge=<base64>
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const challengeData = params.get('challenge');
-    if (challengeData) {
-      const challenger = decodeChallengeData(challengeData);
-      if (challenger) quiz.setChallenger(challenger);
+    const challenge = parseChallengeParam();
+    if (challenge) {
+      if (challenge.type === 'id') {
+        getPlayer(challenge.value)
+          .then((player) => {
+            if (player) {
+              quiz.setChallenger({
+                name: player.name,
+                personaId: player.persona_id,
+                dayPicks: player.day_picks || [],
+              });
+            }
+          })
+          .catch(() => { /* challenger load failed — user can still take quiz solo */ });
+      } else {
+        const challenger = decodeChallengeData(challenge.value);
+        if (challenger) quiz.setChallenger(challenger);
+      }
       window.history.replaceState({}, '', window.location.pathname);
       return;
     }
+    const params = new URLSearchParams(window.location.search);
     const encoded = params.get('q');
     if (encoded) {
       const state = decodeQuizState(encoded);
@@ -82,6 +99,8 @@ function App() {
             playerName={quiz.playerName}
             dayPicks={quiz.dayPicks}
             challenger={quiz.challenger}
+            myPlayerId={myPlayerId}
+            onPlayerSaved={setMyPlayerId}
             onShareCard={() => quiz.goToScreen(SCREENS.SHARE)}
             onCompare={quiz.challenger ? () => quiz.goToScreen(SCREENS.COMPARE) : null}
             onRestart={quiz.restart}
@@ -92,6 +111,7 @@ function App() {
           <CompareScreen
             myData={{ name: quiz.playerName, personaId: quiz.personaId, dayPicks: quiz.dayPicks }}
             challengerData={quiz.challenger}
+            myPlayerId={myPlayerId}
             onShareCard={() => quiz.goToScreen(SCREENS.SHARE)}
           />
         );

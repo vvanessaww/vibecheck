@@ -36,3 +36,23 @@ export function buildChallengeUrl({ name, personaId, dayPicks }) {
   const base = window.location.origin + window.location.pathname;
   return `${base}?challenge=${encoded}`;
 }
+
+/**
+ * Build a challenge URL using a persisted player ID.
+ */
+export function buildChallengeUrlById(playerId) {
+  const base = window.location.origin + window.location.pathname;
+  return `${base}?c=${playerId}`;
+}
+
+/**
+ * Parse challenge param from URL — supports both player ID (?c=) and legacy base64 (?challenge=).
+ */
+export function parseChallengeParam() {
+  const params = new URLSearchParams(window.location.search);
+  const playerId = params.get('c');
+  if (playerId) return { type: 'id', value: playerId };
+  const legacy = params.get('challenge');
+  if (legacy) return { type: 'legacy', value: legacy };
+  return null;
+}

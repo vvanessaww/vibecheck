@@ -328,8 +328,11 @@ export default function Footer() {
       <div className="absolute bottom-1 w-full text-center z-30 pb-1">
         <p className="text-[8px] text-white/60 tracking-[0.15em] font-bold">
           made with &lt;3 by vanessa
-          <a href="https://linkedin.com/in/vvanessaww" target="_blank" rel="noopener noreferrer" className="ml-1.5 text-[7px] text-white/40 hover:text-white/70 transition-colors pointer-events-auto underline">
-            linkedin
+          <a href="https://x.com/vanessas5to9" target="_blank" rel="noopener noreferrer" className="ml-1.5 text-[7px] text-white/40 hover:text-white/70 transition-colors pointer-events-auto underline">
+            x
+          </a>
+          <a href="https://github.com/vvanessaww" target="_blank" rel="noopener noreferrer" className="ml-1.5 text-[7px] text-white/40 hover:text-white/70 transition-colors pointer-events-auto underline">
+            github
           </a>
         </p>
       </div>

@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
 import { ARTIST_RECOMMENDATIONS } from '../../data/lineup';
-import { buildChallengeUrl } from '../../utils/shareUrl';
+import { buildChallengeUrlById } from '../../utils/shareUrl';
+import { savePlayer } from '../../lib/players';
 
 function pickMixedDays(recs) {
   const byDay = { Friday: [], Saturday: [], Sunday: [] };
@@ -18,18 +19,26 @@ function pickMixedDays(recs) {
   return picked;
 }
 
-export default function ResultScreen({ personaId, playerName, dayPicks, challenger, onShareCard, onCompare, onRestart }) {
+export default function ResultScreen({ personaId, playerName, dayPicks, challenger, myPlayerId, onPlayerSaved, onShareCard, onCompare, onRestart }) {
   const persona = getPersona(personaId);
   const allRecs = ARTIST_RECOMMENDATIONS[personaId] || [];
   const recommendations = pickMixedDays(allRecs);
   const [copied, setCopied] = useState(false);
 
+  // Save player to Supabase on first render of result screen
+  useEffect(() => {
+    if (myPlayerId || !personaId || !playerName) return;
+    savePlayer({ name: playerName, personaId, dayPicks })
+      .then((player) => onPlayerSaved(player.id))
+      .catch(() => { /* offline fallback — challenge links won't persist */ });
+  }, [personaId, playerName, myPlayerId]);
+
   const handleChallenge = async () => {
-    const url = buildChallengeUrl({ name: playerName, personaId, dayPicks });
+    if (!myPlayerId) return;
+    const url = buildChallengeUrlById(myPlayerId);
     try {
       await navigator.clipboard.writeText(url);
     } catch {
-      // Fallback for non-HTTPS contexts
       const input = document.createElement('textarea');
       input.value = url;
       input.style.position = 'fixed';

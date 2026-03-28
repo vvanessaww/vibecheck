@@ -2,20 +2,25 @@ import html2canvas from 'html2canvas';
 
 export async function exportCardAsImage(elementId) {
   const element = document.getElementById(elementId);
-  if (!element) return;
+  if (!element) return { ok: false, error: 'Element not found' };
 
-  const canvas = await html2canvas(element, {
-    backgroundColor: null,
-    scale: 2,
-    useCORS: true,
-  });
+  let canvas;
+  try {
+    canvas = await html2canvas(element, {
+      backgroundColor: null,
+      scale: 2,
+      useCORS: true,
+    });
+  } catch {
+    return { ok: false, error: 'Failed to capture image' };
+  }
 
   // Convert canvas to blob for sharing
   const blob = await new Promise((resolve) =>
     canvas.toBlob(resolve, 'image/png')
   );
 
-  if (!blob) return;
+  if (!blob) return { ok: false, error: 'Failed to generate image' };
 
   const file = new File([blob], 'vibecheck-result.png', { type: 'image/png' });
 
@@ -46,4 +51,5 @@ export async function exportCardAsImage(elementId) {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   }, 1000);
+  return { ok: true };
 }

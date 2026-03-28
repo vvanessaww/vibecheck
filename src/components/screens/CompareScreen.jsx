@@ -3,9 +3,9 @@ import { motion } from 'framer-motion';
 import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
 import { calculateChemistry, getScoreMessage } from '../../data/chemistry';
-import { buildChallengeUrl } from '../../utils/shareUrl';
+import { buildChallengeUrlById } from '../../utils/shareUrl';
 
-export default function CompareScreen({ myData, challengerData, onShareCard }) {
+export default function CompareScreen({ myData, challengerData, myPlayerId, onShareCard }) {
   const [copied, setCopied] = useState(false);
 
   const myPersona = getPersona(myData?.personaId);
@@ -22,11 +22,8 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
   );
 
   const handleCopyLink = async () => {
-    const url = buildChallengeUrl({
-      name: myData.name,
-      personaId: myData.personaId,
-      dayPicks: myData.dayPicks,
-    });
+    if (!myPlayerId) return;
+    const url = buildChallengeUrlById(myPlayerId);
     try {
       await navigator.clipboard.writeText(url);
     } catch {
