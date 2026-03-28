@@ -61,7 +61,7 @@ export default function GenreSpectrum({ onComplete }) {
           onChange={handleChange}
           className="w-full h-2 rounded-full appearance-none cursor-pointer"
           style={{
-            background: `linear-gradient(to right, #4bb8cc, #7b6fbf ${currentValue * 0.5}%, #ff5c00)`,
+            background: `linear-gradient(to right, white ${currentValue - 10}%, #ff5c00 ${currentValue + 10}%)`,
             accentColor: '#ff5c00',
           }}
         />
