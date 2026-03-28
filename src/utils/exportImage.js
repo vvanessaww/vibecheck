@@ -1,5 +1,6 @@
 /**
  * Draw the share card directly on a Canvas for reliable export.
+ * Matches the reference image layout exactly.
  */
 function drawShareCard(canvas, persona) {
   const w = 600;
@@ -11,45 +12,67 @@ function drawShareCard(canvas, persona) {
   // Background gradient
   const bg = ctx.createLinearGradient(0, 0, 0, h);
   bg.addColorStop(0, '#0a3d47');
-  bg.addColorStop(0.5, '#0d4a57');
+  bg.addColorStop(0.6, '#0d4a57');
   bg.addColorStop(1, '#1a1721');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, w, h);
 
   // Stars
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 40; i++) {
     const x = (i * 137.5) % w;
-    const y = (i * 73.1) % (h * 0.5);
-    const r = 1 + (i % 3) * 0.5;
+    const y = (i * 73.1) % (h * 0.55);
+    const r = 0.8 + (i % 3) * 0.5;
     ctx.beginPath();
     ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${0.3 + (i % 3) * 0.15})`;
+    ctx.fillStyle = `rgba(255,255,255,${0.25 + (i % 3) * 0.15})`;
     ctx.fill();
   }
 
-  // Orange glow in center
-  const glow = ctx.createRadialGradient(w / 2, h * 0.55, 0, w / 2, h * 0.55, 200);
-  glow.addColorStop(0, 'rgba(255,92,0,0.12)');
+  // Orange glow behind stage name area
+  const glow = ctx.createRadialGradient(w / 2, h * 0.48, 0, w / 2, h * 0.48, 250);
+  glow.addColorStop(0, 'rgba(255,92,0,0.08)');
   glow.addColorStop(1, 'rgba(255,92,0,0)');
   ctx.fillStyle = glow;
   ctx.fillRect(0, 0, w, h);
 
-  // Mountain silhouette at bottom
-  ctx.fillStyle = '#ff5c00';
-  ctx.globalAlpha = 0.4;
+  // Mountain silhouette at bottom — brown/dark orange like reference
+  const mtnY = h - 120;
+  // Back layer
+  ctx.fillStyle = '#6b3516';
+  ctx.globalAlpha = 0.7;
   ctx.beginPath();
   ctx.moveTo(0, h);
-  ctx.lineTo(0, h - 60);
-  ctx.lineTo(100, h - 80);
-  ctx.lineTo(200, h - 40);
-  ctx.lineTo(300, h - 90);
-  ctx.lineTo(400, h - 50);
-  ctx.lineTo(500, h - 70);
-  ctx.lineTo(w, h - 40);
+  ctx.lineTo(0, mtnY + 20);
+  ctx.lineTo(80, mtnY - 10);
+  ctx.lineTo(170, mtnY + 40);
+  ctx.lineTo(260, mtnY - 20);
+  ctx.lineTo(350, mtnY + 30);
+  ctx.lineTo(450, mtnY - 15);
+  ctx.lineTo(530, mtnY + 25);
+  ctx.lineTo(w, mtnY + 10);
+  ctx.lineTo(w, h);
+  ctx.closePath();
+  ctx.fill();
+  // Front layer
+  ctx.fillStyle = '#8b4520';
+  ctx.globalAlpha = 0.9;
+  ctx.beginPath();
+  ctx.moveTo(0, h);
+  ctx.lineTo(50, mtnY + 40);
+  ctx.lineTo(150, mtnY + 10);
+  ctx.lineTo(250, mtnY + 50);
+  ctx.lineTo(350, mtnY + 5);
+  ctx.lineTo(450, mtnY + 45);
+  ctx.lineTo(550, mtnY + 15);
+  ctx.lineTo(w, mtnY + 35);
   ctx.lineTo(w, h);
   ctx.closePath();
   ctx.fill();
   ctx.globalAlpha = 1;
+
+  // --- Text content ---
+  const pad = 50;
+  const maxContent = w - pad * 2;
 
   // Helper: centered text
   const centerText = (text, y, font, color) => {
@@ -59,7 +82,7 @@ function drawShareCard(canvas, persona) {
     ctx.fillText(text, w / 2, y);
   };
 
-  // Helper: centered text that auto-shrinks to fit within maxWidth
+  // Helper: auto-shrink text to fit
   const centerTextFit = (text, y, baseSizePx, fontWeight, fontFamily, color, maxWidth) => {
     let size = baseSizePx;
     ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
@@ -73,7 +96,7 @@ function drawShareCard(canvas, persona) {
     return size;
   };
 
-  // Helper: word-wrap centered text, returns final Y
+  // Helper: word-wrap
   const wrapText = (text, startY, font, color, maxWidth, lineHeight) => {
     ctx.font = font;
     ctx.fillStyle = color;
@@ -95,66 +118,82 @@ function drawShareCard(canvas, persona) {
     return y;
   };
 
-  const pad = 40; // side padding
-  const maxContent = w - pad * 2; // 520px
+  // Top branding — positioned like reference
+  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', 50, '700 11px Inter, sans-serif', '#4bb8cc');
+  centerText('VIBECHECK', 95, '900 56px Oswald, sans-serif', '#ffffff');
 
-  // Top branding
-  centerText('THE 2026 VIBECHECK RESULTS', 80, '600 13px Inter, sans-serif', '#4bb8cc');
-  centerText('VIBECHECK', 122, '900 50px Oswald, sans-serif', '#ffffff');
+  // "My Stage Match:" — rotated like reference (slight diagonal tilt)
+  ctx.save();
+  ctx.translate(w / 2, h * 0.345);
+  ctx.rotate(-6 * Math.PI / 180);
+  ctx.font = 'italic 46px Caveat, cursive';
+  ctx.fillStyle = '#ff5c00';
+  ctx.textAlign = 'center';
+  ctx.fillText('My Stage Match:', 0, 0);
+  ctx.restore();
 
-  // Divider line
-  ctx.strokeStyle = 'rgba(75,184,204,0.4)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(120, 148);
-  ctx.lineTo(w - 120, 148);
-  ctx.stroke();
-
-  // "My Stage Match:" in cursive style
-  centerText('My Stage Match:', h * 0.36, 'italic 42px Caveat, cursive', '#ff5c00');
-
-  // Stage name — auto-shrink to fit
+  // Stage name — large, auto-fit, multi-line if needed
   const stageName = persona.stage.toUpperCase();
-  centerTextFit(stageName, h * 0.44, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+  const stageWords = stageName.split(' ');
+  if (stageWords.length === 1) {
+    // Single word — one big line
+    centerTextFit(stageName, h * 0.44, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+  } else {
+    // Multi-word — stack on separate lines like reference
+    const lineH = 80;
+    const startY = h * 0.40;
+    for (let i = 0; i < stageWords.length; i++) {
+      centerTextFit(stageWords[i], startY + i * lineH, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+    }
+  }
 
   // Title
-  centerTextFit(persona.title.toUpperCase(), h * 0.50, 22, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
+  const titleY = stageWords.length > 1 ? h * 0.40 + stageWords.length * 80 + 10 : h * 0.50;
+  centerTextFit(persona.title.toUpperCase(), titleY, 20, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
-  // Subtitle — word wrapped
+  // Subtitle
+  const subY = titleY + 35;
   const subtitle = `\u201C${persona.subtitle}\u201D`;
-  wrapText(subtitle, h * 0.55, 'italic 16px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 22);
+  const subEndY = wrapText(subtitle, subY, 'italic 15px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 22);
 
   // "Confirmed Vibe" divider
-  const vibeY = h * 0.65;
+  const vibeY = subEndY + 45;
   ctx.strokeStyle = 'rgba(75,184,204,0.4)';
   ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.moveTo(pad, vibeY);
-  ctx.lineTo(w / 2 - 70, vibeY);
+  ctx.lineTo(w / 2 - 80, vibeY);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(w / 2 + 70, vibeY);
+  ctx.moveTo(w / 2 + 80, vibeY);
   ctx.lineTo(w - pad, vibeY);
   ctx.stroke();
-  centerText('CONFIRMED VIBE', vibeY + 5, '700 12px Inter, sans-serif', '#4bb8cc');
+  centerText('C O N F I R M E D  V I B E', vibeY + 5, '700 11px Inter, sans-serif', '#4bb8cc');
 
-  // Traits — wrap onto two lines if needed
+  // Traits — 2x2 grid like reference
   const traits = persona.traits.slice(0, 4);
-  const traitStr = traits.map((t) => t.toUpperCase()).join('  \u2022  ');
-  ctx.font = '900 16px Inter, sans-serif';
-  if (ctx.measureText(traitStr).width > maxContent) {
-    // Split into two lines
-    const mid = Math.ceil(traits.length / 2);
-    const line1 = traits.slice(0, mid).map((t) => t.toUpperCase()).join('  \u2022  ');
-    const line2 = traits.slice(mid).map((t) => t.toUpperCase()).join('  \u2022  ');
-    centerText(line1, vibeY + 32, '900 16px Inter, sans-serif', '#ffffff');
-    centerText(line2, vibeY + 56, '900 16px Inter, sans-serif', '#ffffff');
-  } else {
-    centerText(traitStr, vibeY + 35, '900 16px Inter, sans-serif', '#ffffff');
-  }
+  const traitFontSize = 16;
+  const traitFont = `900 ${traitFontSize}px Inter, sans-serif`;
+  ctx.font = traitFont;
+
+  const row1 = traits.slice(0, 2);
+  const row2 = traits.slice(2);
+  const traitRowY1 = vibeY + 40;
+  const traitRowY2 = vibeY + 70;
+
+  const drawTraitRow = (items, y) => {
+    const str = items.map((t) => t.toUpperCase()).join('   \u2022   ');
+    ctx.font = traitFont;
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.fillText(str, w / 2, y);
+  };
+
+  if (row1.length) drawTraitRow(row1, traitRowY1);
+  if (row2.length) drawTraitRow(row2, traitRowY2);
 
   // Bottom branding
-  centerText('vanessazwang.com/vibecheck', h - 40, '600 13px Inter, sans-serif', 'rgba(255,255,255,0.35)');
+  centerText('vanessazwang.com/vibecheck', h - 30, '600 12px Inter, sans-serif', 'rgba(255,255,255,0.3)');
 }
 
 export async function exportCardAsImage(elementId, persona) {
