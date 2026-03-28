@@ -32,7 +32,7 @@ export default function HotTakes({ onComplete }) {
         Hot Takes
       </h2>
 
-      <div className="relative w-full shrink-0" style={{ height: '320px', perspective: '1000px' }} key={cardKey}>
+      <div className="relative w-full max-w-[400px] mx-auto shrink-0" style={{ height: '320px', perspective: '1000px' }} key={cardKey}>
         {[3, 2, 1].map((pos) => (
           <SwipeCard
             key={`${cardKey}-${pos}`}
