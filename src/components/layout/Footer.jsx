@@ -305,7 +305,7 @@ export default function Footer() {
       <div className="w-full h-[38px] bg-grass border-t-[0.5px] border-grass-border relative z-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#112e1a] mix-blend-multiply" />
       </div>
-      <div className="absolute bottom-0 w-full text-center z-30 pb-1.5 bg-[#0a1f12]">
+      <div className="absolute bottom-0 w-full text-center z-30 pb-1.5 bg-[#0a1f12] pointer-events-auto">
         <p className="text-[11px] text-white/70 tracking-[0.1em] font-bold">
           made with &lt;3 by vanessa
         </p>
