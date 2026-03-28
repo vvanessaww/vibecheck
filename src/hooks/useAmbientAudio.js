@@ -27,10 +27,10 @@ function createBassThump(ctx, master) {
   osc2.frequency.value = 110;
 
   const bassGain = ctx.createGain();
-  bassGain.gain.value = 0.25;
+  bassGain.gain.value = 0.45;
 
   const bass2Gain = ctx.createGain();
-  bass2Gain.gain.value = 0.08;
+  bass2Gain.gain.value = 0.15;
 
   // Low-pass to keep it rumbly
   const lpf = ctx.createBiquadFilter();
@@ -79,10 +79,10 @@ function createCrowdMurmur(ctx, master) {
   bpf2.Q.value = 0.3;
 
   const murmurGain = ctx.createGain();
-  murmurGain.gain.value = 0.06;
+  murmurGain.gain.value = 0.015;
 
   const warmGain = ctx.createGain();
-  warmGain.gain.value = 0.04;
+  warmGain.gain.value = 0.01;
 
   // Slow modulation for natural ebb and flow
   const lfo = ctx.createOscillator();
@@ -129,10 +129,10 @@ function createCrowdCheers(ctx, master) {
   // Schedule random cheers
   function scheduleCheer() {
     const now = ctx.currentTime;
-    const delay = 6 + Math.random() * 10; // every 6-16 seconds
+    const delay = 4 + Math.random() * 8; // every 4-12 seconds
     const start = now + delay;
-    const duration = 1.5 + Math.random() * 2; // 1.5-3.5 seconds
-    const volume = 0.08 + Math.random() * 0.07; // vary intensity
+    const duration = 1.5 + Math.random() * 2.5; // 1.5-4 seconds
+    const volume = 0.15 + Math.random() * 0.1; // louder cheers
 
     cheerGain.gain.setValueAtTime(0, start);
     cheerGain.gain.linearRampToValueAtTime(volume, start + 0.3); // quick swell
