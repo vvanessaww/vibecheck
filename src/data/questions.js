@@ -13,8 +13,6 @@ export const THIS_OR_THAT = [
 export const SWIPE_CARDS = [
   { id: 's1', text: 'Riding the rail for your favorite headliner?', yesWeights: { feels: 2, scientist: 1 }, noWeights: { dolab: 1, campground: 1 } },
   { id: 's2', text: 'Outfit changes planned for every sunset?', yesWeights: { influencer: 3 }, noWeights: { campground: 1, scientist: 1 } },
-  { id: 's3', text: 'Barefoot dancing in the art installations?', yesWeights: { dolab: 2, feels: 1 }, noWeights: { scientist: 1, influencer: 1 } },
-  { id: 's4', text: 'Midnight spicy pie is a non-negotiable?', yesWeights: { campground: 2, sahara: 1 }, noWeights: { influencer: 1 } },
   { id: 's5', text: 'Front row for the surprise guest set?', yesWeights: { dolab: 2, quasar: 1 }, noWeights: { influencer: 1, campground: 1 } },
   { id: 's6', text: 'Staying until the very last act plays?', yesWeights: { sahara: 2, campground: 2 }, noWeights: { scientist: 1 } },
 ];
