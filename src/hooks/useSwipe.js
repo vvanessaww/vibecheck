@@ -14,7 +14,7 @@ export function useSwipe({ onSwipeComplete }) {
   const resetCard = useCallback(() => {
     const card = cardRef.current;
     if (!card) return;
-    card.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease';
+    card.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease';
     card.style.transform = 'translate(0,0) rotate(0deg)';
     if (overlayLeftRef.current) overlayLeftRef.current.style.opacity = '0';
     if (overlayRightRef.current) overlayRightRef.current.style.opacity = '0';
@@ -24,10 +24,10 @@ export function useSwipe({ onSwipeComplete }) {
     const card = cardRef.current;
     if (!card) return;
     const x = dir === 'right' ? 500 : -500;
-    card.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease';
-    card.style.transform = `translate(${x}px, ${currentYRef.current}px) rotate(${x / 10}deg)`;
+    card.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-in';
+    card.style.transform = `translate(${x}px, ${currentYRef.current}px) rotate(${x / 15}deg)`;
     card.style.opacity = '0';
-    setTimeout(() => onSwipeComplete(dir), 300);
+    setTimeout(() => onSwipeComplete(dir), 450);
   }, [onSwipeComplete]);
 
   const updatePosition = useCallback((dx) => {
@@ -62,7 +62,7 @@ export function useSwipe({ onSwipeComplete }) {
   const handleEnd = useCallback(() => {
     isDraggingRef.current = false;
     if (cardRef.current) {
-      cardRef.current.style.transition = 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease';
+      cardRef.current.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease';
     }
     if (Math.abs(currentXRef.current) > SWIPE_THRESHOLD) {
       swipeOut(currentXRef.current > 0 ? 'right' : 'left');
