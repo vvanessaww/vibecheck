@@ -25,6 +25,57 @@ export const FRIDAY_LINEUP = [
   { id: 'f11', name: 'Groove Armada', time: '11:00 PM', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
 ];
 
+export const SATURDAY_LINEUP = [
+  { id: 's1', name: 'Addison Rae', time: '4:30 PM', stage: 'Gobi', weights: { influencer: 3, quasar: 1 } },
+  { id: 's2', name: 'Geese', time: '5:00 PM', stage: 'Mojave', weights: { campground: 2, dolab: 1 } },
+  { id: 's3', name: 'rusowsky', time: '5:00 PM', stage: 'Quasar', weights: { quasar: 2, dolab: 1 } },
+  { id: 's4', name: 'Blondshell', time: '5:30 PM', stage: 'Mojave', weights: { feels: 2, quasar: 1 } },
+  { id: 's5', name: 'Fujii Kaze', time: '6:00 PM', stage: 'Outdoor Theatre', weights: { feels: 2, dolab: 2 } },
+  { id: 's6', name: 'Taemin', time: '6:00 PM', stage: 'Gobi', weights: { influencer: 2, sahara: 1 } },
+  { id: 's7', name: 'PinkPantheress', time: '6:30 PM', stage: 'Outdoor Theatre', weights: { influencer: 2, feels: 2 } },
+  { id: 's8', name: 'Royel Otis', time: '7:00 PM', stage: 'Mojave', weights: { feels: 2, campground: 1 } },
+  { id: 's9', name: 'Alex G', time: '7:00 PM', stage: 'Outdoor Theatre', weights: { feels: 3, dolab: 1 } },
+  { id: 's10', name: 'REZZ', time: '7:30 PM', stage: 'Sahara', weights: { sahara: 3, campground: 1 } },
+  { id: 's11', name: 'Adriatique', time: '8:00 PM', stage: 'Yuma', weights: { scientist: 3, sahara: 1 } },
+  { id: 's12', name: 'Boys Noize', time: '8:00 PM', stage: 'Sahara', weights: { sahara: 2, dolab: 1 } },
+  { id: 's13', name: 'David Byrne', time: '8:30 PM', stage: 'Outdoor Theatre', weights: { feels: 2, dolab: 2 } },
+  { id: 's14', name: 'Interpol', time: '8:30 PM', stage: 'Main Stage', weights: { campground: 3, feels: 1 } },
+  { id: 's15', name: 'Solomun', time: '9:00 PM', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
+  { id: 's16', name: 'Labrinth', time: '9:00 PM', stage: 'Sahara', weights: { feels: 2, sahara: 1 } },
+  { id: 's17', name: 'GIVĒON', time: '9:30 PM', stage: 'Main Stage', weights: { feels: 3, influencer: 1 } },
+  { id: 's18', name: 'The Strokes', time: '10:00 PM', stage: 'Main Stage', weights: { campground: 3, feels: 1 } },
+  { id: 's19', name: 'Green Velvet', time: '10:00 PM', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
+  { id: 's20', name: 'Justin Bieber', time: '11:00 PM', stage: 'Main Stage', weights: { influencer: 3, feels: 2 } },
+];
+
+export const SUNDAY_LINEUP = [
+  { id: 'su1', name: 'Gigi Perez', time: '4:30 PM', stage: 'Gobi', weights: { quasar: 2, feels: 2 } },
+  { id: 'su2', name: 'COBRAH', time: '5:00 PM', stage: 'Quasar', weights: { quasar: 2, dolab: 2 } },
+  { id: 'su3', name: 'Holly Humberstone', time: '5:00 PM', stage: 'Outdoor Theatre', weights: { feels: 3, quasar: 1 } },
+  { id: 'su4', name: 'The Chats', time: '5:30 PM', stage: 'Mojave', weights: { campground: 3, quasar: 1 } },
+  { id: 'su5', name: 'Little Simz', time: '6:00 PM', stage: 'Outdoor Theatre', weights: { campground: 2, dolab: 1 } },
+  { id: 'su6', name: 'Wet Leg', time: '6:00 PM', stage: 'Mojave', weights: { campground: 2, feels: 1 } },
+  { id: 'su7', name: 'Duke Dumont', time: '6:30 PM', stage: 'Sahara', weights: { sahara: 3, influencer: 1 } },
+  { id: 'su8', name: 'FKA twigs', time: '7:00 PM', stage: 'Outdoor Theatre', weights: { feels: 2, dolab: 2 } },
+  { id: 'su9', name: 'Laufey', time: '7:30 PM', stage: 'Main Stage', weights: { feels: 3, influencer: 1 } },
+  { id: 'su10', name: 'Iggy Pop', time: '7:30 PM', stage: 'Mojave', weights: { campground: 3, dolab: 1 } },
+  { id: 'su11', name: 'Subtronics', time: '8:00 PM', stage: 'Sahara', weights: { sahara: 3, campground: 1 } },
+  { id: 'su12', name: 'Armin van Buuren x Adam Beyer', time: '8:00 PM', stage: 'Yuma', weights: { scientist: 3, sahara: 1 } },
+  { id: 'su13', name: 'Major Lazer', time: '8:30 PM', stage: 'Sahara', weights: { sahara: 2, influencer: 2 } },
+  { id: 'su14', name: 'BIGBANG', time: '9:00 PM', stage: 'Main Stage', weights: { influencer: 2, quasar: 2 } },
+  { id: 'su15', name: 'Clipse', time: '9:00 PM', stage: 'Outdoor Theatre', weights: { campground: 3 } },
+  { id: 'su16', name: 'Kaskade', time: '9:30 PM', stage: 'Sahara', weights: { sahara: 3, scientist: 1 } },
+  { id: 'su17', name: 'Young Thug', time: '10:00 PM', stage: 'Main Stage', weights: { campground: 3, influencer: 1 } },
+  { id: 'su18', name: 'Mochakk', time: '10:00 PM', stage: 'Yuma', weights: { scientist: 2, sahara: 2 } },
+  { id: 'su19', name: 'Karol G', time: '11:00 PM', stage: 'Main Stage', weights: { sahara: 2, influencer: 2 } },
+];
+
+export const ALL_DAYS = [
+  { label: 'Friday', lineup: 'FRIDAY_LINEUP' },
+  { label: 'Saturday', lineup: 'SATURDAY_LINEUP' },
+  { label: 'Sunday', lineup: 'SUNDAY_LINEUP' },
+];
+
 export const ARTIST_RECOMMENDATIONS = {
   sahara: [
     { name: 'Disclosure', stage: 'Sahara', day: 'Friday' },
