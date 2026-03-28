@@ -137,7 +137,7 @@ export default function HeadlinerShowdown({ onComplete }) {
       </div>
 
       {/* Lock in button - always visible since focused card is auto-selected */}
-      <div className="w-full px-8 mt-2 mb-4 shrink-0">
+      <div className="w-full max-w-[400px] mx-auto px-8 mt-2 mb-4 shrink-0">
         <button
           onClick={handleLockIn}
           className="w-full bg-orange text-white font-black py-4 rounded-full uppercase tracking-widest text-xs flex items-center justify-center gap-2 active:scale-95 transition-all"
