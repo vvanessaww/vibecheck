@@ -24,16 +24,27 @@ export default function ResultScreen({ personaId, playerName, dayPicks, challeng
   const recommendations = pickMixedDays(allRecs);
   const [copied, setCopied] = useState(false);
 
-  const handleChallenge = () => {
+  const handleChallenge = async () => {
     const url = buildChallengeUrl({ name: playerName, personaId, dayPicks });
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Fallback for non-HTTPS contexts
+      const input = document.createElement('textarea');
+      input.value = url;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'slideUp 0.4s ease-out forwards' }}>
+    <div className="flex flex-col items-center w-full h-full overflow-y-auto py-2" style={{ animation: 'slideUp 0.4s ease-out forwards' }}>
       <Divider text="Your Stage Match" />
 
       <div className="text-center w-full mb-3">
