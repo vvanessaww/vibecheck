@@ -36,7 +36,7 @@ export default function SwipeCard({
     <div
       ref={cardRef}
       className="absolute w-full h-full rounded-3xl bg-teal-card border border-white/10 flex flex-col items-center justify-center p-8 text-center cursor-grab select-none"
-      style={{ ...positionStyles[1], transition: 'transform 0.4s ease, opacity 0.4s ease', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)' }}
+      style={{ ...positionStyles[1], transition: 'transform 0.4s ease, opacity 0.4s ease', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)', animation: 'fadeIn 0.3s ease-out' }}
       {...touchHandlers}
       {...mouseHandlers}
     >

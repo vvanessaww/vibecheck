@@ -52,10 +52,10 @@ export default function DayDraft({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
-        Build Your Lineup — {day.label}
+      <h2 className={`font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase shrink-0 ${dayIndex === 0 ? 'mb-1' : 'mb-4'}`}>
+        Choose Your Top 5 — {day.label}
       </h2>
-      <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(yes, you can only pick 5. we know it hurts)</p>
+      {dayIndex === 0 && <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(if time wasn&apos;t a concern)</p>}
 
       <div className="w-full max-w-[400px] mx-auto flex-1 overflow-y-auto min-h-0 rounded-xl border border-white/10 bg-white/5" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.3) transparent' }}>
         {day.lineup.map((artist) => {
@@ -77,7 +77,7 @@ export default function DayDraft({ onComplete }) {
                 </div>
               </div>
               <div
-                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 ${
+                className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all shrink-0 mr-2 ${
                   isSelected ? 'border-orange bg-orange' : 'border-white'
                 }`}
                 style={isSelected ? { boxShadow: '3px 3px 0px rgba(0,0,0,0.3)' } : {}}

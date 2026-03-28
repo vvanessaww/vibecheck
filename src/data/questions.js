@@ -56,7 +56,7 @@ export const VIBE_CHECK_QUESTIONS = [
   },
   {
     id: 'v4',
-    question: 'How many Coachellas? (whether you\'re 18 or 81)',
+    question: 'How many years have you gone to Coachella? (including this one)',
     options: [
       { label: 'First one!', emoji: '🐣', weights: { quasar: 3 } },
       { label: '2-3', emoji: '✌️', weights: { feels: 1, influencer: 1 } },

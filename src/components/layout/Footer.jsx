@@ -1,3 +1,31 @@
+function FerrisWheel() {
+  const spokes = 8;
+  return (
+    <svg className="w-16 h-16" viewBox="0 0 64 64" style={{ animation: 'spin 20s linear infinite' }}>
+      <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
+      <circle cx="32" cy="32" r="3" fill="rgba(255,255,255,0.5)" />
+      {Array.from({ length: spokes }).map((_, i) => {
+        const angle = (i * 360) / spokes;
+        const rad = (angle * Math.PI) / 180;
+        const x2 = 32 + 28 * Math.cos(rad);
+        const y2 = 32 + 28 * Math.sin(rad);
+        const gx = 32 + 30 * Math.cos(rad);
+        const gy = 32 + 30 * Math.sin(rad);
+        return (
+          <g key={i}>
+            <line x1="32" y1="32" x2={x2} y2={y2} stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+            <rect
+              x={gx - 4} y={gy - 3} width="8" height="6" rx="1.5"
+              fill="rgba(255,92,0,0.6)" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5"
+              style={{ transform: `rotate(${-angle}deg)`, transformOrigin: `${gx}px ${gy}px` }}
+            />
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10 flex flex-col justify-end">
@@ -18,6 +46,15 @@ export default function Footer() {
           opacity="0.9"
         />
       </svg>
+
+      {/* Ferris wheel */}
+      <div className="absolute bottom-10 right-8 z-20">
+        <div className="relative">
+          <FerrisWheel />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-5 bg-white/20" />
+        </div>
+      </div>
+
       <div className="w-full h-8 bg-grass border-t-[0.5px] border-grass-border relative z-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#112e1a] mix-blend-multiply" />
       </div>

@@ -2,12 +2,27 @@ import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
 import { ARTIST_RECOMMENDATIONS } from '../../data/lineup';
 
+function pickMixedDays(recs) {
+  const byDay = { Friday: [], Saturday: [], Sunday: [] };
+  for (const r of recs) {
+    if (byDay[r.day]) byDay[r.day].push(r);
+  }
+  const picked = [];
+  for (const day of ['Friday', 'Saturday', 'Sunday']) {
+    if (byDay[day].length > 0) {
+      picked.push(byDay[day][0]);
+    }
+  }
+  return picked;
+}
+
 export default function ResultScreen({ personaId, onShareCard, onRestart }) {
   const persona = getPersona(personaId);
-  const recommendations = ARTIST_RECOMMENDATIONS[personaId] || [];
+  const allRecs = ARTIST_RECOMMENDATIONS[personaId] || [];
+  const recommendations = pickMixedDays(allRecs);
 
   return (
-    <div className="flex flex-col items-center justify-start w-full pt-2 pb-4" style={{ animation: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
+    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
       <Divider text="Your Official Headliner" />
 
       <div className="text-center w-full mb-3">
@@ -46,8 +61,8 @@ export default function ResultScreen({ personaId, onShareCard, onRestart }) {
       {recommendations.length > 0 && (
         <>
           <Divider text="Artists You'd Vibe With" />
-          <div className="w-full px-4 mt-1 mb-4 flex flex-col gap-2">
-            {recommendations.slice(0, 3).map((artist) => (
+          <div className="w-full max-w-[400px] mx-auto px-4 mt-1 mb-4 flex flex-col gap-2">
+            {recommendations.map((artist) => (
               <div
                 key={artist.name}
                 className="flex items-center justify-between py-2 px-3 rounded-xl bg-white/5 border border-white/10"

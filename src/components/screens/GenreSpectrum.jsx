@@ -38,10 +38,10 @@ export default function GenreSpectrum({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
+      <h2 className={`font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase shrink-0 ${sliderIndex === 0 ? 'mb-1' : 'mb-4'}`}>
         Where Do You Land?
       </h2>
-      <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(there are no wrong answers... just revealing ones)</p>
+      {sliderIndex === 0 && <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(there are no wrong answers... just revealing ones)</p>}
 
       <div className="w-full max-w-[400px] mx-auto px-6 flex flex-col items-center gap-8 mt-8" key={sliderIndex}>
         <div className="w-full flex justify-between items-center">
