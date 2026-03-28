@@ -3,7 +3,7 @@ import ArtistCard from '../shared/ArtistCard';
 import { HEADLINER_OPTIONS } from '../../data/questions';
 
 export default function HeadlinerShowdown({ onComplete }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(1);
   const scrollRef = useRef(null);
   const isScrollingRef = useRef(false);
 
@@ -50,7 +50,7 @@ export default function HeadlinerShowdown({ onComplete }) {
   };
 
   useEffect(() => {
-    scrollToIndex(0);
+    scrollToIndex(1);
   }, []);
 
   return (
