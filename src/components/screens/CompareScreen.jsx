@@ -1,15 +1,22 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getPersona } from '../../data/personas';
 import { calculateChemistry } from '../../data/chemistry';
 import { buildChallengeUrl } from '../../utils/shareUrl';
 
-export default function CompareScreen({ myData, challengerData, onShareCard, onChallenge }) {
-  const myPersona = getPersona(myData.personaId);
-  const theirPersona = getPersona(challengerData.personaId);
+export default function CompareScreen({ myData, challengerData, onShareCard }) {
+  const [copied, setCopied] = useState(false);
+
+  const myPersona = getPersona(myData?.personaId);
+  const theirPersona = getPersona(challengerData?.personaId);
 
   const { score, mutualArtists, blurb } = useMemo(
-    () => calculateChemistry(myData, challengerData),
+    () => {
+      if (!myData?.personaId || !challengerData?.personaId) {
+        return { score: 15, mutualArtists: [], blurb: "Something went wrong — but you're both at Coachella, so it's fine" };
+      }
+      return calculateChemistry(myData, challengerData);
+    },
     [myData, challengerData],
   );
 
@@ -20,7 +27,8 @@ export default function CompareScreen({ myData, challengerData, onShareCard, onC
       dayPicks: myData.dayPicks,
     });
     navigator.clipboard.writeText(url).then(() => {
-      if (onChallenge) onChallenge();
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
     });
   };
 
@@ -157,7 +165,7 @@ export default function CompareScreen({ myData, challengerData, onShareCard, onC
           onClick={handleCopyLink}
           className="px-8 py-2.5 bg-white/10 border border-white/20 text-white font-bold uppercase tracking-widest text-[10px] rounded-full transition-all active:scale-95 hover:bg-white/15"
         >
-          Challenge Another Friend
+          {copied ? 'Link Copied!' : 'Challenge Another Friend'}
         </button>
       </div>
     </div>

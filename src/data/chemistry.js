@@ -29,13 +29,16 @@ export function calculateChemistry(myData, challengerData) {
     .filter(Boolean)
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  // Chemistry score: mutual picks weighted heavily + persona bonus
-  const totalPossible = Math.max(myPicks.size, theirPicks.size, 1);
-  const pickScore = (mutualIds.length / totalPossible) * 70; // 0-70 from lineup overlap
+  // Chemistry score: mutual picks (0-60) + persona compat (0-25) + base (15)
+  // Use average of both pick counts as denominator for fairness
+  const avgPicks = (myPicks.size + theirPicks.size) / 2 || 1;
+  const pickScore = Math.min((mutualIds.length / avgPicks) * 60, 60);
 
-  const personaScore = getPersonaCompatibility(myData.personaId, challengerData.personaId) * 30; // 0-30 from persona match
+  const personaScore = getPersonaCompatibility(myData.personaId, challengerData.personaId) * 25;
 
-  const score = Math.min(Math.round(pickScore + personaScore), 99);
+  // Floor of 15 — you're both at Coachella, that's already chemistry
+  const raw = 15 + pickScore + personaScore;
+  const score = Math.min(Math.round(raw), 99);
 
   const blurb = getCompatibilityBlurb(myData.personaId, challengerData.personaId);
 
