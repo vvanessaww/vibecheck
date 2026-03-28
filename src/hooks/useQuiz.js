@@ -14,6 +14,7 @@ export const SCREENS = {
   HOT_TAKES: 'hotTakes',
   LOADING: 'loading',
   RESULT: 'result',
+  COMPARE: 'compare',
   SHARE: 'share',
 };
 
@@ -28,6 +29,7 @@ const SCREEN_ORDER = [
   SCREENS.DAY_DRAFT,
   SCREENS.LOADING,
   SCREENS.RESULT,
+  SCREENS.COMPARE,
   SCREENS.SHARE,
 ];
 
@@ -37,6 +39,7 @@ function initialState() {
     scores: emptyScores(),
     answers: {},
     playerName: '',
+    dayPicks: [],
   };
 }
 
@@ -75,6 +78,12 @@ export function useQuiz() {
     setState((prev) => ({ ...prev, playerName: name }));
   }, []);
 
+  const setDayPicks = useCallback((picks) => {
+    setState((prev) => ({ ...prev, dayPicks: picks }));
+  }, []);
+
+  const [challenger, setChallenger] = useState(null);
+
   const restart = useCallback(() => {
     setState(initialState());
   }, []);
@@ -86,8 +95,12 @@ export function useQuiz() {
     scores: state.scores,
     answers: state.answers,
     playerName: state.playerName,
+    dayPicks: state.dayPicks,
     personaId,
     setPlayerName,
+    setDayPicks,
+    challenger,
+    setChallenger,
     nextScreen,
     prevScreen,
     goToScreen,

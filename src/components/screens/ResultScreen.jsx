@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
 import { ARTIST_RECOMMENDATIONS } from '../../data/lineup';
+import { buildChallengeUrl } from '../../utils/shareUrl';
 
 function pickMixedDays(recs) {
   const byDay = { Friday: [], Saturday: [], Sunday: [] };
@@ -16,10 +18,19 @@ function pickMixedDays(recs) {
   return picked;
 }
 
-export default function ResultScreen({ personaId, onShareCard, onRestart }) {
+export default function ResultScreen({ personaId, playerName, dayPicks, challenger, onShareCard, onCompare, onRestart }) {
   const persona = getPersona(personaId);
   const allRecs = ARTIST_RECOMMENDATIONS[personaId] || [];
   const recommendations = pickMixedDays(allRecs);
+  const [copied, setCopied] = useState(false);
+
+  const handleChallenge = () => {
+    const url = buildChallengeUrl({ name: playerName, personaId, dayPicks });
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'slideUp 0.4s ease-out forwards' }}>
@@ -80,17 +91,36 @@ export default function ResultScreen({ personaId, onShareCard, onRestart }) {
         </>
       )}
 
+      {onCompare && (
+        <button
+          onClick={onCompare}
+          className="px-10 py-3 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl bg-orange"
+          style={{ letterSpacing: '0.1em', fontSize: '12px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
+        >
+          See Your Chemistry
+        </button>
+      )}
+
+      {!onCompare && (
+        <button
+          onClick={handleChallenge}
+          className="px-10 py-3 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl bg-orange"
+          style={{ letterSpacing: '0.1em', fontSize: '12px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
+        >
+          {copied ? 'Link Copied!' : 'Challenge a Friend'}
+        </button>
+      )}
+
       <button
         onClick={onShareCard}
-        className="group relative px-10 py-3 text-white font-black uppercase rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-xl bg-orange"
-        style={{ letterSpacing: '0.1em', fontSize: '12px' }}
+        className="mt-2 px-8 py-2.5 bg-white/10 border border-white/20 text-white font-bold uppercase tracking-widest text-[10px] rounded-full transition-all active:scale-95 hover:bg-white/15"
       >
         Export Share Card
       </button>
 
       <button
         onClick={onRestart}
-        className="mt-3 font-bold uppercase text-white/40 text-[10px] tracking-[0.2em] hover:text-white/60 transition-colors"
+        className="mt-2 font-bold uppercase text-white/40 text-[10px] tracking-[0.2em] hover:text-white/60 transition-colors"
         style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '4px' }}
       >
         Retake Quiz

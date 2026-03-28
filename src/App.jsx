@@ -12,8 +12,9 @@ import HotTakes from './components/screens/HotTakes';
 import LoadingScreen from './components/screens/LoadingScreen';
 import ResultScreen from './components/screens/ResultScreen';
 import ShareCard from './components/screens/ShareCard';
+import CompareScreen from './components/screens/CompareScreen';
 import { useQuiz, SCREENS } from './hooks/useQuiz';
-import { decodeQuizState } from './utils/shareUrl';
+import { decodeQuizState, decodeChallengeData } from './utils/shareUrl';
 
 function App() {
   const quiz = useQuiz();
@@ -29,6 +30,13 @@ function App() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    const challengeData = params.get('challenge');
+    if (challengeData) {
+      const challenger = decodeChallengeData(challengeData);
+      if (challenger) quiz.setChallenger(challenger);
+      window.history.replaceState({}, '', window.location.pathname);
+      return;
+    }
     const encoded = params.get('q');
     if (encoded) {
       const state = decodeQuizState(encoded);
@@ -58,7 +66,7 @@ function App() {
       case SCREENS.SWIPE:
         return <SwipeOrSkip onComplete={(id, w) => handleScreenComplete('swipe', id, w)} />;
       case SCREENS.DAY_DRAFT:
-        return <DayDraft onComplete={(id, w) => handleScreenComplete('dayDraft', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
+        return <DayDraft onComplete={(id, w) => handleScreenComplete('dayDraft', id, w)} onDayPicks={quiz.setDayPicks} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.GENRE:
         return <GenreSpectrum onComplete={(id, w) => handleScreenComplete('genre', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.VIBE_CHECK:
@@ -71,15 +79,27 @@ function App() {
         return (
           <ResultScreen
             personaId={quiz.personaId}
+            playerName={quiz.playerName}
+            dayPicks={quiz.dayPicks}
+            challenger={quiz.challenger}
             onShareCard={() => quiz.goToScreen(SCREENS.SHARE)}
+            onCompare={quiz.challenger ? () => quiz.goToScreen(SCREENS.COMPARE) : null}
             onRestart={quiz.restart}
+          />
+        );
+      case SCREENS.COMPARE:
+        return (
+          <CompareScreen
+            myData={{ name: quiz.playerName, personaId: quiz.personaId, dayPicks: quiz.dayPicks }}
+            challengerData={quiz.challenger}
+            onShareCard={() => quiz.goToScreen(SCREENS.SHARE)}
           />
         );
       case SCREENS.SHARE:
         return (
           <ShareCard
             personaId={quiz.personaId}
-            onBack={() => quiz.goToScreen(SCREENS.RESULT)}
+            onBack={() => quiz.goToScreen(quiz.challenger ? SCREENS.COMPARE : SCREENS.RESULT)}
           />
         );
       default:

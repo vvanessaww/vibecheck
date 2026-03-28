@@ -9,7 +9,7 @@ const DAYS = [
 
 const MAX_PICKS = 5;
 
-export default function DayDraft({ onComplete, backRef, onBack }) {
+export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
   const [dayIndex, setDayIndex] = useState(0);
   const [selectedByDay, setSelectedByDay] = useState([[], [], []]);
 
@@ -51,6 +51,7 @@ export default function DayDraft({ onComplete, backRef, onBack }) {
           }
         }
       }
+      if (onDayPicks) onDayPicks(selectedByDay);
       onComplete('dayDraft', weights);
     }
   };
