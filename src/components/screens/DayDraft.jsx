@@ -34,9 +34,10 @@ export default function DayDraft({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         Build Your Lineup
       </h2>
+      <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(yes, you can only pick 5. we know it hurts)</p>
 
       <div className="w-full max-w-[400px] mx-auto flex-1 overflow-y-auto min-h-0 rounded-xl border border-white/10 bg-white/5" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.3) transparent' }}>
         {FRIDAY_LINEUP.map((artist) => {

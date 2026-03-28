@@ -28,9 +28,10 @@ export default function HotTakes({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         Hot Takes
       </h2>
+      <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(swipe right if you agree, left if you&apos;re wrong)</p>
 
       <div className="relative w-full max-w-[400px] mx-auto shrink-0" style={{ height: '320px', perspective: '1000px' }} key={cardKey}>
         {[3, 2, 1].map((pos) => (
