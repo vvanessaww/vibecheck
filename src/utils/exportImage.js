@@ -46,12 +46,13 @@ export async function exportCardAsImage(elementId) {
   const link = document.createElement('a');
   link.download = 'vibecheck-result.png';
   link.href = url;
-  link.style.display = 'none';
   document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
+
+  // Fallback: if click-download didn't trigger, open in new tab
   setTimeout(() => {
-    document.body.removeChild(link);
     URL.revokeObjectURL(url);
-  }, 1000);
+  }, 5000);
   return { ok: true };
 }
