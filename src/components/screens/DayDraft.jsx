@@ -76,10 +76,7 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
               onClick={() => toggleArtist(artist.id)}
               style={{ opacity: !isSelected && maxReached ? 0.4 : 1 }}
             >
-              <div className="w-[70px] text-[0.65rem] tracking-[0.1em] opacity-60 font-inter text-white pr-3">
-                {artist.time}
-              </div>
-              <div className="flex-1 pr-4">
+              <div className="flex-1 pr-4 pl-1">
                 <div className="text-base font-bold tracking-[0.05em] font-inter text-white">{artist.name}</div>
                 <div className="text-[0.6rem] tracking-[0.2em] text-white/50 uppercase font-inter font-bold">
                   {artist.stage}
