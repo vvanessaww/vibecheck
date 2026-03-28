@@ -325,16 +325,21 @@ export default function Footer() {
       <div className="w-full h-8 bg-grass border-t-[0.5px] border-grass-border relative z-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#112e1a] mix-blend-multiply" />
       </div>
-      <div className="absolute bottom-1 w-full text-center z-30 pb-1">
-        <p className="text-[8px] text-white/60 tracking-[0.15em] font-bold">
+      <div className="absolute bottom-0 w-full text-center z-30 pb-2">
+        <p className="text-[11px] text-white/70 tracking-[0.1em] font-bold">
           made with &lt;3 by vanessa
-          <a href="https://x.com/vanessas5to9" target="_blank" rel="noopener noreferrer" className="ml-1.5 text-[7px] text-white/40 hover:text-white/70 transition-colors pointer-events-auto underline">
+        </p>
+        <div className="flex justify-center gap-3 mt-1">
+          <a href="https://x.com/vanessas5to9" target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/50 hover:text-white/80 transition-colors pointer-events-auto underline">
             x
           </a>
-          <a href="https://github.com/vvanessaww" target="_blank" rel="noopener noreferrer" className="ml-1.5 text-[7px] text-white/40 hover:text-white/70 transition-colors pointer-events-auto underline">
+          <a href="https://github.com/vvanessaww" target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/50 hover:text-white/80 transition-colors pointer-events-auto underline">
             github
           </a>
-        </p>
+          <a href="https://linkedin.com/in/vvanessaww" target="_blank" rel="noopener noreferrer" className="text-[11px] text-white/50 hover:text-white/80 transition-colors pointer-events-auto underline">
+            linkedin
+          </a>
+        </div>
       </div>
     </footer>
   );

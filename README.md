@@ -1,16 +1,40 @@
-# React + Vite
+# Vibecheck -- Coachella 2026
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Find your home stage. A personality quiz that matches you to your Coachella 2026 stage persona based on your music taste, festival habits, and vibe.
 
-Currently, two official plugins are available:
+**Live at [vanessazwang.com/vibecheck](https://vanessazwang.com/vibecheck)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- **7 quiz rounds** -- headliner picks, this-or-that, genre spectrum, vibe check, hot takes, and a 3-day lineup draft
+- **7 stage personas** -- Sahara, Outdoor Theatre, Do Lab, Main Stage, Campground, Mojave, and Quasar
+- **Squad Chemistry** -- challenge friends via shareable links and see your compatibility score
+- **Share cards** -- export your result as an image for socials
+- **Ambient festival soundscape** -- Web Audio API-generated bass, crowd murmur, and periodic cheering
+- **Persistent state** -- sessionStorage saves your progress so refreshing doesn't lose answers
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech
 
-## Expanding the ESLint configuration
+- React + Vite
+- Tailwind CSS
+- Framer Motion
+- Supabase (player persistence + challenge links)
+- Web Audio API (ambient sound)
+- Deployed on Vercel
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Dev
+
+```bash
+npm install
+npm run dev
+```
+
+Runs at `http://localhost:5173`
+
+## Author
+
+**Vanessa Z Wang**
+
+- [x.com/vanessas5to9](https://x.com/vanessas5to9)
+- [github.com/vvanessaww](https://github.com/vvanessaww)
+- [linkedin.com/in/vvanessaww](https://linkedin.com/in/vvanessaww)
