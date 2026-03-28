@@ -172,7 +172,6 @@ export function useAmbientAudio() {
     masterRef.current = master;
 
     createBassThump(ctx, master);
-    createCrowdMurmur(ctx, master);
     createCrowdCheers(ctx, master);
   }, []);
 
