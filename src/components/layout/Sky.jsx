@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const CYCLE_DURATION = 60000;
 
@@ -57,45 +57,49 @@ const NOTE_SYMBOLS = ['\u266A', '\u266B', '\u2669'];
 
 function MusicNotes() {
   const [notes, setNotes] = useState([]);
+  const lastSpawnRef = useRef(0);
 
   const handleMove = useCallback((e) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    if (Math.random() > 0.85) {
-      const id = Date.now() + Math.random();
-      const symbol = NOTE_SYMBOLS[Math.floor(Math.random() * NOTE_SYMBOLS.length)];
-      const drift = (Math.random() - 0.5) * 40;
-      setNotes((prev) => [...prev.slice(-12), { id, x, y, symbol, drift }]);
-    }
+    const now = Date.now();
+    if (now - lastSpawnRef.current < 300) return;
+    lastSpawnRef.current = now;
+
+    const id = now + Math.random();
+    const symbol = NOTE_SYMBOLS[Math.floor(Math.random() * NOTE_SYMBOLS.length)];
+    const drift = (Math.random() - 0.5) * 30;
+    const size = 12 + Math.random() * 6;
+
+    setNotes((prev) => [
+      ...prev.filter((n) => now - n.id < 2500).slice(-8),
+      { id, x: e.clientX, y: e.clientY, symbol, drift, size },
+    ]);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('touchmove', (e) => {
+    const onMouse = (e) => handleMove(e);
+    const onTouch = (e) => {
       if (e.touches[0]) handleMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
-    });
-    return () => window.removeEventListener('mousemove', handleMove);
+    };
+    window.addEventListener('mousemove', onMouse);
+    window.addEventListener('touchmove', onTouch);
+    return () => {
+      window.removeEventListener('mousemove', onMouse);
+      window.removeEventListener('touchmove', onTouch);
+    };
   }, [handleMove]);
-
-  useEffect(() => {
-    if (notes.length === 0) return;
-    const timer = setTimeout(() => {
-      setNotes((prev) => prev.slice(1));
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, [notes]);
 
   return (
     <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
       {notes.map((note) => (
         <span
           key={note.id}
-          className="absolute text-white/40 font-bold select-none"
+          className="absolute select-none"
           style={{
-            left: note.x,
-            top: note.y,
-            fontSize: `${14 + Math.random() * 10}px`,
-            animation: 'noteFloat 1.5s ease-out forwards',
+            left: note.x - note.size / 2,
+            top: note.y - note.size,
+            fontSize: note.size,
+            color: 'rgba(255,255,255,0.3)',
+            animation: 'noteFloat 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
             '--drift': `${note.drift}px`,
           }}
         >
