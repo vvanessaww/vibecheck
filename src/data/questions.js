@@ -18,9 +18,9 @@ export const SWIPE_CARDS = [
 ];
 
 export const GENRE_SLIDERS = [
-  { id: 'g1', left: { label: 'Hip-Hop', persona: 'campground' }, right: { label: 'House', persona: 'sahara' } },
-  { id: 'g2', left: { label: 'Indie', persona: 'feels' }, right: { label: 'EDM', persona: 'sahara' } },
-  { id: 'g3', left: { label: 'Pop', persona: 'influencer' }, right: { label: 'Experimental', persona: 'dolab' } },
+  { id: 'g1', left: { label: 'Lover Girl Ballads', persona: 'feels' }, right: { label: 'Heavy Hitting House', persona: 'sahara' } },
+  { id: 'g2', left: { label: 'Mosh Pit Energy', persona: 'campground' }, right: { label: 'Main Stage Pop', persona: 'influencer' } },
+  { id: 'g3', left: { label: 'Weird & Wonderful', persona: 'dolab' }, right: { label: 'Perfectly Curated', persona: 'scientist' } },
 ];
 
 export const VIBE_CHECK_QUESTIONS = [
