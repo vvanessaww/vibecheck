@@ -119,12 +119,12 @@ function drawShareCard(canvas, persona) {
   };
 
   // Top branding — positioned like reference
-  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', 50, '700 11px Inter, sans-serif', '#4bb8cc');
-  centerText('VIBECHECK', 95, '900 56px Oswald, sans-serif', '#ffffff');
+  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', 70, '700 11px Inter, sans-serif', '#4bb8cc');
+  centerText('VIBECHECK', 115, '900 56px Oswald, sans-serif', '#ffffff');
 
   // "My Stage Match:" — rotated like reference (slight diagonal tilt)
   ctx.save();
-  ctx.translate(w / 2, h * 0.345);
+  ctx.translate(w / 2, h * 0.38);
   ctx.rotate(-6 * Math.PI / 180);
   ctx.font = 'italic 46px Caveat, cursive';
   ctx.fillStyle = '#ff5c00';
@@ -137,18 +137,18 @@ function drawShareCard(canvas, persona) {
   const stageWords = stageName.split(' ');
   if (stageWords.length === 1) {
     // Single word — one big line
-    centerTextFit(stageName, h * 0.44, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+    centerTextFit(stageName, h * 0.47, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
   } else {
     // Multi-word — stack on separate lines like reference
     const lineH = 80;
-    const startY = h * 0.42;
+    const startY = h * 0.45;
     for (let i = 0; i < stageWords.length; i++) {
       centerTextFit(stageWords[i], startY + i * lineH, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
     }
   }
 
   // Title
-  const titleY = stageWords.length > 1 ? h * 0.42 + stageWords.length * 80 + 10 : h * 0.50;
+  const titleY = stageWords.length > 1 ? h * 0.45 + stageWords.length * 80 + 10 : h * 0.52;
   centerTextFit(persona.title.toUpperCase(), titleY, 20, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
   // Subtitle
