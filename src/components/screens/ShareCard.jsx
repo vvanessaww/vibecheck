@@ -10,7 +10,7 @@ export default function ShareCard({ personaId, onBack }) {
     if (saving) return;
     setSaving(true);
     try {
-      const result = await exportCardAsImage('share-card');
+      const result = await exportCardAsImage('share-card', persona);
       if (result && !result.ok) {
         alert(result.error || 'Failed to save image');
       }
