@@ -141,14 +141,14 @@ function drawShareCard(canvas, persona) {
   } else {
     // Multi-word — stack on separate lines like reference
     const lineH = 80;
-    const startY = h * 0.40;
+    const startY = h * 0.42;
     for (let i = 0; i < stageWords.length; i++) {
       centerTextFit(stageWords[i], startY + i * lineH, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
     }
   }
 
   // Title
-  const titleY = stageWords.length > 1 ? h * 0.40 + stageWords.length * 80 + 10 : h * 0.50;
+  const titleY = stageWords.length > 1 ? h * 0.42 + stageWords.length * 80 + 10 : h * 0.50;
   centerTextFit(persona.title.toUpperCase(), titleY, 20, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
   // Subtitle
