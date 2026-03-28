@@ -62,7 +62,7 @@ export default function ThisOrThat({ onComplete }) {
                 )}
                 <motion.div
                   onClick={() => handlePick(side)}
-                  className="w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all hover:border-orange/60 hover:bg-orange/10"
+                  className="w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer"
                   style={{
                     backgroundColor: isWinner ? 'rgba(255, 92, 0, 0.2)' : 'rgba(19, 92, 107, 0.5)',
                     borderColor: isWinner ? '#ff5c00' : isLoser ? 'transparent' : 'rgba(255,255,255,0.15)',
@@ -71,7 +71,13 @@ export default function ThisOrThat({ onComplete }) {
                     scale: isWinner ? 1.05 : isLoser ? 0.9 : 1,
                     opacity: isLoser ? 0 : 1,
                   }}
-                  transition={{ duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] }}
+                  whileHover={!picked ? {
+                    scale: 1.04,
+                    borderColor: '#ff5c00',
+                    backgroundColor: 'rgba(255, 92, 0, 0.15)',
+                    boxShadow: '0 0 20px rgba(255, 92, 0, 0.3)',
+                  } : {}}
+                  transition={{ duration: 0.3, ease: [0.175, 0.885, 0.32, 1.275] }}
                 >
                   <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
                     {option.name}
