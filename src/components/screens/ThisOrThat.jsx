@@ -42,7 +42,7 @@ export default function ThisOrThat({ onComplete }) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="flex items-center justify-center w-full px-2 gap-3"
+          className="flex flex-col items-center justify-center w-full max-w-[400px] mx-auto px-4 gap-3"
         >
           {['left', 'right'].map((side, idx) => {
             const option = round[side];
@@ -51,16 +51,23 @@ export default function ThisOrThat({ onComplete }) {
 
             return (
               <div key={side} className="contents">
+                {idx === 1 && (
+                  <span
+                    className="font-oswald text-2xl font-black text-orange shrink-0"
+                    style={{ textShadow: '0 0 20px rgba(255,92,0,0.6)' }}
+                  >
+                    VS
+                  </span>
+                )}
                 <motion.div
                   onClick={() => handlePick(side)}
-                  className="w-[160px] h-[240px] rounded-2xl border-2 flex items-center justify-center p-5 text-center cursor-pointer transition-colors shrink-0"
+                  className="w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-colors"
                   style={{
                     backgroundColor: isWinner ? 'rgba(255, 92, 0, 0.2)' : 'rgba(19, 92, 107, 0.5)',
                     borderColor: isWinner ? '#ff5c00' : isLoser ? 'transparent' : 'rgba(255,255,255,0.15)',
-                    transform: side === 'left' ? 'rotate(-2deg)' : 'rotate(2deg)',
                   }}
                   animate={{
-                    scale: isWinner ? 1.1 : isLoser ? 0.8 : 1,
+                    scale: isWinner ? 1.05 : isLoser ? 0.9 : 1,
                     opacity: isLoser ? 0 : 1,
                   }}
                   transition={{ duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] }}
@@ -69,15 +76,6 @@ export default function ThisOrThat({ onComplete }) {
                     {option.name}
                   </h3>
                 </motion.div>
-
-                {idx === 0 && (
-                  <span
-                    className="font-oswald text-3xl font-black text-orange shrink-0 mx-1"
-                    style={{ textShadow: '0 0 20px rgba(255,92,0,0.6)' }}
-                  >
-                    VS
-                  </span>
-                )}
               </div>
             );
           })}
