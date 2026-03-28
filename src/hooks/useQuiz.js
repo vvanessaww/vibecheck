@@ -1,5 +1,23 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { emptyScores, addWeights, calculatePersona } from '../data/scoring';
+
+const STORAGE_KEY = 'vibecheck_quiz_state';
+
+function loadSavedState() {
+  try {
+    const saved = sessionStorage.getItem(STORAGE_KEY);
+    if (!saved) return null;
+    const parsed = JSON.parse(saved);
+    if (parsed && parsed.currentScreen && parsed.scores) return parsed;
+  } catch { /* ignore corrupt data */ }
+  return null;
+}
+
+function saveState(state) {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  } catch { /* storage full or unavailable */ }
+}
 
 export const SCREENS = {
   SPLASH: 'splash',
@@ -44,7 +62,11 @@ function initialState() {
 }
 
 export function useQuiz() {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState(() => loadSavedState() || initialState());
+
+  useEffect(() => {
+    saveState(state);
+  }, [state]);
 
   const nextScreen = useCallback(() => {
     setState((prev) => {
@@ -85,6 +107,7 @@ export function useQuiz() {
   const [challenger, setChallenger] = useState(null);
 
   const restart = useCallback(() => {
+    sessionStorage.removeItem(STORAGE_KEY);
     setState(initialState());
   }, []);
 
