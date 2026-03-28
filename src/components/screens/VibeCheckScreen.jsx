@@ -25,7 +25,9 @@ export default function VibeCheckScreen({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <Divider text="Vibe Check" />
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
+        Vibe Check
+      </h2>
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -33,9 +35,9 @@ export default function VibeCheckScreen({ onComplete }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
-          className="w-full flex flex-col items-center"
+          className="w-full max-w-[400px] mx-auto flex flex-col items-center"
         >
-          <h2 className="font-inter text-lg font-black tracking-tight text-white text-center uppercase mt-2 mb-8">
+          <h2 className="font-inter text-lg font-black tracking-tight text-white text-center uppercase mb-6">
             {question.question}
           </h2>
 

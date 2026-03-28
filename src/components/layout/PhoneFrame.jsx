@@ -9,7 +9,7 @@ export default function PhoneFrame({ children, showHeader = true, showFooter = t
   const progress = isQuizScreen ? ((quizIndex + 1) / QUIZ_SCREENS.length) * 100 : 0;
 
   return (
-    <div className="relative w-full min-h-dvh bg-gradient-to-b from-teal-dark via-teal-mid to-purple-dark flex flex-col font-inter overflow-hidden">
+    <div className="relative w-full h-dvh bg-gradient-to-b from-teal-dark via-teal-mid to-purple-dark flex flex-col font-inter overflow-hidden">
       {showHeader && <Header />}
 
       {isQuizScreen && (

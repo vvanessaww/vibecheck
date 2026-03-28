@@ -37,13 +37,12 @@ export default function GenreSpectrum({ onComplete }) {
   const currentValue = values[sliderIndex];
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <Divider text={`Spectrum ${sliderIndex + 1} / ${GENRE_SLIDERS.length}`} />
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mt-2 mb-12">
+    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
         Where Do You Land?
       </h2>
 
-      <div className="w-full px-6 flex flex-col items-center gap-8" key={sliderIndex}>
+      <div className="w-full max-w-[400px] mx-auto px-6 flex flex-col items-center gap-8 mt-8" key={sliderIndex}>
         <div className="w-full flex justify-between items-center">
           <span className="font-oswald text-xl font-black uppercase tracking-tighter text-accent-teal">
             {slider.left.label}

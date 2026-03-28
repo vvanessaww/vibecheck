@@ -32,7 +32,7 @@ export default function ThisOrThat({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center justify-start w-full h-full pt-0" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-6 shrink-0">
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
         This or That
       </h2>
 
