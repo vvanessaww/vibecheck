@@ -102,13 +102,13 @@ export default function ResultScreen({ personaId, playerName, dayPicks, challeng
         </>
       )}
 
-      {onCompare && (
+      {onCompare && challenger && (
         <button
           onClick={onCompare}
           className="px-10 py-3 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl bg-orange"
           style={{ letterSpacing: '0.1em', fontSize: '12px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
         >
-          See Your Chemistry
+          See Your Chemistry with {challenger.name}
         </button>
       )}
 

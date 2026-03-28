@@ -102,3 +102,28 @@ function getCompatibilityBlurb(a, b) {
   const key2 = `${b}+${a}`;
   return BLURBS[key1] || BLURBS[key2] || "Different vibes, same festival — you'll make it work";
 }
+
+/**
+ * Score-range messages shown on the CompareScreen.
+ */
+export function getScoreMessage(score, name1, name2) {
+  if (score >= 90) {
+    return `${name1} and ${name2} are basically the same person. Just share a wristband at this point`;
+  }
+  if (score >= 75) {
+    return `${name1} and ${name2} are going to be inseparable all weekend — same stages, same energy, same sunburn`;
+  }
+  if (score >= 60) {
+    return `${name1} and ${name2} have serious overlap — you'll keep running into each other whether you plan to or not`;
+  }
+  if (score >= 45) {
+    return `${name1} and ${name2} will split up for a few hours and have the best recap conversations after`;
+  }
+  if (score >= 30) {
+    return `${name1} and ${name2} are on different wavelengths but that's what makes the group chat interesting`;
+  }
+  if (score >= 15) {
+    return `${name1} and ${name2} probably won't see each other during the festival... but opposites attract?`;
+  }
+  return `${name1} and ${name2} are attending two completely different festivals on the same polo field`;
+}

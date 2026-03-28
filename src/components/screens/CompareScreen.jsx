@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
-import { calculateChemistry } from '../../data/chemistry';
+import { calculateChemistry, getScoreMessage } from '../../data/chemistry';
 import { buildChallengeUrl } from '../../utils/shareUrl';
 
 export default function CompareScreen({ myData, challengerData, onShareCard }) {
@@ -21,16 +21,26 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
     [myData, challengerData],
   );
 
-  const handleCopyLink = () => {
+  const handleCopyLink = async () => {
     const url = buildChallengeUrl({
       name: myData.name,
       personaId: myData.personaId,
       dayPicks: myData.dayPicks,
     });
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      const input = document.createElement('textarea');
+      input.value = url;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -83,8 +93,6 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
           </p>
         </motion.div>
 
-        <span className="font-oswald text-lg font-black text-white/30 mt-4">×</span>
-
         <motion.div
           initial={{ x: 30, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
@@ -103,14 +111,14 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
         </motion.div>
       </div>
 
-      {/* Compatibility blurb */}
+      {/* Score-based message */}
       <motion.p
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.4 }}
         className="font-inter text-xs text-white/60 italic text-center px-8 mb-4 max-w-[400px]"
       >
-        &ldquo;{blurb}&rdquo;
+        &ldquo;{getScoreMessage(score, challengerData.name, myData.name)}&rdquo;
       </motion.p>
 
       {/* Mutual sets */}
