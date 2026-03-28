@@ -85,6 +85,52 @@ function SpectraTower({ height = 140 }) {
   );
 }
 
+function PalmTree({ height = 100, lean = 0 }) {
+  const trunkW = 6;
+  const frondLen = height * 0.35;
+  return (
+    <svg
+      style={{ width: frondLen * 2, height, transform: `rotate(${lean}deg)`, transformOrigin: 'bottom center' }}
+      viewBox={`0 0 ${frondLen * 2} ${height}`}
+    >
+      {/* Trunk */}
+      <path
+        d={`M${frondLen - trunkW / 2},${height} Q${frondLen - 2},${height * 0.5} ${frondLen},${height * 0.3}`}
+        fill="none" stroke="#112e1a" strokeWidth={trunkW} strokeLinecap="round"
+      />
+      {/* Trunk segments */}
+      {Array.from({ length: 5 }).map((_, i) => {
+        const y = height * 0.35 + i * (height * 0.12);
+        return (
+          <line key={i} x1={frondLen - 5} y1={y} x2={frondLen + 3} y2={y}
+            stroke="rgba(255,255,255,0.08)" strokeWidth="1.5" />
+        );
+      })}
+      {/* Fronds */}
+      {[-70, -40, -15, 15, 40, 70].map((angle, i) => {
+        const rad = (angle * Math.PI) / 180;
+        const tipX = frondLen + Math.sin(rad) * frondLen;
+        const tipY = height * 0.3 - Math.cos(rad) * frondLen * 0.7;
+        const cpX = frondLen + Math.sin(rad) * frondLen * 0.5;
+        const cpY = height * 0.3 - Math.cos(rad) * frondLen * 0.5 + 8;
+        return (
+          <path
+            key={i}
+            d={`M${frondLen},${height * 0.3} Q${cpX},${cpY} ${tipX},${tipY}`}
+            fill="none"
+            stroke={i % 2 === 0 ? '#0d2114' : '#112e1a'}
+            strokeWidth={2.5 - i * 0.15}
+            strokeLinecap="round"
+          />
+        );
+      })}
+      {/* Coconuts */}
+      <circle cx={frondLen - 3} cy={height * 0.3 + 2} r="2" fill="#112e1a" />
+      <circle cx={frondLen + 2} cy={height * 0.3 + 3} r="1.8" fill="#0d2114" />
+    </svg>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10 flex flex-col justify-end">
@@ -105,6 +151,20 @@ export default function Footer() {
           opacity="0.9"
         />
       </svg>
+
+      {/* Palm trees - left cluster */}
+      <div className="absolute bottom-7 left-2 z-15 flex items-end gap-1">
+        <PalmTree height={90} lean={-5} />
+        <PalmTree height={120} lean={-8} />
+        <PalmTree height={70} lean={3} />
+      </div>
+
+      {/* Palm trees - right cluster */}
+      <div className="absolute bottom-7 right-2 z-15 flex items-end gap-1">
+        <PalmTree height={75} lean={5} />
+        <PalmTree height={110} lean={8} />
+        <PalmTree height={85} lean={-3} />
+      </div>
 
       {/* Spectra tower - left side */}
       <div className="absolute bottom-8 z-20" style={{ left: 'max(8px, calc(50% - 200px))' }}>
