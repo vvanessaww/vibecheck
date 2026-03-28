@@ -16,11 +16,13 @@ import CompareScreen from './components/screens/CompareScreen';
 import { useQuiz, SCREENS } from './hooks/useQuiz';
 import { decodeQuizState, decodeChallengeData, parseChallengeParam } from './utils/shareUrl';
 import { savePlayer, getPlayer } from './lib/players';
+import { useAmbientAudio } from './hooks/useAmbientAudio';
 
 function App() {
   const quiz = useQuiz();
   const screenBackRef = useRef(null);
   const [myPlayerId, setMyPlayerId] = useState(null);
+  const { muted, toggle: toggleAudio } = useAmbientAudio();
 
   const handleBack = useCallback(() => {
     if (screenBackRef.current) {
@@ -128,7 +130,7 @@ function App() {
   };
 
   return (
-    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={handleBack}>
+    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={handleBack} audioMuted={muted} onToggleAudio={toggleAudio}>
       {renderScreen()}
     </PhoneFrame>
   );
