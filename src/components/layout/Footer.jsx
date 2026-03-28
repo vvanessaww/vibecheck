@@ -166,6 +166,24 @@ export default function Footer() {
         <PalmTree height={85} lean={-3} />
       </div>
 
+      {/* Desert plants scattered between structures */}
+      <div className="absolute bottom-8 z-15 w-full flex justify-around px-[15%] items-end pointer-events-none">
+        <svg width="18" height="28" viewBox="0 0 18 28"><path d="M9,28 L9,12 M9,12 C9,12 3,8 2,4 M9,12 C9,12 15,8 16,4 M9,16 C9,16 5,14 4,11 M9,16 C9,16 13,14 14,11" stroke="#1a3a20" strokeWidth="2" strokeLinecap="round" fill="none"/></svg>
+        <svg width="14" height="20" viewBox="0 0 14 20"><ellipse cx="7" cy="14" rx="6" ry="6" fill="#162e18" /><ellipse cx="7" cy="9" rx="4.5" ry="5" fill="#1a3a20" /><ellipse cx="7" cy="5" rx="3" ry="4" fill="#1e4424" /></svg>
+        <svg width="20" height="15" viewBox="0 0 20 15"><ellipse cx="10" cy="10" rx="9" ry="5" fill="#162e18" /><ellipse cx="7" cy="8" rx="5" ry="4" fill="#1a3a20" /></svg>
+        <svg width="12" height="22" viewBox="0 0 12 22"><path d="M6,22 L6,8 M6,8 C6,8 2,5 1,2 M6,8 C6,8 10,5 11,2 M6,14 C6,14 3,12 3,10" stroke="#1a3a20" strokeWidth="1.5" strokeLinecap="round" fill="none"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12"><ellipse cx="8" cy="8" rx="7" ry="4" fill="#162e18" /><ellipse cx="5" cy="6" rx="4" ry="3" fill="#1e4424" /></svg>
+        <svg width="10" height="18" viewBox="0 0 10 18"><path d="M5,18 L5,6 M5,6 C5,6 1,3 1,1 M5,6 C5,6 9,3 9,1" stroke="#1a3a20" strokeWidth="1.5" strokeLinecap="round" fill="none"/></svg>
+      </div>
+
+      {/* Small ground flowers */}
+      <div className="absolute bottom-7 z-16 w-full pointer-events-none">
+        <div className="absolute left-[20%]"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="2.5" fill="#c2185b" opacity="0.6" /><circle cx="4" cy="4" r="1" fill="#ffb300" opacity="0.8" /></svg></div>
+        <div className="absolute left-[35%]"><svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="2" fill="#7b1fa2" opacity="0.5" /></svg></div>
+        <div className="absolute right-[25%]"><svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2.5" fill="#e91e63" opacity="0.5" /><circle cx="3.5" cy="3.5" r="1" fill="#fff176" opacity="0.7" /></svg></div>
+        <div className="absolute right-[40%]"><svg width="5" height="5" viewBox="0 0 5 5"><circle cx="2.5" cy="2.5" r="1.8" fill="#4caf50" opacity="0.4" /></svg></div>
+      </div>
+
       {/* Spectra tower - left side */}
       <div className="absolute bottom-8 z-20" style={{ left: 'max(8px, calc(50% - 200px))' }}>
         <SpectraTower height={130} />
