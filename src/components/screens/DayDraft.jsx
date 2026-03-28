@@ -72,7 +72,7 @@ export default function DayDraft({ onComplete }) {
               </div>
               <div className="flex-1 pr-4">
                 <div className="text-base font-bold tracking-[0.05em] font-inter text-white">{artist.name}</div>
-                <div className="text-[0.6rem] tracking-[0.2em] text-accent-teal uppercase font-inter">
+                <div className="text-[0.6rem] tracking-[0.2em] text-black uppercase font-inter font-bold">
                   {artist.stage}
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function DayDraft({ onComplete }) {
       <div className="w-full max-w-[400px] mx-auto px-2 flex justify-between items-center shrink-0 pt-3 pb-1">
         <div>
           <span className="text-[0.6rem] tracking-[0.2em] uppercase opacity-70 font-inter block">Selected</span>
-          <span className="font-oswald text-2xl font-black text-orange" style={{ textShadow: '2px 2px 0px rgba(0,0,0,0.3)' }}>
+          <span className="font-oswald text-2xl font-black text-white">
             {selected.length}/{MAX_PICKS}
           </span>
         </div>

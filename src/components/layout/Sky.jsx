@@ -98,7 +98,7 @@ function MusicNotes() {
             left: note.x - note.size / 2,
             top: note.y - note.size,
             fontSize: note.size,
-            color: 'rgba(255,255,255,0.3)',
+            color: 'rgba(255,255,255,0.7)',
             animation: 'noteFloat 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
             '--drift': `${note.drift}px`,
           }}
