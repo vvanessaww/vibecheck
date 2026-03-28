@@ -73,23 +73,33 @@ export default function HeadlinerShowdown({ onComplete }) {
             paddingRight: 'calc(50% - 120px)',
           }}
         >
-          {HEADLINER_OPTIONS.map((artist, i) => (
-            <div
-              key={artist.id}
-              className="snap-center shrink-0 transition-all duration-300"
-              style={{
-                transform: i === activeIndex ? 'scale(1)' : 'scale(0.88)',
-                opacity: i === activeIndex ? 1 : 0.5,
-              }}
-            >
-              <ArtistCard
-                artist={artist}
-                isSelected={selectedId === artist.id}
-                isDeselected={selectedId !== null && selectedId !== artist.id}
-                onSelect={() => handleSelect(artist)}
-              />
-            </div>
-          ))}
+          {HEADLINER_OPTIONS.map((artist, i) => {
+            const isFocused = i === activeIndex;
+            return (
+              <div
+                key={artist.id}
+                className="snap-center shrink-0 transition-all duration-300"
+                style={{
+                  transform: isFocused ? 'scale(1)' : 'scale(0.88)',
+                  opacity: isFocused ? 1 : 0.5,
+                }}
+                onClick={() => {
+                  if (!isFocused) {
+                    setActiveIndex(i);
+                    setSelectedId(null);
+                    scrollToIndex(i);
+                  }
+                }}
+              >
+                <ArtistCard
+                  artist={artist}
+                  isSelected={isFocused && selectedId === artist.id}
+                  isDeselected={isFocused && selectedId !== null && selectedId !== artist.id}
+                  onSelect={() => isFocused && handleSelect(artist)}
+                />
+              </div>
+            );
+          })}
         </div>
 
         {/* Right arrow */}
