@@ -1,11 +1,11 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef } from 'react';
 import ArtistCard from '../shared/ArtistCard';
 import { HEADLINER_OPTIONS } from '../../data/questions';
 
 export default function HeadlinerShowdown({ onComplete }) {
   const [selectedId, setSelectedId] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const scrollRef = useRef(null);
 
   const handleSelect = (artist) => {
     setSelectedId(selectedId === artist.id ? null : artist.id);
@@ -17,26 +17,42 @@ export default function HeadlinerShowdown({ onComplete }) {
     onComplete(selectedId, artist.weights);
   };
 
+  const scrollToIndex = (index) => {
+    if (!scrollRef.current) return;
+    const cardWidth = 260;
+    const containerWidth = scrollRef.current.offsetWidth;
+    const scrollTarget = (index * cardWidth) - (containerWidth / 2) + (240 / 2);
+    scrollRef.current.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+  };
+
   const goTo = (dir) => {
-    setActiveIndex((prev) => {
-      const next = prev + dir;
-      if (next < 0 || next >= HEADLINER_OPTIONS.length) return prev;
-      return next;
-    });
+    const next = activeIndex + dir;
+    if (next < 0 || next >= HEADLINER_OPTIONS.length) return;
+    setActiveIndex(next);
     setSelectedId(null);
+    scrollToIndex(next);
+  };
+
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const cardWidth = 260;
+    const containerWidth = scrollRef.current.offsetWidth;
+    const scrollPos = scrollRef.current.scrollLeft + (containerWidth / 2) - (240 / 2);
+    const index = Math.round(scrollPos / cardWidth);
+    setActiveIndex(Math.max(0, Math.min(index, HEADLINER_OPTIONS.length - 1)));
   };
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4">
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
         Which Headliner<br />Would You See?
       </h2>
 
-      <div className="flex-1 relative flex items-center justify-center" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', overflow: 'visible' }}>
+      <div className="w-full flex-1 relative flex items-center">
         {/* Left arrow */}
         <button
           onClick={() => goTo(-1)}
-          className="absolute left-2 z-30 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
+          className="absolute left-1 z-30 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
           style={{ opacity: activeIndex > 0 ? 1 : 0.2, pointerEvents: activeIndex > 0 ? 'auto' : 'none' }}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,38 +60,42 @@ export default function HeadlinerShowdown({ onComplete }) {
           </svg>
         </button>
 
-        {/* Cards - centered with neighbors visible */}
-        <div className="flex items-center justify-center h-[400px]">
-          {HEADLINER_OPTIONS.map((artist, i) => {
-            const offset = i - activeIndex;
-            const isCenter = offset === 0;
-
-            return (
-              <motion.div
-                key={artist.id}
-                animate={{
-                  scale: isCenter ? 1 : 0.82,
-                  opacity: isCenter ? 1 : 0.5,
-                  x: offset * 260,
-                }}
-                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className={`absolute ${isCenter ? '' : 'pointer-events-none'}`}
-              >
-                <ArtistCard
-                  artist={artist}
-                  isSelected={selectedId === artist.id}
-                  isDeselected={selectedId !== null && selectedId !== artist.id}
-                  onSelect={() => isCenter && handleSelect(artist)}
-                />
-              </motion.div>
-            );
-          })}
+        {/* Scrollable cards */}
+        <div
+          ref={scrollRef}
+          className="w-full h-[380px] flex gap-5 items-center snap-x snap-mandatory overflow-x-auto"
+          onScroll={handleScroll}
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+            WebkitOverflowScrolling: 'touch',
+            paddingLeft: 'calc(50% - 120px)',
+            paddingRight: 'calc(50% - 120px)',
+          }}
+        >
+          {HEADLINER_OPTIONS.map((artist, i) => (
+            <div
+              key={artist.id}
+              className="snap-center shrink-0 transition-all duration-300"
+              style={{
+                transform: i === activeIndex ? 'scale(1)' : 'scale(0.88)',
+                opacity: i === activeIndex ? 1 : 0.5,
+              }}
+            >
+              <ArtistCard
+                artist={artist}
+                isSelected={selectedId === artist.id}
+                isDeselected={selectedId !== null && selectedId !== artist.id}
+                onSelect={() => handleSelect(artist)}
+              />
+            </div>
+          ))}
         </div>
 
         {/* Right arrow */}
         <button
           onClick={() => goTo(1)}
-          className="absolute right-2 z-30 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
+          className="absolute right-1 z-30 w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/60 hover:text-white hover:bg-white/20 transition-all"
           style={{ opacity: activeIndex < HEADLINER_OPTIONS.length - 1 ? 1 : 0.2, pointerEvents: activeIndex < HEADLINER_OPTIONS.length - 1 ? 'auto' : 'none' }}
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,11 +105,11 @@ export default function HeadlinerShowdown({ onComplete }) {
       </div>
 
       {/* Dots */}
-      <div className="flex justify-center gap-2 mb-3">
+      <div className="flex justify-center gap-2 mb-3 shrink-0">
         {HEADLINER_OPTIONS.map((_, i) => (
           <button
             key={i}
-            onClick={() => { setActiveIndex(i); setSelectedId(null); }}
+            onClick={() => { setActiveIndex(i); setSelectedId(null); scrollToIndex(i); }}
             className={`h-1.5 rounded-full transition-all ${i === activeIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/30'}`}
           />
         ))}
@@ -97,7 +117,7 @@ export default function HeadlinerShowdown({ onComplete }) {
 
       {/* Lock in button */}
       <div
-        className="w-full px-8 transition-all duration-500 mb-4"
+        className="w-full px-8 transition-all duration-500 mb-4 shrink-0"
         style={{
           transform: selectedId !== null ? 'translateY(0)' : 'translateY(40px)',
           opacity: selectedId !== null ? 1 : 0,
