@@ -31,8 +31,8 @@ export default function ThisOrThat({ onComplete }) {
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-8 shrink-0">
+    <div className="flex flex-col items-center justify-start w-full h-full pt-4" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-6 shrink-0">
         This or That
       </h2>
 
@@ -53,7 +53,7 @@ export default function ThisOrThat({ onComplete }) {
               <div key={side} className="contents">
                 <motion.div
                   onClick={() => handlePick(side)}
-                  className="w-[140px] h-[180px] rounded-2xl border-2 flex items-center justify-center p-4 text-center cursor-pointer transition-colors shrink-0"
+                  className="w-[160px] h-[240px] rounded-2xl border-2 flex items-center justify-center p-5 text-center cursor-pointer transition-colors shrink-0"
                   style={{
                     backgroundColor: isWinner ? 'rgba(255, 92, 0, 0.2)' : 'rgba(19, 92, 107, 0.5)',
                     borderColor: isWinner ? '#ff5c00' : isLoser ? 'transparent' : 'rgba(255,255,255,0.15)',
@@ -65,7 +65,7 @@ export default function ThisOrThat({ onComplete }) {
                   }}
                   transition={{ duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] }}
                 >
-                  <h3 className="font-oswald text-xl font-black uppercase tracking-tighter leading-tight text-white">
+                  <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
                     {option.name}
                   </h3>
                 </motion.div>
