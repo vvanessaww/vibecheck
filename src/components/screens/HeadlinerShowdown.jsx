@@ -74,7 +74,7 @@ export default function HeadlinerShowdown({ onComplete }) {
         {/* Scrollable cards */}
         <div
           ref={scrollRef}
-          className="w-full h-[380px] flex gap-5 items-center snap-x snap-mandatory overflow-x-auto"
+          className="w-full h-[380px] flex gap-5 items-center justify-center snap-x snap-mandatory overflow-x-auto"
           onScroll={handleScroll}
           style={{
             scrollbarWidth: 'none',
