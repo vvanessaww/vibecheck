@@ -57,6 +57,8 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
             const option = round[side];
             const isWinner = picked === side;
             const isLoser = picked !== null && picked !== side;
+            // Top option (idx 0) slides down when losing, bottom (idx 1) slides up
+            const loserY = idx === 0 ? 60 : -60;
 
             return (
               <div key={side} className="contents">
@@ -78,6 +80,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
                   animate={{
                     scale: isWinner ? 1.05 : isLoser ? 0.9 : 1,
                     opacity: isLoser ? 0 : 1,
+                    y: isLoser ? loserY : 0,
                   }}
                   whileHover={!picked ? {
                     scale: 1.04,
@@ -85,7 +88,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
                     backgroundColor: 'rgba(255, 92, 0, 0.15)',
                     boxShadow: '0 0 20px rgba(255, 92, 0, 0.3)',
                   } : {}}
-                  transition={{ duration: 0.3, ease: [0.175, 0.885, 0.32, 1.275] }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
                 >
                   <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
                     {option.name}
