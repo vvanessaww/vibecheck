@@ -1,7 +1,7 @@
-function FerrisWheel() {
+function FerrisWheel({ size = 64 }) {
   const spokes = 8;
   return (
-    <svg className="w-16 h-16" viewBox="0 0 64 64" style={{ animation: 'spin 20s linear infinite' }}>
+    <svg style={{ width: size, height: size, animation: 'spin 20s linear infinite' }} viewBox="0 0 64 64">
       <circle cx="32" cy="32" r="28" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
       <circle cx="32" cy="32" r="3" fill="rgba(255,255,255,0.5)" />
       {Array.from({ length: spokes }).map((_, i) => {
@@ -47,11 +47,11 @@ export default function Footer() {
         />
       </svg>
 
-      {/* Ferris wheel */}
-      <div className="absolute bottom-10 right-8 z-20">
+      {/* Ferris wheel - positioned relative to mobile content area */}
+      <div className="absolute bottom-6 z-20" style={{ right: 'max(16px, calc(50% - 180px))' }}>
         <div className="relative">
-          <FerrisWheel />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-5 bg-white/20" />
+          <FerrisWheel size={120} />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3px] h-8 bg-white/20 rounded-full" />
         </div>
       </div>
 
