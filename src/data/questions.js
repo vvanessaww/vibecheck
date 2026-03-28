@@ -38,10 +38,10 @@ export const VIBE_CHECK_QUESTIONS = [
     id: 'v2',
     question: 'Your outfit energy?',
     options: [
-      { label: 'Y2K', emoji: '💿', weights: { influencer: 3 } },
-      { label: 'Boho', emoji: '🌸', weights: { feels: 2, dolab: 1 } },
-      { label: 'Rave', emoji: '⚡', weights: { sahara: 3 } },
-      { label: 'Comfort', emoji: '👟', weights: { scientist: 2, campground: 1 } },
+      { label: 'Y2K 4ever', emoji: '💿', weights: { influencer: 3 } },
+      { label: 'Boho Vibes', emoji: '🌸', weights: { feels: 2, dolab: 1 } },
+      { label: 'Rave Bae', emoji: '⚡', weights: { sahara: 3 } },
+      { label: 'Comfort First', emoji: '👟', weights: { scientist: 2, campground: 1 } },
     ],
   },
   {
