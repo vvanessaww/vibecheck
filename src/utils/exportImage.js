@@ -25,21 +25,23 @@ export async function exportCardAsImage(elementId) {
   const file = new File([blob], 'vibecheck-result.png', { type: 'image/png' });
 
   // Use native share sheet on mobile (allows saving to camera roll, sharing to IG, etc.)
-  if (navigator.canShare && navigator.canShare({ files: [file] })) {
+  // Skip on desktop — go straight to download
+  const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+  if (isMobile && navigator.canShare && navigator.canShare({ files: [file] })) {
     try {
       await navigator.share({
         files: [file],
         title: 'My Vibecheck Result',
         text: 'Check out my Coachella stage match!',
       });
-      return;
+      return { ok: true };
     } catch (err) {
-      // User cancelled share — fall through to download
-      if (err.name === 'AbortError') return;
+      if (err.name === 'AbortError') return { ok: true };
+      // Fall through to download on any other error
     }
   }
 
-  // Fallback: direct download
+  // Direct download as PNG
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.download = 'vibecheck-result.png';
