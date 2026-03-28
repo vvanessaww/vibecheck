@@ -62,7 +62,7 @@ export default function ThisOrThat({ onComplete }) {
                 )}
                 <motion.div
                   onClick={() => handlePick(side)}
-                  className="w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-colors"
+                  className="w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all hover:border-orange/60 hover:bg-orange/10"
                   style={{
                     backgroundColor: isWinner ? 'rgba(255, 92, 0, 0.2)' : 'rgba(19, 92, 107, 0.5)',
                     borderColor: isWinner ? '#ff5c00' : isLoser ? 'transparent' : 'rgba(255,255,255,0.15)',

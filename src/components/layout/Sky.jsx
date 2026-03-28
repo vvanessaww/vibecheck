@@ -1,23 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-const CYCLE_DURATION = 60000; // 60 seconds per full day/night cycle
+const CYCLE_DURATION = 60000;
 
 const PHASES = [
-  { name: 'night', from: '#0a3d47', via: '#0d4a57', to: '#1a1721' },
-  { name: 'dawn', from: '#1a3a5c', via: '#c2655a', to: '#e8a87c' },
-  { name: 'day', from: '#4a90b8', via: '#6ab4d6', to: '#87ceeb' },
-  { name: 'sunset', from: '#1a2a4a', via: '#c4524a', to: '#e8985a' },
+  { name: 'night', from: '#0a3d47', via: '#0d4a57', to: '#1a1721', celestial: '#f5f5dc', glow: 'rgba(245,245,220,0.4)' },
+  { name: 'dawn', from: '#1a3a5c', via: '#c2655a', to: '#e8a87c', celestial: '#ffd180', glow: 'rgba(255,209,128,0.5)' },
+  { name: 'day', from: '#4a90b8', via: '#6ab4d6', to: '#87ceeb', celestial: '#fff176', glow: 'rgba(255,241,118,0.6)' },
+  { name: 'sunset', from: '#1a2a4a', via: '#c4524a', to: '#e8985a', celestial: '#ffab40', glow: 'rgba(255,171,64,0.5)' },
 ];
 
-function lerp(a, b, t) {
-  return a + (b - a) * t;
-}
+function lerp(a, b, t) { return a + (b - a) * t; }
 
 function hexToRgb(hex) {
-  const r = parseInt(hex.slice(1, 3), 16);
-  const g = parseInt(hex.slice(3, 5), 16);
-  const b = parseInt(hex.slice(5, 7), 16);
-  return [r, g, b];
+  return [parseInt(hex.slice(1, 3), 16), parseInt(hex.slice(3, 5), 16), parseInt(hex.slice(5, 7), 16)];
 }
 
 function rgbToHex([r, g, b]) {
@@ -35,7 +30,7 @@ function getPhaseColors(time) {
   const phaseIdx = Math.floor(time / phaseLen) % PHASES.length;
   const nextIdx = (phaseIdx + 1) % PHASES.length;
   const t = (time % phaseLen) / phaseLen;
-  const smooth = t * t * (3 - 2 * t); // smoothstep
+  const smooth = t * t * (3 - 2 * t);
 
   const cur = PHASES[phaseIdx];
   const next = PHASES[nextIdx];
@@ -44,8 +39,8 @@ function getPhaseColors(time) {
     from: lerpColor(cur.from, next.from, smooth),
     via: lerpColor(cur.via, next.via, smooth),
     to: lerpColor(cur.to, next.to, smooth),
-    phase: cur.name,
-    t: smooth,
+    celestial: lerpColor(cur.celestial, next.celestial, smooth),
+    glow: cur.glow,
     isNight: phaseIdx === 0 || (phaseIdx === 3 && smooth > 0.5),
     isDay: phaseIdx === 2 || (phaseIdx === 1 && smooth > 0.5),
   };
@@ -57,6 +52,59 @@ const STARS = Array.from({ length: 30 }).map((_, i) => ({
   size: 1 + (i % 3) * 0.5,
   delay: (i * 0.4) % 3,
 }));
+
+const NOTE_SYMBOLS = ['\u266A', '\u266B', '\u2669'];
+
+function MusicNotes() {
+  const [notes, setNotes] = useState([]);
+
+  const handleMove = useCallback((e) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    if (Math.random() > 0.85) {
+      const id = Date.now() + Math.random();
+      const symbol = NOTE_SYMBOLS[Math.floor(Math.random() * NOTE_SYMBOLS.length)];
+      const drift = (Math.random() - 0.5) * 40;
+      setNotes((prev) => [...prev.slice(-12), { id, x, y, symbol, drift }]);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches[0]) handleMove({ clientX: e.touches[0].clientX, clientY: e.touches[0].clientY });
+    });
+    return () => window.removeEventListener('mousemove', handleMove);
+  }, [handleMove]);
+
+  useEffect(() => {
+    if (notes.length === 0) return;
+    const timer = setTimeout(() => {
+      setNotes((prev) => prev.slice(1));
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [notes]);
+
+  return (
+    <div className="fixed inset-0 z-50 pointer-events-none overflow-hidden">
+      {notes.map((note) => (
+        <span
+          key={note.id}
+          className="absolute text-white/40 font-bold select-none"
+          style={{
+            left: note.x,
+            top: note.y,
+            fontSize: `${14 + Math.random() * 10}px`,
+            animation: 'noteFloat 1.5s ease-out forwards',
+            '--drift': `${note.drift}px`,
+          }}
+        >
+          {note.symbol}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 export default function Sky() {
   const [time, setTime] = useState(0);
@@ -70,21 +118,17 @@ export default function Sky() {
 
   const colors = getPhaseColors(time);
   const nightOpacity = colors.isNight ? 1 : colors.isDay ? 0 : 0.5;
-  const sunOpacity = colors.isDay ? 1 : colors.isNight ? 0 : 0.4;
+  const cloudOpacity = colors.isDay ? 0.5 : colors.isNight ? 0 : 0.2;
 
-  // Sun/moon position - arc across the sky
   const progress = (time % CYCLE_DURATION) / CYCLE_DURATION;
   const celestialX = 15 + progress * 70;
   const celestialY = 8 + Math.sin(progress * Math.PI) * -5 + 12;
 
   return (
     <>
-      {/* Background gradient overlay */}
       <div
-        className="absolute inset-0 z-0 transition-colors"
-        style={{
-          background: `linear-gradient(to bottom, ${colors.from}, ${colors.via}, ${colors.to})`,
-        }}
+        className="absolute inset-0 z-0"
+        style={{ background: `linear-gradient(to bottom, ${colors.from}, ${colors.via}, ${colors.to})` }}
       />
 
       {/* Stars */}
@@ -106,76 +150,47 @@ export default function Sky() {
         ))}
       </div>
 
-      {/* Moon */}
-      <div
-        className="absolute z-1 pointer-events-none"
-        style={{
-          left: `${85 - celestialX * 0.3}%`,
-          top: `${celestialY}%`,
-          opacity: nightOpacity,
-          transition: 'opacity 2s ease',
-        }}
-      >
-        <div
-          className="w-8 h-8 rounded-full"
-          style={{
-            background: 'radial-gradient(circle at 35% 35%, #f5f5dc, #d4c98a)',
-            boxShadow: '0 0 20px rgba(245,245,220,0.4), 0 0 60px rgba(245,245,220,0.15)',
-          }}
-        />
-      </div>
-
-      {/* Sun */}
+      {/* Single celestial body (sun/moon) that changes color */}
       <div
         className="absolute z-1 pointer-events-none"
         style={{
           left: `${celestialX}%`,
-          top: `${celestialY - 3}%`,
-          opacity: sunOpacity,
-          transition: 'opacity 2s ease',
+          top: `${celestialY}%`,
+          transition: 'left 0.1s linear, top 0.1s linear',
         }}
       >
         <div
           className="w-10 h-10 rounded-full"
           style={{
-            background: 'radial-gradient(circle at 40% 40%, #fff7b0, #ffd54f, #ffb300)',
-            boxShadow: '0 0 30px rgba(255,213,79,0.6), 0 0 80px rgba(255,179,0,0.2)',
+            background: `radial-gradient(circle at 35% 35%, white, ${colors.celestial})`,
+            boxShadow: `0 0 30px ${colors.glow}, 0 0 80px ${colors.glow}`,
+            transition: 'background 1s ease, box-shadow 1s ease',
           }}
         />
       </div>
 
-      {/* Clouds - only during day */}
+      {/* Clouds */}
       <div
         className="absolute inset-0 z-1 pointer-events-none overflow-hidden"
-        style={{ opacity: sunOpacity * 0.5, transition: 'opacity 3s ease' }}
+        style={{ opacity: cloudOpacity, transition: 'opacity 3s ease' }}
       >
-        <div
-          className="absolute"
-          style={{
-            top: '10%',
-            animation: 'cloudDrift 45s linear infinite',
-          }}
-        >
+        <div className="absolute" style={{ top: '10%', animation: 'cloudDrift 45s linear infinite' }}>
           <svg width="120" height="40" viewBox="0 0 120 40">
             <ellipse cx="60" cy="25" rx="50" ry="15" fill="rgba(255,255,255,0.3)" />
             <ellipse cx="40" cy="20" rx="30" ry="12" fill="rgba(255,255,255,0.25)" />
             <ellipse cx="80" cy="18" rx="25" ry="10" fill="rgba(255,255,255,0.2)" />
           </svg>
         </div>
-        <div
-          className="absolute"
-          style={{
-            top: '18%',
-            animation: 'cloudDrift 60s linear infinite',
-            animationDelay: '-20s',
-          }}
-        >
+        <div className="absolute" style={{ top: '18%', animation: 'cloudDrift 60s linear infinite', animationDelay: '-20s' }}>
           <svg width="90" height="30" viewBox="0 0 90 30">
             <ellipse cx="45" cy="18" rx="40" ry="12" fill="rgba(255,255,255,0.2)" />
             <ellipse cx="30" cy="14" rx="22" ry="9" fill="rgba(255,255,255,0.18)" />
           </svg>
         </div>
       </div>
+
+      {/* Music notes from cursor */}
+      <MusicNotes />
     </>
   );
 }

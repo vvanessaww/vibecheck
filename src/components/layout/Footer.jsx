@@ -131,6 +131,26 @@ function PalmTree({ height = 100, lean = 0 }) {
   );
 }
 
+function StageTent({ width = 40, height = 30, color = 'rgba(255,255,255,0.1)' }) {
+  return (
+    <svg style={{ width, height }} viewBox={`0 0 ${width} ${height}`}>
+      <path
+        d={`M0,${height} L${width / 2},${height * 0.15} L${width},${height} Z`}
+        fill={color}
+        stroke="rgba(255,255,255,0.15)"
+        strokeWidth="0.5"
+      />
+      <line x1={width / 2} y1={height * 0.15} x2={width / 2} y2={0}
+        stroke="rgba(255,255,255,0.2)" strokeWidth="1" />
+      {/* Flag */}
+      <path
+        d={`M${width / 2},${0} L${width / 2 + 6},${3} L${width / 2},${6}`}
+        fill="rgba(255,92,0,0.5)"
+      />
+    </svg>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10 flex flex-col justify-end">
@@ -164,6 +184,15 @@ export default function Footer() {
         <PalmTree height={75} lean={5} />
         <PalmTree height={110} lean={8} />
         <PalmTree height={85} lean={-3} />
+      </div>
+
+      {/* Stage tents */}
+      <div className="absolute bottom-8 z-14 w-full flex justify-around items-end px-[8%] pointer-events-none">
+        <StageTent width={30} height={24} color="rgba(75,184,204,0.15)" />
+        <StageTent width={50} height={38} color="rgba(255,92,0,0.12)" />
+        <StageTent width={35} height={28} color="rgba(255,255,255,0.08)" />
+        <StageTent width={60} height={44} color="rgba(255,0,122,0.1)" />
+        <StageTent width={28} height={22} color="rgba(75,184,204,0.12)" />
       </div>
 
       {/* Desert plants scattered between structures */}

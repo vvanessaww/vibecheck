@@ -63,7 +63,7 @@ export default function DayDraft({ onComplete }) {
           return (
             <div
               key={artist.id}
-              className={`flex items-center py-3 px-2 border-b border-white/10 cursor-pointer transition-colors ${isSelected ? 'bg-white/5' : ''}`}
+              className={`flex items-center py-3 px-2 border-b border-white/10 cursor-pointer transition-all hover:bg-orange/10 ${isSelected ? 'bg-white/5' : ''}`}
               onClick={() => toggleArtist(artist.id)}
               style={{ opacity: !isSelected && maxReached ? 0.4 : 1 }}
             >

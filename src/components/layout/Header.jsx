@@ -1,7 +1,7 @@
 export default function Header() {
   return (
     <header className="w-full pt-8 pb-2 px-4 flex flex-col items-center z-20 shrink-0">
-      <p className="text-[7px] tracking-[0.25em] text-gray-300 font-bold uppercase opacity-80 mb-1">
+      <p className="text-[10px] tracking-[0.25em] text-gray-300 font-bold uppercase opacity-80 mb-1">
         Vanessa Z Wang Presents
       </p>
       <h1
@@ -13,7 +13,7 @@ export default function Header() {
       >
         Vibecheck
       </h1>
-      <p className="text-[6px] tracking-[0.3em] text-gray-300 mt-2 font-bold uppercase opacity-80 text-center">
+      <p className="text-[9px] tracking-[0.3em] text-gray-300 mt-2 font-bold uppercase opacity-80 text-center">
         Coachella Valley Music And Arts Festival
       </p>
     </header>
