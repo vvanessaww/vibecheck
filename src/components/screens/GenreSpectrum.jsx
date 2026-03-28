@@ -47,7 +47,7 @@ export default function GenreSpectrum({ onComplete }) {
           <span className="font-oswald text-xl font-black uppercase tracking-tighter text-accent-teal">
             {slider.left.label}
           </span>
-          <span className="font-oswald text-xl font-black uppercase tracking-tighter text-orange">
+          <span className="font-oswald text-xl font-black uppercase tracking-tighter text-orange text-right">
             {slider.right.label}
           </span>
         </div>
