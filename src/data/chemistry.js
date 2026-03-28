@@ -117,7 +117,7 @@ export function getScoreMessage(score, name1, name2) {
     return `${name1} and ${name2} have serious overlap — you'll keep running into each other whether you plan to or not`;
   }
   if (score >= 45) {
-    return `${name1} and ${name2} will split up for a few hours and have the best recap conversations after`;
+    return `${name1} and ${name2} might split up for a few hours, but hey you're free spirits`;
   }
   if (score >= 30) {
     return `${name1} and ${name2} are on different wavelengths but that's what makes the group chat interesting`;
@@ -125,5 +125,5 @@ export function getScoreMessage(score, name1, name2) {
   if (score >= 15) {
     return `${name1} and ${name2} probably won't see each other during the festival... but opposites attract?`;
   }
-  return `${name1} and ${name2} are attending two completely different festivals on the same polo field`;
+  return `${name1} and ${name2}... are you sure you're going to the same festival?`;
 }
