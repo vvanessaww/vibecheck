@@ -7,7 +7,7 @@ const DAYS = [
   { label: 'Sunday', lineup: SUNDAY_LINEUP },
 ];
 
-const MAX_PICKS = 5;
+// No max limit — pick as many as you want
 
 export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
   const [dayIndex, setDayIndex] = useState(0);
@@ -29,7 +29,7 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
       const daySel = prev[dayIndex];
       const updated = daySel.includes(artistId)
         ? daySel.filter((id) => id !== artistId)
-        : daySel.length >= MAX_PICKS ? daySel : [...daySel, artistId];
+        : [...daySel, artistId];
       const next = [...prev];
       next[dayIndex] = updated;
       return next;
@@ -56,14 +56,13 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
     }
   };
 
-  const maxReached = selected.length >= MAX_PICKS;
   const canProceed = selected.length >= 1;
   const isLastDay = dayIndex === DAYS.length - 1;
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <h2 className={`font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase shrink-0 ${dayIndex === 0 ? 'mb-1' : 'mb-4'}`}>
-        Pick Up to 5 — {day.label}
+        Pick Your Must-Sees — {day.label}
       </h2>
       {dayIndex === 0 && <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(if time wasn&apos;t a concern)</p>}
 
@@ -75,7 +74,7 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
               key={artist.id}
               className={`flex items-center py-3 px-2 border-b border-white/10 cursor-pointer transition-all hover:bg-orange/10 ${isSelected ? 'bg-white/5' : ''}`}
               onClick={() => toggleArtist(artist.id)}
-              style={{ opacity: !isSelected && maxReached ? 0.4 : 1 }}
+              style={{ opacity: 1 }}
             >
               <div className="flex-1 pr-4 pl-1">
                 <div className="text-base font-bold tracking-[0.05em] font-inter text-white">{artist.name}</div>
@@ -100,7 +99,7 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
         <div className="bg-orange/80 rounded-lg px-3 py-1.5">
           <span className="text-[0.6rem] tracking-[0.2em] uppercase text-white/70 font-inter block">Selected</span>
           <span className="font-oswald text-2xl font-black text-white">
-            {selected.length}/{MAX_PICKS}
+            {selected.length}
           </span>
         </div>
 

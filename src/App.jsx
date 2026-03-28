@@ -17,12 +17,18 @@ import { useQuiz, SCREENS } from './hooks/useQuiz';
 import { decodeQuizState, decodeChallengeData, parseChallengeParam } from './utils/shareUrl';
 import { savePlayer, getPlayer } from './lib/players';
 import { useAmbientAudio } from './hooks/useAmbientAudio';
+import { trackScreen } from './lib/tracking';
 
 function App() {
   const quiz = useQuiz();
   const screenBackRef = useRef(null);
   const [myPlayerId, setMyPlayerId] = useState(null);
   const { muted, toggle: toggleAudio } = useAmbientAudio();
+
+  // Track screen views for drop-off analysis
+  useEffect(() => {
+    trackScreen(quiz.currentScreen);
+  }, [quiz.currentScreen]);
 
   const handleBack = useCallback(() => {
     if (screenBackRef.current) {
