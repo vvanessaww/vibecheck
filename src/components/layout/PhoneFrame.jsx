@@ -17,7 +17,8 @@ export default function PhoneFrame({ children, showHeader = true, showFooter = t
       {onToggleAudio && (
         <button
           onClick={onToggleAudio}
-          className="absolute top-3 right-3 z-50 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all"
+          className="fixed top-[env(safe-area-inset-top,12px)] right-3 z-50 w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all"
+          style={{ marginTop: '8px' }}
           aria-label={audioMuted ? 'Unmute ambient sound' : 'Mute ambient sound'}
         >
           {audioMuted ? (

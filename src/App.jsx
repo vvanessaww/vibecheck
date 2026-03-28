@@ -75,7 +75,7 @@ function App() {
   const renderScreen = () => {
     switch (quiz.currentScreen) {
       case SCREENS.START:
-        return <StartScreen onStart={quiz.nextScreen} playerName={quiz.playerName} onNameChange={quiz.setPlayerName} />;
+        return <StartScreen onStart={() => { if (muted) toggleAudio(); quiz.nextScreen(); }} playerName={quiz.playerName} onNameChange={quiz.setPlayerName} />;
       case SCREENS.WELCOME:
         return <WelcomeScreen playerName={quiz.playerName} onComplete={quiz.nextScreen} />;
       case SCREENS.HEADLINER:
