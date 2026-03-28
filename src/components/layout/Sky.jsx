@@ -125,8 +125,8 @@ export default function Sky() {
   const cloudOpacity = colors.isDay ? 0.5 : colors.isNight ? 0 : 0.2;
 
   const progress = (time % CYCLE_DURATION) / CYCLE_DURATION;
-  const celestialX = 15 + progress * 70;
-  const celestialY = 8 + Math.sin(progress * Math.PI) * -5 + 12;
+  const celestialX = -10 + progress * 120;
+  const celestialY = 20 - Math.sin(progress * Math.PI) * 15;
 
   return (
     <>
