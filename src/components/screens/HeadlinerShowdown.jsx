@@ -72,8 +72,8 @@ export default function HeadlinerShowdown({ onComplete }) {
         </button>
 
         {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--color-teal-mid), transparent)' }} />
-        <div className="absolute right-0 top-0 bottom-0 w-16 z-20 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--color-teal-mid), transparent)' }} />
+        <div className="absolute left-0 top-0 bottom-0 w-20 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, #0d4a57, transparent)' }} />
+        <div className="absolute right-0 top-0 bottom-0 w-20 z-20 pointer-events-none" style={{ background: 'linear-gradient(to left, #0d4a57, transparent)' }} />
 
         {/* Scrollable cards */}
         <div
