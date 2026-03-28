@@ -59,69 +59,102 @@ function drawShareCard(canvas, persona) {
     ctx.fillText(text, w / 2, y);
   };
 
+  // Helper: centered text that auto-shrinks to fit within maxWidth
+  const centerTextFit = (text, y, baseSizePx, fontWeight, fontFamily, color, maxWidth) => {
+    let size = baseSizePx;
+    ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+    while (ctx.measureText(text).width > maxWidth && size > 12) {
+      size -= 2;
+      ctx.font = `${fontWeight} ${size}px ${fontFamily}`;
+    }
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    ctx.fillText(text, w / 2, y);
+    return size;
+  };
+
+  // Helper: word-wrap centered text, returns final Y
+  const wrapText = (text, startY, font, color, maxWidth, lineHeight) => {
+    ctx.font = font;
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    const words = text.split(' ');
+    let line = '';
+    let y = startY;
+    for (const word of words) {
+      const test = line + (line ? ' ' : '') + word;
+      if (ctx.measureText(test).width > maxWidth && line) {
+        ctx.fillText(line, w / 2, y);
+        line = word;
+        y += lineHeight;
+      } else {
+        line = test;
+      }
+    }
+    if (line) ctx.fillText(line, w / 2, y);
+    return y;
+  };
+
+  const pad = 40; // side padding
+  const maxContent = w - pad * 2; // 520px
+
   // Top branding
-  centerText('THE 2026 VIBECHECK RESULTS', 80, '600 12px Inter, sans-serif', '#4bb8cc');
-  centerText('VIBECHECK', 120, '900 48px Oswald, sans-serif', '#ffffff');
+  centerText('THE 2026 VIBECHECK RESULTS', 80, '600 13px Inter, sans-serif', '#4bb8cc');
+  centerText('VIBECHECK', 122, '900 50px Oswald, sans-serif', '#ffffff');
 
   // Divider line
   ctx.strokeStyle = 'rgba(75,184,204,0.4)';
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(100, 145);
-  ctx.lineTo(w - 100, 145);
+  ctx.moveTo(120, 148);
+  ctx.lineTo(w - 120, 148);
   ctx.stroke();
 
   // "My Stage Match:" in cursive style
-  centerText('My Stage Match:', h * 0.38, 'italic 44px Caveat, cursive', '#ff5c00');
+  centerText('My Stage Match:', h * 0.36, 'italic 42px Caveat, cursive', '#ff5c00');
 
-  // Stage name
-  centerText(persona.stage.toUpperCase(), h * 0.48, '900 76px Oswald, sans-serif', '#ffffff');
+  // Stage name — auto-shrink to fit
+  const stageName = persona.stage.toUpperCase();
+  centerTextFit(stageName, h * 0.44, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
 
   // Title
-  centerText(persona.title.toUpperCase(), h * 0.53, '900 22px Inter, sans-serif', '#ff5c00');
+  centerTextFit(persona.title.toUpperCase(), h * 0.50, 22, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
-  // Subtitle
-  ctx.font = 'italic 16px Inter, sans-serif';
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.textAlign = 'center';
-  const subtitle = `"${persona.subtitle}"`;
-  // Word wrap if needed
-  const maxW = w - 120;
-  const words = subtitle.split(' ');
-  let line = '';
-  let lineY = h * 0.57;
-  for (const word of words) {
-    const test = line + (line ? ' ' : '') + word;
-    if (ctx.measureText(test).width > maxW && line) {
-      ctx.fillText(line, w / 2, lineY);
-      line = word;
-      lineY += 20;
-    } else {
-      line = test;
-    }
-  }
-  if (line) ctx.fillText(line, w / 2, lineY);
+  // Subtitle — word wrapped
+  const subtitle = `\u201C${persona.subtitle}\u201D`;
+  wrapText(subtitle, h * 0.55, 'italic 16px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 22);
 
   // "Confirmed Vibe" divider
-  const vibeY = h * 0.66;
+  const vibeY = h * 0.65;
   ctx.strokeStyle = 'rgba(75,184,204,0.4)';
+  ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(80, vibeY);
-  ctx.lineTo(200, vibeY);
+  ctx.moveTo(pad, vibeY);
+  ctx.lineTo(w / 2 - 70, vibeY);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(w - 200, vibeY);
-  ctx.lineTo(w - 80, vibeY);
+  ctx.moveTo(w / 2 + 70, vibeY);
+  ctx.lineTo(w - pad, vibeY);
   ctx.stroke();
   centerText('CONFIRMED VIBE', vibeY + 5, '700 12px Inter, sans-serif', '#4bb8cc');
 
-  // Traits
+  // Traits — wrap onto two lines if needed
   const traits = persona.traits.slice(0, 4);
-  const traitStr = traits.map((t) => t.toUpperCase()).join('  •  ');
-  centerText(traitStr, vibeY + 35, '900 18px Inter, sans-serif', '#ffffff');
+  const traitStr = traits.map((t) => t.toUpperCase()).join('  \u2022  ');
+  ctx.font = '900 16px Inter, sans-serif';
+  if (ctx.measureText(traitStr).width > maxContent) {
+    // Split into two lines
+    const mid = Math.ceil(traits.length / 2);
+    const line1 = traits.slice(0, mid).map((t) => t.toUpperCase()).join('  \u2022  ');
+    const line2 = traits.slice(mid).map((t) => t.toUpperCase()).join('  \u2022  ');
+    centerText(line1, vibeY + 32, '900 16px Inter, sans-serif', '#ffffff');
+    centerText(line2, vibeY + 56, '900 16px Inter, sans-serif', '#ffffff');
+  } else {
+    centerText(traitStr, vibeY + 35, '900 16px Inter, sans-serif', '#ffffff');
+  }
 
   // Bottom branding
-  centerText('vanessazwang.com/vibecheck', h - 40, '600 12px Inter, sans-serif', 'rgba(255,255,255,0.35)');
+  centerText('vanessazwang.com/vibecheck', h - 40, '600 13px Inter, sans-serif', 'rgba(255,255,255,0.35)');
 }
 
 export async function exportCardAsImage(elementId, persona) {
