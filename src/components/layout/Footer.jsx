@@ -134,45 +134,37 @@ function PalmTree({ height = 100, lean = 0 }) {
 function MainStage({ width = 130, height = 80 }) {
   return (
     <svg style={{ width, height }} viewBox="0 0 130 80">
-      {/* Roof - wide flat canopy overhanging the structure */}
-      <path
-        d="M0,12 L130,12 L126,18 L4,18 Z"
-        fill="rgba(0,0,0,0.5)"
-      />
-      {/* Roof top edge */}
-      <rect x="0" y="10" width="130" height="3" fill="rgba(255,255,255,0.15)" />
+      {/* Roof */}
+      <path d="M0,12 L130,12 L126,18 L4,18 Z" fill="#1a1a1a" />
+      <rect x="0" y="10" width="130" height="3" fill="#444" />
 
-      {/* Outer truss towers - tall vertical structures on each side */}
-      <rect x="4" y="18" width="8" height="62" fill="rgba(0,0,0,0.4)" />
-      <rect x="118" y="18" width="8" height="62" fill="rgba(0,0,0,0.4)" />
-      {/* Truss cross-hatching */}
+      {/* Truss towers */}
+      <rect x="4" y="18" width="8" height="62" fill="#222" />
+      <rect x="118" y="18" width="8" height="62" fill="#222" />
       {[0,1,2,3,4,5].map((i) => (
         <g key={`truss-${i}`}>
-          <line x1="4" y1={20 + i * 10} x2="12" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-          <line x1="12" y1={20 + i * 10} x2="4" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-          <line x1="118" y1={20 + i * 10} x2="126" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-          <line x1="126" y1={20 + i * 10} x2="118" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+          <line x1="4" y1={20 + i * 10} x2="12" y2={30 + i * 10} stroke="#555" strokeWidth="0.5" />
+          <line x1="12" y1={20 + i * 10} x2="4" y2={30 + i * 10} stroke="#555" strokeWidth="0.5" />
+          <line x1="118" y1={20 + i * 10} x2="126" y2={30 + i * 10} stroke="#555" strokeWidth="0.5" />
+          <line x1="126" y1={20 + i * 10} x2="118" y2={30 + i * 10} stroke="#555" strokeWidth="0.5" />
         </g>
       ))}
 
-      {/* Side LED screens - angled outward like the real stage */}
-      <path d="M14,20 L14,58 L38,58 L38,24 Z" fill="rgba(255,92,0,0.12)" stroke="rgba(255,92,0,0.2)" strokeWidth="0.5" />
-      <path d="M92,24 L92,58 L116,58 L116,20 Z" fill="rgba(255,92,0,0.12)" stroke="rgba(255,92,0,0.2)" strokeWidth="0.5" />
+      {/* Side LED screens */}
+      <path d="M14,20 L14,58 L38,58 L38,24 Z" fill="#4a2000" stroke="#ff5c00" strokeWidth="0.5" />
+      <path d="M92,24 L92,58 L116,58 L116,20 Z" fill="#4a2000" stroke="#ff5c00" strokeWidth="0.5" />
 
       {/* Center video wall */}
-      <rect x="40" y="22" width="50" height="38" fill="rgba(255,92,0,0.08)" />
-      <rect x="42" y="24" width="46" height="34" fill="rgba(255,92,0,0.1)" stroke="rgba(255,92,0,0.15)" strokeWidth="0.5" />
+      <rect x="40" y="22" width="50" height="38" fill="#1a0a00" />
+      <rect x="42" y="24" width="46" height="34" fill="#3a1800" stroke="#ff5c00" strokeWidth="0.5" />
 
       {/* Stage platform */}
-      <rect x="14" y="60" width="102" height="4" fill="rgba(255,255,255,0.08)" />
+      <rect x="14" y="60" width="102" height="4" fill="#333" />
 
-      {/* Stage floor glow */}
-      <ellipse cx="65" cy="72" rx="55" ry="8" fill="rgba(255,92,0,0.06)" />
-
-      {/* Subtle pyro sparks */}
-      <circle cx="30" cy="30" r="1" fill="rgba(255,200,50,0.3)" />
-      <circle cx="100" cy="28" r="1" fill="rgba(255,200,50,0.3)" />
-      <circle cx="65" cy="20" r="0.8" fill="rgba(255,200,50,0.2)" />
+      {/* Pyro sparks */}
+      <circle cx="30" cy="30" r="1" fill="#ffc832" />
+      <circle cx="100" cy="28" r="1" fill="#ffc832" />
+      <circle cx="65" cy="20" r="0.8" fill="#ffaa22" />
     </svg>
   );
 }
@@ -180,39 +172,27 @@ function MainStage({ width = 130, height = 80 }) {
 function SaharaTent({ width = 120, height = 70 }) {
   return (
     <svg style={{ width, height }} viewBox="0 0 120 70">
-      {/* Roof - wide flat canopy with slight curve, the modern mega-structure look */}
-      <path
-        d="M2,18 Q60,8 118,18 L118,24 Q60,14 2,24 Z"
-        fill="rgba(255,255,255,0.12)"
-        stroke="rgba(255,255,255,0.18)"
-        strokeWidth="0.5"
-      />
-      {/* Roof thickness */}
-      <path
-        d="M2,24 Q60,14 118,24 L118,26 Q60,16 2,26 Z"
-        fill="rgba(0,0,0,0.3)"
-      />
+      {/* Roof */}
+      <path d="M2,18 Q60,8 118,18 L118,24 Q60,14 2,24 Z" fill="#555" stroke="#777" strokeWidth="0.5" />
+      <path d="M2,24 Q60,14 118,24 L118,26 Q60,16 2,26 Z" fill="#222" />
 
       {/* Support columns */}
-      <rect x="6" y="26" width="4" height="44" fill="rgba(255,255,255,0.1)" />
-      <rect x="30" y="26" width="3" height="44" fill="rgba(255,255,255,0.07)" />
-      <rect x="57" y="26" width="3" height="44" fill="rgba(255,255,255,0.07)" />
-      <rect x="87" y="26" width="3" height="44" fill="rgba(255,255,255,0.07)" />
-      <rect x="110" y="26" width="4" height="44" fill="rgba(255,255,255,0.1)" />
+      <rect x="6" y="26" width="4" height="44" fill="#444" />
+      <rect x="30" y="26" width="3" height="44" fill="#3a3a3a" />
+      <rect x="57" y="26" width="3" height="44" fill="#3a3a3a" />
+      <rect x="87" y="26" width="3" height="44" fill="#3a3a3a" />
+      <rect x="110" y="26" width="4" height="44" fill="#444" />
 
-      {/* Interior LED screens/walls - the glowing back wall */}
-      <rect x="10" y="28" width="100" height="38" fill="rgba(75,184,204,0.05)" />
-      <rect x="14" y="30" width="28" height="34" rx="1" fill="rgba(255,0,122,0.06)" />
-      <rect x="46" y="30" width="28" height="34" rx="1" fill="rgba(75,184,204,0.08)" />
-      <rect x="78" y="30" width="28" height="34" rx="1" fill="rgba(255,92,0,0.06)" />
+      {/* Interior LED screens */}
+      <rect x="10" y="28" width="100" height="38" fill="#111" />
+      <rect x="14" y="30" width="28" height="34" rx="1" fill="#3a0028" />
+      <rect x="46" y="30" width="28" height="34" rx="1" fill="#0a3040" />
+      <rect x="78" y="30" width="28" height="34" rx="1" fill="#3a1800" />
 
-      {/* LED light beams shooting up */}
-      <line x1="28" y1="18" x2="25" y2="4" stroke="rgba(75,184,204,0.12)" strokeWidth="1" />
-      <line x1="60" y1="14" x2="60" y2="0" stroke="rgba(255,0,122,0.1)" strokeWidth="1" />
-      <line x1="92" y1="18" x2="95" y2="4" stroke="rgba(255,92,0,0.1)" strokeWidth="1" />
-
-      {/* Ground/floor glow */}
-      <ellipse cx="60" cy="70" rx="55" ry="4" fill="rgba(75,184,204,0.06)" />
+      {/* LED light beams */}
+      <line x1="28" y1="18" x2="25" y2="4" stroke="#4bb8cc" strokeWidth="1" opacity="0.6" />
+      <line x1="60" y1="14" x2="60" y2="0" stroke="#ff007a" strokeWidth="1" opacity="0.5" />
+      <line x1="92" y1="18" x2="95" y2="4" stroke="#ff5c00" strokeWidth="1" opacity="0.5" />
     </svg>
   );
 }
