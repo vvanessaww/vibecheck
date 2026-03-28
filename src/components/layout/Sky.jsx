@@ -61,7 +61,7 @@ function MusicNotes() {
 
   const handleMove = useCallback((e) => {
     const now = Date.now();
-    if (now - lastSpawnRef.current < 300) return;
+    if (now - lastSpawnRef.current < 150) return;
     lastSpawnRef.current = now;
 
     const id = now + Math.random();
@@ -70,7 +70,7 @@ function MusicNotes() {
     const size = 12 + Math.random() * 6;
 
     setNotes((prev) => [
-      ...prev.filter((n) => now - n.id < 2500).slice(-8),
+      ...prev.filter((n) => now - n.id < 4000).slice(-20),
       { id, x: e.clientX, y: e.clientY, symbol, drift, size },
     ]);
   }, []);
@@ -99,7 +99,7 @@ function MusicNotes() {
             top: note.y - note.size,
             fontSize: note.size,
             color: 'rgba(255,255,255,0.3)',
-            animation: 'noteFloat 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
+            animation: 'noteFloat 3.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards',
             '--drift': `${note.drift}px`,
           }}
         >

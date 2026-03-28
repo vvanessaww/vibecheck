@@ -45,7 +45,7 @@ export default function GenreSpectrum({ onComplete }) {
 
       <div className="w-full max-w-[400px] mx-auto px-6 flex flex-col items-center gap-8 mt-8" key={sliderIndex}>
         <div className="w-full flex justify-between items-center">
-          <span className="font-oswald text-xl font-black uppercase tracking-tighter text-accent-teal">
+          <span className="font-oswald text-xl font-black uppercase tracking-tighter text-white">
             {slider.left.label}
           </span>
           <span className="font-oswald text-xl font-black uppercase tracking-tighter text-orange text-right">
