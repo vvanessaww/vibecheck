@@ -33,7 +33,7 @@ export default function SwipeOrSkip({ onComplete }) {
         Swipe or Skip
       </h2>
 
-      <div className="relative w-full flex-1 max-h-[380px]" style={{ perspective: '1000px' }} key={cardKey}>
+      <div className="relative w-full shrink-0" style={{ height: '320px', perspective: '1000px' }} key={cardKey}>
         {[3, 2, 1].map((pos) => (
           <SwipeCard key={`${cardKey}-${pos}`} position={pos} onSwipeComplete={handleSwipe}>
             {pos === 1 && (
@@ -45,7 +45,7 @@ export default function SwipeOrSkip({ onComplete }) {
         ))}
       </div>
 
-      <div className="mt-6 flex justify-center gap-12">
+      <div className="mt-4 flex justify-center gap-12 shrink-0">
         <button
           onClick={() => handleSwipe('left')}
           className="w-14 h-14 rounded-full border-2 border-accent-teal flex items-center justify-center bg-transparent text-white text-xl transition-all active:scale-90 hover:bg-accent-teal/20"

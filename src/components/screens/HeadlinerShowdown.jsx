@@ -32,7 +32,7 @@ export default function HeadlinerShowdown({ onComplete }) {
         Which Headliner<br />Would You See?
       </h2>
 
-      <div className="w-full flex-1 relative flex items-center justify-center">
+      <div className="flex-1 relative flex items-center justify-center" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', overflow: 'visible' }}>
         {/* Left arrow */}
         <button
           onClick={() => goTo(-1)}
@@ -44,24 +44,22 @@ export default function HeadlinerShowdown({ onComplete }) {
           </svg>
         </button>
 
-        {/* Cards - centered with neighbors peeking on desktop */}
-        <div className="flex items-center justify-center gap-4 h-[400px]">
+        {/* Cards - centered with neighbors visible */}
+        <div className="flex items-center justify-center h-[400px]">
           {HEADLINER_OPTIONS.map((artist, i) => {
             const offset = i - activeIndex;
             const isCenter = offset === 0;
-            const isNeighbor = Math.abs(offset) === 1;
 
             return (
               <motion.div
                 key={artist.id}
                 animate={{
-                  scale: isCenter ? 1 : 0.85,
-                  opacity: isCenter ? 1 : isNeighbor ? 0.4 : 0,
+                  scale: isCenter ? 1 : 0.82,
+                  opacity: isCenter ? 1 : 0.5,
                   x: offset * 260,
                 }}
                 transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-                className={`absolute ${isCenter || isNeighbor ? '' : 'pointer-events-none'}`}
-                style={{ display: !isCenter && !isNeighbor ? 'none' : undefined }}
+                className={`absolute ${isCenter ? '' : 'pointer-events-none'}`}
               >
                 <ArtistCard
                   artist={artist}

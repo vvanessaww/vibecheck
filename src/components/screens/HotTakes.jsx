@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import SwipeCard from '../shared/SwipeCard';
-import Divider from '../layout/Divider';
 import { HOT_TAKES } from '../../data/questions';
 
 export default function HotTakes({ onComplete }) {
@@ -33,7 +32,7 @@ export default function HotTakes({ onComplete }) {
         Hot Takes
       </h2>
 
-      <div className="relative w-full flex-1 max-h-[380px]" style={{ perspective: '1000px' }} key={cardKey}>
+      <div className="relative w-full shrink-0" style={{ height: '320px', perspective: '1000px' }} key={cardKey}>
         {[3, 2, 1].map((pos) => (
           <SwipeCard
             key={`${cardKey}-${pos}`}
@@ -57,7 +56,7 @@ export default function HotTakes({ onComplete }) {
         ))}
       </div>
 
-      <div className="mt-6 flex justify-center gap-12">
+      <div className="mt-4 flex justify-center gap-12 shrink-0">
         <button
           onClick={() => handleSwipe('left')}
           className="w-14 h-14 rounded-full border-2 border-red-500 flex items-center justify-center bg-transparent text-red-400 text-sm font-bold transition-all active:scale-90 hover:bg-red-500/20"

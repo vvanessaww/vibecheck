@@ -2,7 +2,7 @@ export default function StartScreen({ onStart }) {
   return (
     <div className="flex flex-col items-center justify-center w-full text-center" style={{ animation: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
       <h2
-        className="font-oswald text-5xl font-black uppercase tracking-tighter leading-[0.85] mb-2"
+        className="font-oswald text-5xl font-black uppercase tracking-tighter leading-[0.85] mb-2 bg-gradient-to-r from-white via-amber-200 to-white bg-clip-text text-transparent"
         style={{ animation: 'float 3s ease-in-out infinite' }}
       >
         Find Your
