@@ -1,19 +1,19 @@
 export default function Footer() {
   return (
-    <footer className="absolute bottom-0 w-full h-[35%] pointer-events-none z-10 flex flex-col justify-end">
+    <footer className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10 flex flex-col justify-end">
       <div className="absolute bottom-12 w-full h-40 bg-gradient-to-t from-orange-red to-transparent opacity-60 mix-blend-overlay" />
       <svg
         className="absolute bottom-8 w-full h-32"
-        viewBox="0 0 400 100"
+        viewBox="0 0 1440 100"
         preserveAspectRatio="none"
       >
         <path
-          d="M0,100 L0,50 L40,30 L80,60 L130,20 L180,70 L240,10 L300,60 L350,30 L400,80 L400,100 Z"
+          d="M0,100 L0,50 L60,30 L120,60 L200,20 L300,70 L400,10 L500,60 L600,30 L720,80 L840,20 L960,70 L1080,10 L1200,60 L1320,30 L1440,80 L1440,100 Z"
           fill="#b32400"
           opacity="0.8"
         />
         <path
-          d="M0,100 L20,70 L60,40 L110,80 L160,30 L210,60 L270,20 L330,70 L380,40 L400,90 L400,100 Z"
+          d="M0,100 L30,70 L90,40 L180,80 L270,30 L360,60 L480,20 L600,70 L720,30 L840,60 L960,20 L1080,70 L1200,40 L1320,90 L1440,50 L1440,100 Z"
           fill="#ff5c00"
           opacity="0.9"
         />
