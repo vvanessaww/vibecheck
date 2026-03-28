@@ -34,7 +34,7 @@ export default function PhoneFrame({ children, showHeader = true, showFooter = t
         </div>
       )}
 
-      <main className="relative z-20 flex-1 w-full max-w-[600px] mx-auto px-5 py-2 flex flex-col justify-center overflow-y-auto pb-32">
+      <main className="relative z-20 flex-1 w-full max-w-[600px] mx-auto px-5 py-2 flex flex-col justify-center overflow-hidden pb-32">
         {children}
       </main>
 

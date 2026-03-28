@@ -34,12 +34,11 @@ export default function DayDraft({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <Divider text="Friday Lineup" />
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mt-2 mb-4">
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-2 shrink-0">
         Build Your Lineup
       </h2>
 
-      <div className="w-full flex-1 overflow-y-auto pb-24" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div className="w-full flex-1 overflow-y-auto min-h-0 rounded-xl border border-white/10 bg-white/5" style={{ scrollbarWidth: 'thin', scrollbarColor: 'rgba(255,255,255,0.3) transparent' }}>
         {FRIDAY_LINEUP.map((artist) => {
           const isSelected = selected.includes(artist.id);
           return (
@@ -71,7 +70,7 @@ export default function DayDraft({ onComplete }) {
         })}
       </div>
 
-      <div className="absolute bottom-20 left-0 w-full px-5 flex justify-between items-end z-30" style={{ background: 'linear-gradient(to top, rgba(10,61,71,0.95), transparent)', paddingTop: '40px', paddingBottom: '8px' }}>
+      <div className="w-full px-2 flex justify-between items-end shrink-0 pt-3 pb-1">
         <div>
           <span className="text-[0.6rem] tracking-[0.2em] uppercase opacity-70 font-inter block">Selected</span>
           <span className="font-oswald text-2xl font-black text-orange" style={{ textShadow: '2px 2px 0px rgba(0,0,0,0.3)' }}>

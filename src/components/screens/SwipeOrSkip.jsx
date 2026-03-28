@@ -29,12 +29,11 @@ export default function SwipeOrSkip({ onComplete }) {
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <Divider text={`Question ${currentIndex + 1} / ${SWIPE_CARDS.length}`} />
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mt-2 mb-6">
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
         Swipe or Skip
       </h2>
 
-      <div className="relative w-full h-[420px]" style={{ perspective: '1000px' }} key={cardKey}>
+      <div className="relative w-full flex-1 max-h-[380px]" style={{ perspective: '1000px' }} key={cardKey}>
         {[3, 2, 1].map((pos) => (
           <SwipeCard key={`${cardKey}-${pos}`} position={pos} onSwipeComplete={handleSwipe}>
             {pos === 1 && (
