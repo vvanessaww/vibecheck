@@ -26,6 +26,65 @@ function FerrisWheel({ size = 64 }) {
   );
 }
 
+function SpectraTower({ height = 140 }) {
+  const rows = 7;
+  const cols = 8;
+  const colors = [
+    '#8b1a4a', '#c2185b', '#e53935', '#ff6f00',
+    '#ffb300', '#c0ca33', '#43a047',
+  ];
+
+  const towerW = height * 0.45;
+  const cellH = (height - 10) / rows;
+  const cellW = towerW / cols;
+
+  return (
+    <svg style={{ width: towerW, height }} viewBox={`0 0 ${towerW} ${height}`}>
+      {/* Tower body */}
+      <rect x="0" y="5" width={towerW} height={height - 5} rx="4" fill="rgba(0,0,0,0.3)" />
+
+      {/* Rainbow glass panels */}
+      {colors.map((color, row) => (
+        Array.from({ length: cols }).map((_, col) => (
+          <rect
+            key={`${row}-${col}`}
+            x={col * cellW + 1}
+            y={row * cellH + 6}
+            width={cellW - 1.5}
+            height={cellH - 1.5}
+            rx="0.5"
+            fill={color}
+            opacity={0.7 + (col % 3) * 0.1}
+          />
+        ))
+      ))}
+
+      {/* Horizontal grid lines */}
+      {Array.from({ length: rows + 1 }).map((_, i) => (
+        <line
+          key={`h${i}`}
+          x1="0" y1={i * cellH + 5}
+          x2={towerW} y2={i * cellH + 5}
+          stroke="rgba(255,255,255,0.5)" strokeWidth="1"
+        />
+      ))}
+
+      {/* Vertical grid lines with slight curve illusion */}
+      {Array.from({ length: cols + 1 }).map((_, i) => (
+        <line
+          key={`v${i}`}
+          x1={i * cellW} y1="5"
+          x2={i * cellW} y2={height}
+          stroke="rgba(255,255,255,0.4)" strokeWidth="0.8"
+        />
+      ))}
+
+      {/* Top rim */}
+      <rect x="0" y="3" width={towerW} height="4" rx="2" fill="rgba(255,255,255,0.3)" />
+    </svg>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10 flex flex-col justify-end">
@@ -47,7 +106,12 @@ export default function Footer() {
         />
       </svg>
 
-      {/* Ferris wheel - positioned relative to mobile content area */}
+      {/* Spectra tower - left side */}
+      <div className="absolute bottom-8 z-20" style={{ left: 'max(8px, calc(50% - 200px))' }}>
+        <SpectraTower height={130} />
+      </div>
+
+      {/* Ferris wheel - right side */}
       <div className="absolute bottom-6 z-20" style={{ right: 'max(16px, calc(50% - 180px))' }}>
         <div className="relative">
           <FerrisWheel size={120} />
