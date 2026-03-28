@@ -1,21 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ArtistCard from '../shared/ArtistCard';
 import { HEADLINER_OPTIONS } from '../../data/questions';
 
 export default function HeadlinerShowdown({ onComplete }) {
-  const [selectedId, setSelectedId] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef(null);
+  const isScrollingRef = useRef(false);
 
-  const handleSelect = (artist) => {
-    setSelectedId(selectedId === artist.id ? null : artist.id);
-  };
-
-  const handleLockIn = () => {
-    if (selectedId === null) return;
-    const artist = HEADLINER_OPTIONS.find((a) => a.id === selectedId);
-    onComplete(selectedId, artist.weights);
-  };
+  const activeArtist = HEADLINER_OPTIONS[activeIndex];
 
   const scrollToIndex = (index) => {
     if (!scrollRef.current) return;
@@ -23,25 +15,43 @@ export default function HeadlinerShowdown({ onComplete }) {
     if (!card) return;
     const containerWidth = scrollRef.current.offsetWidth;
     const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+    isScrollingRef.current = true;
     scrollRef.current.scrollTo({ left: cardCenter - (containerWidth / 2), behavior: 'smooth' });
+    setTimeout(() => { isScrollingRef.current = false; }, 500);
   };
 
   const goTo = (dir) => {
     const next = activeIndex + dir;
     if (next < 0 || next >= HEADLINER_OPTIONS.length) return;
     setActiveIndex(next);
-    setSelectedId(null);
     scrollToIndex(next);
   };
 
   const handleScroll = () => {
-    if (!scrollRef.current) return;
-    const cardWidth = 260;
+    if (!scrollRef.current || isScrollingRef.current) return;
     const containerWidth = scrollRef.current.offsetWidth;
-    const scrollPos = scrollRef.current.scrollLeft + (containerWidth / 2) - (240 / 2);
-    const index = Math.round(scrollPos / cardWidth);
-    setActiveIndex(Math.max(0, Math.min(index, HEADLINER_OPTIONS.length - 1)));
+    const scrollCenter = scrollRef.current.scrollLeft + (containerWidth / 2);
+    let closest = 0;
+    let closestDist = Infinity;
+    for (let i = 0; i < scrollRef.current.children.length; i++) {
+      const child = scrollRef.current.children[i];
+      const childCenter = child.offsetLeft + (child.offsetWidth / 2);
+      const dist = Math.abs(scrollCenter - childCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closest = i;
+      }
+    }
+    setActiveIndex(closest);
   };
+
+  const handleLockIn = () => {
+    onComplete(activeArtist.id, activeArtist.weights);
+  };
+
+  useEffect(() => {
+    scrollToIndex(0);
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
@@ -60,6 +70,10 @@ export default function HeadlinerShowdown({ onComplete }) {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
+
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, var(--color-teal-mid), transparent)' }} />
+        <div className="absolute right-0 top-0 bottom-0 w-16 z-20 pointer-events-none" style={{ background: 'linear-gradient(to left, var(--color-teal-mid), transparent)' }} />
 
         {/* Scrollable cards */}
         <div
@@ -81,22 +95,22 @@ export default function HeadlinerShowdown({ onComplete }) {
                 key={artist.id}
                 className="snap-center shrink-0 transition-all duration-300"
                 style={{
-                  transform: isFocused ? 'scale(1)' : 'scale(0.88)',
-                  opacity: isFocused ? 1 : 0.5,
+                  transform: isFocused ? 'scale(1)' : 'scale(0.85)',
+                  opacity: isFocused ? 1 : 0.4,
+                  filter: isFocused ? 'none' : 'brightness(0.6)',
                 }}
                 onClick={() => {
                   if (!isFocused) {
                     setActiveIndex(i);
-                    setSelectedId(null);
                     scrollToIndex(i);
                   }
                 }}
               >
                 <ArtistCard
                   artist={artist}
-                  isSelected={isFocused && selectedId === artist.id}
-                  isDeselected={isFocused && selectedId !== null && selectedId !== artist.id}
-                  onSelect={() => isFocused && handleSelect(artist)}
+                  isSelected={isFocused}
+                  isDeselected={false}
+                  onSelect={() => {}}
                 />
               </div>
             );
@@ -120,21 +134,14 @@ export default function HeadlinerShowdown({ onComplete }) {
         {HEADLINER_OPTIONS.map((_, i) => (
           <button
             key={i}
-            onClick={() => { setActiveIndex(i); setSelectedId(null); scrollToIndex(i); }}
+            onClick={() => { setActiveIndex(i); scrollToIndex(i); }}
             className={`h-1.5 rounded-full transition-all ${i === activeIndex ? 'w-6 bg-white' : 'w-1.5 bg-white/30'}`}
           />
         ))}
       </div>
 
-      {/* Lock in button */}
-      <div
-        className="w-full px-8 transition-all duration-500 mb-4 shrink-0"
-        style={{
-          transform: selectedId !== null ? 'translateY(0)' : 'translateY(40px)',
-          opacity: selectedId !== null ? 1 : 0,
-          pointerEvents: selectedId !== null ? 'auto' : 'none',
-        }}
-      >
+      {/* Lock in button - always visible since focused card is auto-selected */}
+      <div className="w-full px-8 mb-4 shrink-0">
         <button
           onClick={handleLockIn}
           className="w-full bg-orange text-white font-black py-4 rounded-full uppercase tracking-widest text-xs flex items-center justify-center gap-2 active:scale-95 transition-all"
