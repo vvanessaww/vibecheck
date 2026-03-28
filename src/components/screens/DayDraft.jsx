@@ -57,12 +57,13 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
   };
 
   const maxReached = selected.length >= MAX_PICKS;
+  const canProceed = selected.length >= 1;
   const isLastDay = dayIndex === DAYS.length - 1;
 
   return (
     <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <h2 className={`font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase shrink-0 ${dayIndex === 0 ? 'mb-1' : 'mb-4'}`}>
-        Choose Your Top 5 — {day.label}
+        Pick Up to 5 — {day.label}
       </h2>
       {dayIndex === 0 && <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(if time wasn&apos;t a concern)</p>}
 
@@ -113,13 +114,13 @@ export default function DayDraft({ onComplete, onDayPicks, backRef, onBack }) {
         </div>
 
         <button
-          onClick={maxReached ? handleNext : undefined}
+          onClick={canProceed ? handleNext : undefined}
           className={`px-6 py-2.5 rounded-full font-bold uppercase tracking-[0.2em] text-xs transition-all font-inter ${
-            maxReached ? 'bg-orange text-white active:scale-95' : 'bg-white/20 text-white/50 cursor-default'
+            canProceed ? 'bg-orange text-white active:scale-95' : 'bg-white/20 text-white/50 cursor-default'
           }`}
-          style={maxReached ? { boxShadow: '0 0 15px rgba(255,92,0,0.4)' } : {}}
+          style={canProceed ? { boxShadow: '0 0 15px rgba(255,92,0,0.4)' } : {}}
         >
-          {maxReached ? (isLastDay ? 'Lock It In' : 'Next Day') : 'Pick 5'}
+          {canProceed ? (isLastDay ? 'Lock It In' : 'Next Day') : 'Pick at least 1'}
         </button>
       </div>
     </div>
