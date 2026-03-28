@@ -76,7 +76,7 @@ function App() {
   };
 
   return (
-    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome}>
+    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={quiz.prevScreen}>
       {renderScreen()}
     </PhoneFrame>
   );

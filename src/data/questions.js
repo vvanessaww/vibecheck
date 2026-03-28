@@ -1,7 +1,7 @@
 export const HEADLINER_OPTIONS = [
-  { id: 'h1', name: ['Sabrina', 'Carpenter'], gradient: 'from-pink-500 via-yellow-300 to-sky-300', weights: { influencer: 3, feels: 2 } },
-  { id: 'h2', name: ['Justin', 'Bieber'], gradient: 'from-purple-600 via-indigo-500 to-gray-400', weights: { feels: 3, quasar: 2 } },
-  { id: 'h3', name: ['Karol G'], gradient: 'from-teal-400 via-emerald-500 to-yellow-200', weights: { sahara: 2, dolab: 2 } },
+  { id: 'h1', name: ['Sabrina', 'Carpenter'], gradient: 'from-pink-500 via-yellow-300 to-sky-300', image: '/artists/sabrina-carpenter.png', weights: { influencer: 3, feels: 2 } },
+  { id: 'h2', name: ['Justin', 'Bieber'], gradient: 'from-purple-600 via-indigo-500 to-gray-400', image: '/artists/justin-bieber.png', weights: { feels: 3, quasar: 2 } },
+  { id: 'h3', name: ['Karol G'], gradient: 'from-teal-400 via-emerald-500 to-yellow-200', image: '/artists/karol-g.png', weights: { sahara: 2, dolab: 2 } },
 ];
 
 export const THIS_OR_THAT = [

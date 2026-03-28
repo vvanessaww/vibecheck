@@ -7,15 +7,22 @@ export default function ArtistCard({ artist, isSelected, isDeselected, onSelect 
 
   return (
     <div
-      className={`relative w-[240px] h-[360px] shrink-0 snap-center rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 bg-[#121212] flex flex-col justify-end border-[1.5px] border-white/10`}
+      className="relative w-[240px] h-[360px] shrink-0 snap-center rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 bg-[#121212] flex flex-col justify-end border-[1.5px] border-white/10"
       style={glowStyle}
       onClick={onSelect}
     >
-      <div className={`absolute inset-0 bg-gradient-to-tr ${artist.gradient} opacity-80 mix-blend-screen transition-transform duration-700 ${isSelected ? 'scale-110' : ''}`} />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+      {artist.image && (
+        <img
+          src={artist.image}
+          alt={artist.name.join(' ')}
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      <div className={`absolute inset-0 bg-gradient-to-tr ${artist.gradient} opacity-40 mix-blend-screen transition-transform duration-700 ${isSelected ? 'scale-110' : ''}`} />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
       <div
-        className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full border text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-md transition-all duration-300 whitespace-nowrap ${
+        className={`absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full border text-[8px] font-bold tracking-[0.2em] uppercase backdrop-blur-md transition-all duration-300 whitespace-nowrap z-20 ${
           isSelected ? 'bg-orange text-white border-transparent' : 'bg-black/20 text-white/80 border-white/30'
         }`}
         style={isSelected ? { boxShadow: '0 0 10px rgba(255,92,0,0.8)' } : {}}

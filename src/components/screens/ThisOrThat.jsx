@@ -32,9 +32,8 @@ export default function ThisOrThat({ onComplete }) {
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
-      <Divider text={`Round ${roundIndex + 1} / ${THIS_OR_THAT.length}`} />
-      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mt-2 mb-8">
+    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+      <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-8">
         This or That
       </h2>
 
@@ -44,8 +43,8 @@ export default function ThisOrThat({ onComplete }) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="flex gap-4 w-full px-2 items-stretch"
-          style={{ minHeight: '300px' }}
+          className="flex gap-4 w-full px-2 items-center justify-center"
+          style={{ minHeight: '250px' }}
         >
           {['left', 'right'].map((side) => {
             const option = round[side];

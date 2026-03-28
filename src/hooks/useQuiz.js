@@ -49,6 +49,14 @@ export function useQuiz() {
     });
   }, []);
 
+  const prevScreen = useCallback(() => {
+    setState((prev) => {
+      const idx = SCREEN_ORDER.indexOf(prev.currentScreen);
+      const prevIdx = Math.max(idx - 1, 0);
+      return { ...prev, currentScreen: SCREEN_ORDER[prevIdx] };
+    });
+  }, []);
+
   const goToScreen = useCallback((screen) => {
     setState((prev) => ({ ...prev, currentScreen: screen }));
   }, []);
@@ -73,6 +81,7 @@ export function useQuiz() {
     answers: state.answers,
     personaId,
     nextScreen,
+    prevScreen,
     goToScreen,
     recordAnswer,
     restart,
