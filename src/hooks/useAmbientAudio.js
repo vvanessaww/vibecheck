@@ -79,10 +79,10 @@ function createCrowdMurmur(ctx, master) {
   bpf2.Q.value = 0.3;
 
   const murmurGain = ctx.createGain();
-  murmurGain.gain.value = 0.015;
+  murmurGain.gain.value = 0.01;
 
   const warmGain = ctx.createGain();
-  warmGain.gain.value = 0.01;
+  warmGain.gain.value = 0.005;
 
   // Slow modulation for natural ebb and flow
   const lfo = ctx.createOscillator();
@@ -132,7 +132,7 @@ function createCrowdCheers(ctx, master) {
     const delay = 4 + Math.random() * 8; // every 4-12 seconds
     const start = now + delay;
     const duration = 1.5 + Math.random() * 2.5; // 1.5-4 seconds
-    const volume = 0.15 + Math.random() * 0.1; // louder cheers
+    const volume = 0.35 + Math.random() * 0.15; // very loud cheers
 
     cheerGain.gain.setValueAtTime(0, start);
     cheerGain.gain.linearRampToValueAtTime(volume, start + 0.3); // quick swell
