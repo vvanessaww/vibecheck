@@ -6,6 +6,9 @@ export async function exportCardAsImage(elementId) {
 
   let blob;
   try {
+    // First pass warms font/image cache — discard result
+    await toBlob(element, { pixelRatio: 1, backgroundColor: '#0a3d47' });
+    // Second pass captures with fonts loaded
     blob = await toBlob(element, {
       pixelRatio: 2,
       backgroundColor: '#0a3d47',
