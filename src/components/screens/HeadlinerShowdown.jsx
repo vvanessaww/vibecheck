@@ -19,10 +19,11 @@ export default function HeadlinerShowdown({ onComplete }) {
 
   const scrollToIndex = (index) => {
     if (!scrollRef.current) return;
-    const cardWidth = 260;
+    const card = scrollRef.current.children[index];
+    if (!card) return;
     const containerWidth = scrollRef.current.offsetWidth;
-    const scrollTarget = (index * cardWidth) - (containerWidth / 2) + (240 / 2);
-    scrollRef.current.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+    const cardCenter = card.offsetLeft + (card.offsetWidth / 2);
+    scrollRef.current.scrollTo({ left: cardCenter - (containerWidth / 2), behavior: 'smooth' });
   };
 
   const goTo = (dir) => {
