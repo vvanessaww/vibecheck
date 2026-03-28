@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
 import { calculateChemistry } from '../../data/chemistry';
 import { buildChallengeUrl } from '../../utils/shareUrl';
@@ -33,7 +34,9 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
   };
 
   return (
-    <div className="flex flex-col items-center w-full h-full overflow-y-auto" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
+    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
+      <Divider text="Coachella Chemistry" />
+
       {/* Chemistry Score */}
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
@@ -41,9 +44,6 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
         transition={{ duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] }}
         className="text-center mb-4"
       >
-        <p className="font-inter text-[10px] font-bold tracking-[0.25em] text-white/50 uppercase mb-1">
-          Coachella Chemistry
-        </p>
         <div className="relative inline-flex items-center justify-center">
           <svg width="120" height="120" viewBox="0 0 120 120">
             <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="6" />
@@ -119,15 +119,9 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7, duration: 0.4 }}
-          className="w-full max-w-[400px] px-4 mb-4"
+          className="w-full max-w-[400px] px-4 mb-3"
         >
-          <div className="flex items-center gap-2 mb-2">
-            <div className="flex-1 h-px bg-white/10" />
-            <span className="font-inter text-[9px] font-bold tracking-[0.2em] text-accent-teal uppercase">
-              Mutual Sets
-            </span>
-            <div className="flex-1 h-px bg-white/10" />
-          </div>
+          <Divider text={`${mutualArtists.length} Mutual Set${mutualArtists.length === 1 ? '' : 's'}`} />
           <div className="flex flex-wrap justify-center gap-2">
             {mutualArtists.map((artist) => (
               <span
@@ -146,28 +140,27 @@ export default function CompareScreen({ myData, challengerData, onShareCard }) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}
-          className="font-inter text-[11px] text-white/30 italic mb-4"
+          className="font-inter text-[11px] text-white/30 italic mb-3"
         >
           No overlapping picks — you&apos;ll be discovering each other&apos;s taste all weekend
         </motion.p>
       )}
 
-      {/* Actions */}
-      <div className="flex flex-col items-center gap-3 mt-2 shrink-0 pb-4">
-        <button
-          onClick={onShareCard}
-          className="px-10 py-3 bg-orange text-white font-black uppercase tracking-widest text-xs rounded-full transition-transform active:scale-95 hover:scale-105"
-          style={{ boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
-        >
-          Export Share Card
-        </button>
-        <button
-          onClick={handleCopyLink}
-          className="px-8 py-2.5 bg-white/10 border border-white/20 text-white font-bold uppercase tracking-widest text-[10px] rounded-full transition-all active:scale-95 hover:bg-white/15"
-        >
-          {copied ? 'Link Copied!' : 'Challenge Another Friend'}
-        </button>
-      </div>
+      {/* Actions — primary CTA first, matching ResultScreen order */}
+      <button
+        onClick={handleCopyLink}
+        className="px-10 py-3 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 bg-orange"
+        style={{ letterSpacing: '0.1em', fontSize: '12px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
+      >
+        {copied ? 'Link Copied!' : 'Challenge Another Friend'}
+      </button>
+
+      <button
+        onClick={onShareCard}
+        className="mt-2 px-8 py-2.5 bg-white/10 border border-white/20 text-white font-bold uppercase tracking-widest text-[10px] rounded-full transition-all active:scale-95 hover:bg-white/15"
+      >
+        Export Share Card
+      </button>
     </div>
   );
 }
