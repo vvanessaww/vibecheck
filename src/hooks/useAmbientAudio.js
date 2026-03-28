@@ -31,11 +31,11 @@ function createWindNode(ctx) {
 
   // Gain for the base wind layer
   const baseGain = ctx.createGain();
-  baseGain.gain.value = 0.12;
+  baseGain.gain.value = 0.35;
 
   // Gain for the whistle layer
   const whistleGain = ctx.createGain();
-  whistleGain.gain.value = 0.04;
+  whistleGain.gain.value = 0.1;
 
   // LFO to modulate filter frequency (wind gusts)
   const lfo = ctx.createOscillator();
@@ -62,9 +62,9 @@ function createWindNode(ctx) {
 
 export function useAmbientAudio() {
   const [muted, setMuted] = useState(true);
+  const mutedRef = useRef(true);
   const ctxRef = useRef(null);
   const masterRef = useRef(null);
-  const nodesRef = useRef(null);
   const startedRef = useRef(false);
 
   const initAudio = useCallback(() => {
@@ -75,33 +75,33 @@ export function useAmbientAudio() {
     ctxRef.current = ctx;
 
     const master = ctx.createGain();
-    master.gain.value = 0; // start silent
+    master.gain.value = 0;
     master.connect(ctx.destination);
     masterRef.current = master;
 
     const nodes = createWindNode(ctx);
     nodes.baseGain.connect(master);
     nodes.whistleGain.connect(master);
-    nodesRef.current = nodes;
   }, []);
 
   const toggle = useCallback(() => {
     initAudio();
-    const next = !muted;
+    const next = !mutedRef.current;
+    mutedRef.current = next;
     setMuted(next);
 
-    if (masterRef.current && ctxRef.current) {
-      if (ctxRef.current.state === 'suspended') {
-        ctxRef.current.resume();
-      }
-      masterRef.current.gain.cancelScheduledValues(ctxRef.current.currentTime);
-      masterRef.current.gain.setTargetAtTime(
-        next ? 0 : 1,
-        ctxRef.current.currentTime,
-        0.5, // fade time
-      );
+    const ctx = ctxRef.current;
+    const master = masterRef.current;
+    if (!ctx || !master) return;
+
+    if (ctx.state === 'suspended') {
+      ctx.resume();
     }
-  }, [muted, initAudio]);
+    const now = ctx.currentTime;
+    master.gain.cancelScheduledValues(now);
+    master.gain.setValueAtTime(master.gain.value, now);
+    master.gain.linearRampToValueAtTime(next ? 0 : 1, now + 0.5);
+  }, [initAudio]);
 
   // Cleanup on unmount
   useEffect(() => {
