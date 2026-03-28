@@ -1,7 +1,7 @@
 import Header from './Header';
 import Footer from './Footer';
 
-const QUIZ_SCREENS = ['headliner', 'thisOrThat', 'swipe', 'dayDraft', 'genre', 'vibeCheck', 'hotTakes'];
+const QUIZ_SCREENS = ['headliner', 'thisOrThat', 'dayDraft', 'genre', 'vibeCheck', 'hotTakes'];
 
 export default function PhoneFrame({ children, showHeader = true, showFooter = true, currentScreen, onBack }) {
   const quizIndex = QUIZ_SCREENS.indexOf(currentScreen);

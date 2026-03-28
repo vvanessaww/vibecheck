@@ -69,5 +69,9 @@ export const VIBE_CHECK_QUESTIONS = [
 export const HOT_TAKES = [
   { id: 'ht1', text: 'The Sahara tent is overrated', agreeWeights: { dolab: 2, feels: 1 }, disagreeWeights: { sahara: 3 } },
   { id: 'ht2', text: 'Camping is the only way to do Coachella', agreeWeights: { campground: 3 }, disagreeWeights: { influencer: 2 } },
-  { id: 'ht3', text: "You don't need to know the lineup to have the best time", agreeWeights: { quasar: 3, dolab: 1 }, disagreeWeights: { scientist: 2 } },
+  { id: 'ht3', text: 'Riding the rail for your favorite headliner?', agreeWeights: { feels: 2, scientist: 1 }, disagreeWeights: { dolab: 1, campground: 1 } },
+  { id: 'ht4', text: 'Outfit changes planned for every sunset?', agreeWeights: { influencer: 3 }, disagreeWeights: { campground: 1, scientist: 1 } },
+  { id: 'ht5', text: 'Front row for the surprise guest set?', agreeWeights: { dolab: 2, quasar: 1 }, disagreeWeights: { influencer: 1, campground: 1 } },
+  { id: 'ht6', text: 'Staying until the very last act plays?', agreeWeights: { sahara: 2, campground: 2 }, disagreeWeights: { scientist: 1 } },
+  { id: 'ht7', text: "You don't need to know the lineup to have the best time", agreeWeights: { quasar: 3, dolab: 1 }, disagreeWeights: { scientist: 2 } },
 ];
