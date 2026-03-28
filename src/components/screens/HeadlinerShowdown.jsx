@@ -32,12 +32,12 @@ export default function HeadlinerShowdown({ onComplete }) {
         Which Headliner<br />Would You See?
       </h2>
 
-      <div className="w-full flex-1 relative flex items-center">
+      <div className="w-full flex-1 relative flex items-center overflow-hidden">
         <div
           ref={scrollRef}
-          className="w-full h-[420px] flex overflow-x-auto gap-5 px-[50px] snap-x snap-mandatory items-center pb-8 pt-4"
+          className="w-full h-[420px] flex overflow-x-auto gap-5 px-[76px] snap-x snap-mandatory items-center pb-8 pt-4"
           onScroll={handleScroll}
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' }}
         >
           {HEADLINER_OPTIONS.map((artist) => (
             <ArtistCard

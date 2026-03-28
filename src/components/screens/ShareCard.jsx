@@ -9,7 +9,7 @@ export default function ShareCard({ personaId, onBack }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full p-4" style={{ animation: 'fadeIn 0.5s ease-out forwards', minHeight: '600px' }}>
+    <div className="flex flex-col items-center justify-center w-full h-full p-4" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
       <div
         id="share-card"
         className="w-full relative overflow-hidden flex flex-col p-6 items-center justify-between text-center shadow-2xl"

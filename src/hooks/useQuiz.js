@@ -17,7 +17,6 @@ export const SCREENS = {
 };
 
 const SCREEN_ORDER = [
-  SCREENS.SPLASH,
   SCREENS.START,
   SCREENS.HEADLINER,
   SCREENS.THIS_OR_THAT,
@@ -33,7 +32,7 @@ const SCREEN_ORDER = [
 
 function initialState() {
   return {
-    currentScreen: SCREENS.SPLASH,
+    currentScreen: SCREENS.START,
     scores: emptyScores(),
     answers: {},
   };

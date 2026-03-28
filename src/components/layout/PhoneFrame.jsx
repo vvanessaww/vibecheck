@@ -3,9 +3,9 @@ import Footer from './Footer';
 
 export default function PhoneFrame({ children, showHeader = true, showFooter = true }) {
   return (
-    <div className="w-full min-h-dvh bg-black flex justify-center items-center font-inter">
+    <div className="w-full min-h-dvh bg-gradient-to-b from-teal-dark via-teal-mid to-purple-dark flex justify-center items-center font-inter">
       <div
-        className="relative w-full max-w-[393px] bg-gradient-to-b from-teal-dark via-teal-mid to-purple-dark overflow-hidden flex flex-col shadow-2xl"
+        className="relative w-full max-w-[393px] overflow-hidden flex flex-col"
         style={{ height: '100dvh', maxHeight: '852px' }}
       >
         {showHeader && <Header />}

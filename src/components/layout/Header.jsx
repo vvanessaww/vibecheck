@@ -5,16 +5,16 @@ export default function Header() {
         Goldenvoice Presents In Indio
       </p>
       <h1
-        className="font-oswald text-4xl font-black uppercase tracking-tighter leading-none text-center"
+        className="font-oswald text-4xl font-black uppercase leading-none text-center text-white"
         style={{
           transform: 'scaleY(1.1)',
-          animation: 'glow 2s ease-in-out infinite alternate',
+          letterSpacing: '0.08em',
         }}
       >
         Vibecheck
       </h1>
       <p className="text-[6px] tracking-[0.3em] text-gray-300 mt-2 font-bold uppercase opacity-80 text-center">
-        Music And Arts Festival Persona Quiz
+        Coachella Valley Music And Arts Festival
       </p>
     </header>
   );

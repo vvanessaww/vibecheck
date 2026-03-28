@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import PhoneFrame from './components/layout/PhoneFrame';
-import SplashScreen from './components/screens/SplashScreen';
 import StartScreen from './components/screens/StartScreen';
 import HeadlinerShowdown from './components/screens/HeadlinerShowdown';
 import ThisOrThat from './components/screens/ThisOrThat';
@@ -34,12 +33,10 @@ function App() {
     quiz.nextScreen();
   };
 
-  const hideChrome = quiz.currentScreen === SCREENS.SPLASH || quiz.currentScreen === SCREENS.SHARE;
+  const hideChrome = quiz.currentScreen === SCREENS.SHARE;
 
   const renderScreen = () => {
     switch (quiz.currentScreen) {
-      case SCREENS.SPLASH:
-        return null;
       case SCREENS.START:
         return <StartScreen onStart={quiz.nextScreen} />;
       case SCREENS.HEADLINER:
@@ -80,9 +77,6 @@ function App() {
 
   return (
     <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome}>
-      {quiz.currentScreen === SCREENS.SPLASH && (
-        <SplashScreen onDismiss={quiz.nextScreen} />
-      )}
       {renderScreen()}
     </PhoneFrame>
   );

@@ -22,11 +22,8 @@ export default function Footer() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#112e1a] mix-blend-multiply" />
       </div>
       <div className="absolute bottom-1 w-full text-center z-30 pb-1">
-        <p className="text-[6px] text-gray-400 tracking-[0.2em] uppercase font-bold">
-          The Official Unofficial
-        </p>
-        <p className="text-[8px] text-white font-black tracking-[0.2em] uppercase">
-          Vibe Assessment
+        <p className="text-[8px] text-white/60 tracking-[0.15em] font-bold">
+          made with &lt;3 by vanessa
         </p>
       </div>
     </footer>

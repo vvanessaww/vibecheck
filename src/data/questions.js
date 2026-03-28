@@ -70,9 +70,6 @@ export const VIBE_CHECK_QUESTIONS = [
 
 export const HOT_TAKES = [
   { id: 'ht1', text: 'The Sahara tent is overrated', agreeWeights: { dolab: 2, feels: 1 }, disagreeWeights: { sahara: 3 } },
-  { id: 'ht2', text: 'Sunday headliner is always the weakest', agreeWeights: { scientist: 1, campground: 1 }, disagreeWeights: { feels: 2 } },
-  { id: 'ht3', text: 'Spicy Pie is mid', agreeWeights: { influencer: 1, scientist: 1 }, disagreeWeights: { campground: 2, sahara: 1 } },
-  { id: 'ht4', text: 'The Do Lab is the real main stage', agreeWeights: { dolab: 3 }, disagreeWeights: { feels: 1, influencer: 1 } },
-  { id: 'ht5', text: 'Camping is the only way to do Coachella', agreeWeights: { campground: 3 }, disagreeWeights: { influencer: 2 } },
-  { id: 'ht6', text: "You don't need to know the lineup to have the best time", agreeWeights: { quasar: 3, dolab: 1 }, disagreeWeights: { scientist: 2 } },
+  { id: 'ht2', text: 'Camping is the only way to do Coachella', agreeWeights: { campground: 3 }, disagreeWeights: { influencer: 2 } },
+  { id: 'ht3', text: "You don't need to know the lineup to have the best time", agreeWeights: { quasar: 3, dolab: 1 }, disagreeWeights: { scientist: 2 } },
 ];
