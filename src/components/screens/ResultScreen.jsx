@@ -29,7 +29,7 @@ export default function ResultScreen({ personaId, playerName, dayPicks, challeng
   useEffect(() => {
     if (myPlayerId || !personaId || !playerName) return;
     savePlayer({ name: playerName, personaId, dayPicks })
-      .then((player) => onPlayerSaved(player.id))
+      .then((player) => { if (player?.id) onPlayerSaved(player.id); })
       .catch(() => { /* offline fallback — challenge links won't persist */ });
   }, [personaId, playerName, myPlayerId]);
 

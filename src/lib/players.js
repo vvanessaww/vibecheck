@@ -1,9 +1,11 @@
 import { supabase } from './supabase';
 
 /**
- * Save a player's quiz result. Returns the new player row.
+ * Save a player's quiz result. Returns the new player row, or null if Supabase is unavailable.
  */
 export async function savePlayer({ name, personaId, dayPicks }) {
+  if (!supabase) return null;
+
   const { data, error } = await supabase
     .from('players')
     .insert({ name, persona_id: personaId, day_picks: dayPicks })
@@ -15,9 +17,11 @@ export async function savePlayer({ name, personaId, dayPicks }) {
 }
 
 /**
- * Fetch a player by ID. Returns null if not found.
+ * Fetch a player by ID. Returns null if not found or Supabase is unavailable.
  */
 export async function getPlayer(id) {
+  if (!supabase) return null;
+
   const { data, error } = await supabase
     .from('players')
     .select()
@@ -32,6 +36,8 @@ export async function getPlayer(id) {
  * Record a challenge between two players.
  */
 export async function saveChallenge({ challengerId, recipientId, chemistryScore }) {
+  if (!supabase) return null;
+
   const { data, error } = await supabase
     .from('challenges')
     .insert({
@@ -50,6 +56,8 @@ export async function saveChallenge({ challengerId, recipientId, chemistryScore 
  * Get all challenges involving a player (as challenger or recipient).
  */
 export async function getChallengesForPlayer(playerId) {
+  if (!supabase) return [];
+
   const { data, error } = await supabase
     .from('challenges')
     .select(`
