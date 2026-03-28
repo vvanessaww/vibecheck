@@ -239,10 +239,10 @@ function StageTent({ width = 40, height = 30, color = 'rgba(255,255,255,0.1)' })
 
 export default function Footer() {
   return (
-    <footer className="absolute bottom-0 left-0 right-0 h-[200px] pointer-events-none z-10 flex flex-col justify-end">
-      <div className="absolute bottom-12 w-full h-40 bg-gradient-to-t from-orange-red to-transparent opacity-60 mix-blend-overlay" />
+    <footer className="absolute bottom-0 left-0 right-0 h-[230px] pointer-events-none z-10 flex flex-col justify-end">
+      <div className="absolute bottom-[42px] w-full h-40 bg-gradient-to-t from-orange-red to-transparent opacity-60 mix-blend-overlay" />
       <svg
-        className="absolute bottom-8 w-full h-32"
+        className="absolute bottom-[38px] w-full h-32"
         viewBox="0 0 1440 100"
         preserveAspectRatio="none"
       >
@@ -259,21 +259,21 @@ export default function Footer() {
       </svg>
 
       {/* Palm trees - left cluster */}
-      <div className="absolute bottom-7 left-2 z-15 flex items-end gap-1">
+      <div className="absolute bottom-[37px] left-2 z-15 flex items-end gap-1">
         <PalmTree height={90} lean={-5} />
         <PalmTree height={120} lean={-8} />
         <PalmTree height={70} lean={3} />
       </div>
 
       {/* Palm trees - right cluster */}
-      <div className="absolute bottom-7 right-2 z-15 flex items-end gap-1">
+      <div className="absolute bottom-[37px] right-2 z-15 flex items-end gap-1">
         <PalmTree height={75} lean={5} />
         <PalmTree height={110} lean={8} />
         <PalmTree height={85} lean={-3} />
       </div>
 
       {/* Stage tents */}
-      <div className="absolute bottom-8 z-14 w-full flex justify-around items-end px-[8%] pointer-events-none">
+      <div className="absolute bottom-[38px] z-14 w-full flex justify-around items-end px-[8%] pointer-events-none">
         <StageTent width={30} height={24} color="rgba(75,184,204,0.15)" />
         <StageTent width={50} height={38} color="rgba(255,92,0,0.12)" />
         <StageTent width={35} height={28} color="rgba(255,255,255,0.08)" />
@@ -282,7 +282,7 @@ export default function Footer() {
       </div>
 
       {/* Desert plants scattered between structures */}
-      <div className="absolute bottom-8 z-15 w-full flex justify-around px-[15%] items-end pointer-events-none">
+      <div className="absolute bottom-[38px] z-15 w-full flex justify-around px-[15%] items-end pointer-events-none">
         <svg width="18" height="28" viewBox="0 0 18 28"><path d="M9,28 L9,12 M9,12 C9,12 3,8 2,4 M9,12 C9,12 15,8 16,4 M9,16 C9,16 5,14 4,11 M9,16 C9,16 13,14 14,11" stroke="#1a3a20" strokeWidth="2" strokeLinecap="round" fill="none"/></svg>
         <svg width="14" height="20" viewBox="0 0 14 20"><ellipse cx="7" cy="14" rx="6" ry="6" fill="#162e18" /><ellipse cx="7" cy="9" rx="4.5" ry="5" fill="#1a3a20" /><ellipse cx="7" cy="5" rx="3" ry="4" fill="#1e4424" /></svg>
         <svg width="20" height="15" viewBox="0 0 20 15"><ellipse cx="10" cy="10" rx="9" ry="5" fill="#162e18" /><ellipse cx="7" cy="8" rx="5" ry="4" fill="#1a3a20" /></svg>
@@ -292,40 +292,40 @@ export default function Footer() {
       </div>
 
       {/* Small ground flowers */}
-      <div className="absolute bottom-7 z-16 w-full pointer-events-none">
+      <div className="absolute bottom-[37px] z-16 w-full pointer-events-none">
         <div className="absolute left-[20%]"><svg width="8" height="8" viewBox="0 0 8 8"><circle cx="4" cy="4" r="2.5" fill="#c2185b" opacity="0.6" /><circle cx="4" cy="4" r="1" fill="#ffb300" opacity="0.8" /></svg></div>
         <div className="absolute left-[35%]"><svg width="6" height="6" viewBox="0 0 6 6"><circle cx="3" cy="3" r="2" fill="#7b1fa2" opacity="0.5" /></svg></div>
         <div className="absolute right-[25%]"><svg width="7" height="7" viewBox="0 0 7 7"><circle cx="3.5" cy="3.5" r="2.5" fill="#e91e63" opacity="0.5" /><circle cx="3.5" cy="3.5" r="1" fill="#fff176" opacity="0.7" /></svg></div>
         <div className="absolute right-[40%]"><svg width="5" height="5" viewBox="0 0 5 5"><circle cx="2.5" cy="2.5" r="1.8" fill="#4caf50" opacity="0.4" /></svg></div>
       </div>
 
-      {/* Sahara tent - far left, outside the tower */}
-      <div className="absolute bottom-8 z-12" style={{ left: 'max(-20px, calc(50% - 360px))' }}>
+      {/* Sahara tent - far left */}
+      <div className="absolute bottom-[38px] z-22" style={{ left: 'max(-20px, calc(50% - 400px))' }}>
         <SaharaTent width={100} height={65} />
       </div>
 
       {/* Spectra tower - left side */}
-      <div className="absolute bottom-8 z-20" style={{ left: 'max(8px, calc(50% - 200px))' }}>
+      <div className="absolute bottom-[38px] z-22" style={{ left: 'max(8px, calc(50% - 200px))' }}>
         <SpectraTower height={130} />
       </div>
 
       {/* Ferris wheel - right side */}
-      <div className="absolute bottom-6 z-20" style={{ right: 'max(16px, calc(50% - 180px))' }}>
+      <div className="absolute bottom-[36px] z-22" style={{ right: 'max(16px, calc(50% - 180px))' }}>
         <div className="relative">
           <FerrisWheel size={120} />
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[3px] h-8 bg-white/20 rounded-full" />
         </div>
       </div>
 
-      {/* Main Stage - far right, outside the ferris wheel */}
-      <div className="absolute bottom-8 z-12" style={{ right: 'max(-20px, calc(50% - 370px))' }}>
+      {/* Main Stage - far right */}
+      <div className="absolute bottom-[38px] z-22" style={{ right: 'max(-20px, calc(50% - 410px))' }}>
         <MainStage width={120} height={75} />
       </div>
 
-      <div className="w-full h-8 bg-grass border-t-[0.5px] border-grass-border relative z-20">
+      <div className="w-full h-[38px] bg-grass border-t-[0.5px] border-grass-border relative z-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#112e1a] mix-blend-multiply" />
       </div>
-      <div className="absolute bottom-0 w-full text-center z-30 pb-2">
+      <div className="absolute bottom-0 w-full text-center z-30 pb-1.5 bg-[#0a1f12]">
         <p className="text-[11px] text-white/70 tracking-[0.1em] font-bold">
           made with &lt;3 by vanessa
         </p>
