@@ -80,8 +80,6 @@ export default function HeadlinerShowdown({ onComplete }) {
             scrollbarWidth: 'none',
             msOverflowStyle: 'none',
             WebkitOverflowScrolling: 'touch',
-            paddingLeft: 'calc(50% - 120px)',
-            paddingRight: 'calc(50% - 120px)',
           }}
         >
           {HEADLINER_OPTIONS.map((artist, i) => {
