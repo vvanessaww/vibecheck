@@ -4,6 +4,7 @@ import { emptyScores, addWeights, calculatePersona } from '../data/scoring';
 export const SCREENS = {
   SPLASH: 'splash',
   START: 'start',
+  WELCOME: 'welcome',
   HEADLINER: 'headliner',
   THIS_OR_THAT: 'thisOrThat',
   SWIPE: 'swipe',
@@ -18,6 +19,7 @@ export const SCREENS = {
 
 const SCREEN_ORDER = [
   SCREENS.START,
+  SCREENS.WELCOME,
   SCREENS.HEADLINER,
   SCREENS.THIS_OR_THAT,
   SCREENS.GENRE,
@@ -34,6 +36,7 @@ function initialState() {
     currentScreen: SCREENS.START,
     scores: emptyScores(),
     answers: {},
+    playerName: '',
   };
 }
 
@@ -68,6 +71,10 @@ export function useQuiz() {
     }));
   }, []);
 
+  const setPlayerName = useCallback((name) => {
+    setState((prev) => ({ ...prev, playerName: name }));
+  }, []);
+
   const restart = useCallback(() => {
     setState(initialState());
   }, []);
@@ -78,7 +85,9 @@ export function useQuiz() {
     currentScreen: state.currentScreen,
     scores: state.scores,
     answers: state.answers,
+    playerName: state.playerName,
     personaId,
+    setPlayerName,
     nextScreen,
     prevScreen,
     goToScreen,

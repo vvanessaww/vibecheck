@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import PhoneFrame from './components/layout/PhoneFrame';
 import StartScreen from './components/screens/StartScreen';
+import WelcomeScreen from './components/screens/WelcomeScreen';
 import HeadlinerShowdown from './components/screens/HeadlinerShowdown';
 import ThisOrThat from './components/screens/ThisOrThat';
 import SwipeOrSkip from './components/screens/SwipeOrSkip';
@@ -16,6 +17,15 @@ import { decodeQuizState } from './utils/shareUrl';
 
 function App() {
   const quiz = useQuiz();
+  const screenBackRef = useRef(null);
+
+  const handleBack = useCallback(() => {
+    if (screenBackRef.current) {
+      screenBackRef.current();
+    } else {
+      quiz.prevScreen();
+    }
+  }, [quiz.prevScreen]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -38,23 +48,25 @@ function App() {
   const renderScreen = () => {
     switch (quiz.currentScreen) {
       case SCREENS.START:
-        return <StartScreen onStart={quiz.nextScreen} />;
+        return <StartScreen onStart={quiz.nextScreen} playerName={quiz.playerName} onNameChange={quiz.setPlayerName} />;
+      case SCREENS.WELCOME:
+        return <WelcomeScreen playerName={quiz.playerName} onComplete={quiz.nextScreen} />;
       case SCREENS.HEADLINER:
         return <HeadlinerShowdown onComplete={(id, w) => handleScreenComplete('headliner', id, w)} />;
       case SCREENS.THIS_OR_THAT:
-        return <ThisOrThat onComplete={(id, w) => handleScreenComplete('thisOrThat', id, w)} />;
+        return <ThisOrThat onComplete={(id, w) => handleScreenComplete('thisOrThat', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.SWIPE:
         return <SwipeOrSkip onComplete={(id, w) => handleScreenComplete('swipe', id, w)} />;
       case SCREENS.DAY_DRAFT:
-        return <DayDraft onComplete={(id, w) => handleScreenComplete('dayDraft', id, w)} />;
+        return <DayDraft onComplete={(id, w) => handleScreenComplete('dayDraft', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.GENRE:
-        return <GenreSpectrum onComplete={(id, w) => handleScreenComplete('genre', id, w)} />;
+        return <GenreSpectrum onComplete={(id, w) => handleScreenComplete('genre', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.VIBE_CHECK:
-        return <VibeCheckScreen onComplete={(id, w) => handleScreenComplete('vibeCheck', id, w)} />;
+        return <VibeCheckScreen onComplete={(id, w) => handleScreenComplete('vibeCheck', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.HOT_TAKES:
-        return <HotTakes onComplete={(id, w) => handleScreenComplete('hotTakes', id, w)} />;
+        return <HotTakes onComplete={(id, w) => handleScreenComplete('hotTakes', id, w)} backRef={screenBackRef} onBack={quiz.prevScreen} />;
       case SCREENS.LOADING:
-        return <LoadingScreen onComplete={quiz.nextScreen} />;
+        return <LoadingScreen onComplete={quiz.nextScreen} playerName={quiz.playerName} />;
       case SCREENS.RESULT:
         return (
           <ResultScreen
@@ -76,7 +88,7 @@ function App() {
   };
 
   return (
-    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={quiz.prevScreen}>
+    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={handleBack}>
       {renderScreen()}
     </PhoneFrame>
   );

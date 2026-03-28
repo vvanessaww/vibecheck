@@ -22,27 +22,25 @@ export default function ResultScreen({ personaId, onShareCard, onRestart }) {
   const recommendations = pickMixedDays(allRecs);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
-      <Divider text="Your Official Headliner" />
+    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'slideUp 0.4s ease-out forwards' }}>
+      <Divider text="Your Stage Match" />
 
       <div className="text-center w-full mb-3">
         <h2
-          className="font-oswald font-black uppercase text-white leading-[0.8] mb-1"
+          className="font-oswald font-black uppercase text-white leading-[0.8] mb-2"
           style={{
-            fontSize: '44px',
+            fontSize: '48px',
             letterSpacing: '-0.05em',
             transform: 'scaleY(1.1)',
             animation: 'glow 2s ease-in-out infinite alternate',
           }}
         >
-          {persona.title.split(' ').map((word, i) => (
-            <span key={i}>
-              {word}
-              {i < persona.title.split(' ').length - 1 && <br />}
-            </span>
-          ))}
+          {persona.stage}
         </h2>
-        <p className="font-inter font-bold text-xs tracking-[0.1em] text-accent-teal uppercase mt-2 px-4 italic">
+        <p className="font-inter font-black uppercase text-orange text-sm tracking-[0.15em]">
+          {persona.title}
+        </p>
+        <p className="font-inter text-xs tracking-[0.05em] text-white/60 mt-1 px-4 italic">
           &ldquo;{persona.subtitle}&rdquo;
         </p>
       </div>

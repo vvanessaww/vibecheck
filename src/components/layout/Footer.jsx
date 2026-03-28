@@ -131,6 +131,92 @@ function PalmTree({ height = 100, lean = 0 }) {
   );
 }
 
+function MainStage({ width = 130, height = 80 }) {
+  return (
+    <svg style={{ width, height }} viewBox="0 0 130 80">
+      {/* Roof - wide flat canopy overhanging the structure */}
+      <path
+        d="M0,12 L130,12 L126,18 L4,18 Z"
+        fill="rgba(0,0,0,0.5)"
+      />
+      {/* Roof top edge */}
+      <rect x="0" y="10" width="130" height="3" fill="rgba(255,255,255,0.15)" />
+
+      {/* Outer truss towers - tall vertical structures on each side */}
+      <rect x="4" y="18" width="8" height="62" fill="rgba(0,0,0,0.4)" />
+      <rect x="118" y="18" width="8" height="62" fill="rgba(0,0,0,0.4)" />
+      {/* Truss cross-hatching */}
+      {[0,1,2,3,4,5].map((i) => (
+        <g key={`truss-${i}`}>
+          <line x1="4" y1={20 + i * 10} x2="12" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+          <line x1="12" y1={20 + i * 10} x2="4" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+          <line x1="118" y1={20 + i * 10} x2="126" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+          <line x1="126" y1={20 + i * 10} x2="118" y2={30 + i * 10} stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
+        </g>
+      ))}
+
+      {/* Side LED screens - angled outward like the real stage */}
+      <path d="M14,20 L14,58 L38,58 L38,24 Z" fill="rgba(255,92,0,0.12)" stroke="rgba(255,92,0,0.2)" strokeWidth="0.5" />
+      <path d="M92,24 L92,58 L116,58 L116,20 Z" fill="rgba(255,92,0,0.12)" stroke="rgba(255,92,0,0.2)" strokeWidth="0.5" />
+
+      {/* Center video wall */}
+      <rect x="40" y="22" width="50" height="38" fill="rgba(255,92,0,0.08)" />
+      <rect x="42" y="24" width="46" height="34" fill="rgba(255,92,0,0.1)" stroke="rgba(255,92,0,0.15)" strokeWidth="0.5" />
+
+      {/* Stage platform */}
+      <rect x="14" y="60" width="102" height="4" fill="rgba(255,255,255,0.08)" />
+
+      {/* Stage floor glow */}
+      <ellipse cx="65" cy="72" rx="55" ry="8" fill="rgba(255,92,0,0.06)" />
+
+      {/* Subtle pyro sparks */}
+      <circle cx="30" cy="30" r="1" fill="rgba(255,200,50,0.3)" />
+      <circle cx="100" cy="28" r="1" fill="rgba(255,200,50,0.3)" />
+      <circle cx="65" cy="20" r="0.8" fill="rgba(255,200,50,0.2)" />
+    </svg>
+  );
+}
+
+function SaharaTent({ width = 120, height = 70 }) {
+  return (
+    <svg style={{ width, height }} viewBox="0 0 120 70">
+      {/* Roof - wide flat canopy with slight curve, the modern mega-structure look */}
+      <path
+        d="M2,18 Q60,8 118,18 L118,24 Q60,14 2,24 Z"
+        fill="rgba(255,255,255,0.12)"
+        stroke="rgba(255,255,255,0.18)"
+        strokeWidth="0.5"
+      />
+      {/* Roof thickness */}
+      <path
+        d="M2,24 Q60,14 118,24 L118,26 Q60,16 2,26 Z"
+        fill="rgba(0,0,0,0.3)"
+      />
+
+      {/* Support columns */}
+      <rect x="6" y="26" width="4" height="44" fill="rgba(255,255,255,0.1)" />
+      <rect x="30" y="26" width="3" height="44" fill="rgba(255,255,255,0.07)" />
+      <rect x="57" y="26" width="3" height="44" fill="rgba(255,255,255,0.07)" />
+      <rect x="87" y="26" width="3" height="44" fill="rgba(255,255,255,0.07)" />
+      <rect x="110" y="26" width="4" height="44" fill="rgba(255,255,255,0.1)" />
+
+      {/* Interior LED screens/walls - the glowing back wall */}
+      <rect x="10" y="28" width="100" height="38" fill="rgba(75,184,204,0.05)" />
+      <rect x="14" y="30" width="28" height="34" rx="1" fill="rgba(255,0,122,0.06)" />
+      <rect x="46" y="30" width="28" height="34" rx="1" fill="rgba(75,184,204,0.08)" />
+      <rect x="78" y="30" width="28" height="34" rx="1" fill="rgba(255,92,0,0.06)" />
+
+      {/* LED light beams shooting up */}
+      <line x1="28" y1="18" x2="25" y2="4" stroke="rgba(75,184,204,0.12)" strokeWidth="1" />
+      <line x1="60" y1="14" x2="60" y2="0" stroke="rgba(255,0,122,0.1)" strokeWidth="1" />
+      <line x1="92" y1="18" x2="95" y2="4" stroke="rgba(255,92,0,0.1)" strokeWidth="1" />
+
+      {/* Ground/floor glow */}
+      <ellipse cx="60" cy="70" rx="55" ry="4" fill="rgba(75,184,204,0.06)" />
+    </svg>
+  );
+}
+
 function StageTent({ width = 40, height = 30, color = 'rgba(255,255,255,0.1)' }) {
   return (
     <svg style={{ width, height }} viewBox={`0 0 ${width} ${height}`}>
@@ -213,6 +299,11 @@ export default function Footer() {
         <div className="absolute right-[40%]"><svg width="5" height="5" viewBox="0 0 5 5"><circle cx="2.5" cy="2.5" r="1.8" fill="#4caf50" opacity="0.4" /></svg></div>
       </div>
 
+      {/* Sahara tent - far left, outside the tower */}
+      <div className="absolute bottom-8 z-12" style={{ left: 'max(-20px, calc(50% - 360px))' }}>
+        <SaharaTent width={100} height={65} />
+      </div>
+
       {/* Spectra tower - left side */}
       <div className="absolute bottom-8 z-20" style={{ left: 'max(8px, calc(50% - 200px))' }}>
         <SpectraTower height={130} />
@@ -226,12 +317,20 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Main Stage - far right, outside the ferris wheel */}
+      <div className="absolute bottom-8 z-12" style={{ right: 'max(-20px, calc(50% - 370px))' }}>
+        <MainStage width={120} height={75} />
+      </div>
+
       <div className="w-full h-8 bg-grass border-t-[0.5px] border-grass-border relative z-20">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#112e1a] mix-blend-multiply" />
       </div>
       <div className="absolute bottom-1 w-full text-center z-30 pb-1">
         <p className="text-[8px] text-white/60 tracking-[0.15em] font-bold">
           made with &lt;3 by vanessa
+          <a href="https://linkedin.com/in/vvanessaww" target="_blank" rel="noopener noreferrer" className="ml-1.5 text-[7px] text-white/40 hover:text-white/70 transition-colors pointer-events-auto underline">
+            linkedin
+          </a>
         </p>
       </div>
     </footer>

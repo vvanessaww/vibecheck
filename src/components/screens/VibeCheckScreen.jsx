@@ -1,11 +1,19 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Divider from '../layout/Divider';
 import { VIBE_CHECK_QUESTIONS } from '../../data/questions';
 
-export default function VibeCheckScreen({ onComplete }) {
+export default function VibeCheckScreen({ onComplete, backRef, onBack }) {
   const [questionIndex, setQuestionIndex] = useState(0);
   const [accumulatedWeights, setAccumulatedWeights] = useState({});
+
+  useEffect(() => {
+    if (!backRef) return;
+    backRef.current = questionIndex > 0
+      ? () => { setQuestionIndex(0); setAccumulatedWeights({}); }
+      : null;
+    return () => { backRef.current = null; };
+  }, [questionIndex, backRef]);
 
   const question = VIBE_CHECK_QUESTIONS[questionIndex];
 
@@ -24,7 +32,7 @@ export default function VibeCheckScreen({ onComplete }) {
   }, [questionIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-4 shrink-0">
         Vibe Check
       </h2>

@@ -2,7 +2,7 @@ const PERSONAS = {
   sahara: {
     id: 'sahara',
     stage: 'Sahara',
-    title: 'The Sahara Stan',
+    title: 'The Drop Chaser',
     subtitle: "Lost in the bass… but you'll probably find them in the strobe lights",
     traits: ['Glitter & Sweat', '2AM Energy', 'Unreleased Remixes', 'Strobe Light Dweller', 'Bass Face Expert', 'Sahara Native'],
     description: "Lives in the Sahara tent, knows every DJ's unreleased remix, emerges at 2am covered in glitter and sweat.",
@@ -50,7 +50,7 @@ const PERSONAS = {
   quasar: {
     id: 'quasar',
     stage: 'Quasar',
-    title: 'The Quasar Rookie',
+    title: 'The New Kid on the Block',
     subtitle: 'First year energy, zero chill, maximum discovery',
     traits: ['First Timer Energy', 'Said Yes to Everything', 'Lost 3 Times Already', 'Overpacked', 'Group Chat MVP', 'Main Character Moment'],
     description: "Everything is new, everything is exciting, everything is the best thing they've ever seen. Asked 'wait who IS that?' at least 12 times and meant it every single time.",

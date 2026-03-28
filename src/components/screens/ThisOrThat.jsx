@@ -1,11 +1,19 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { THIS_OR_THAT } from '../../data/questions';
 
-export default function ThisOrThat({ onComplete }) {
+export default function ThisOrThat({ onComplete, backRef, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [picked, setPicked] = useState(null);
   const [accumulatedWeights, setAccumulatedWeights] = useState({});
+
+  useEffect(() => {
+    if (!backRef) return;
+    backRef.current = roundIndex > 0
+      ? () => { setRoundIndex(0); setPicked(null); setAccumulatedWeights({}); }
+      : null;
+    return () => { backRef.current = null; };
+  }, [roundIndex, backRef]);
 
   const round = THIS_OR_THAT[roundIndex];
 
@@ -31,7 +39,7 @@ export default function ThisOrThat({ onComplete }) {
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full pt-0" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+    <div className="flex flex-col items-center justify-start w-full h-full pt-0" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         This or That
       </h2>
@@ -52,7 +60,7 @@ export default function ThisOrThat({ onComplete }) {
 
             return (
               <div key={side} className="contents">
-                {idx === 1 && (
+                {idx === 1 && !picked && (
                   <span
                     className="font-oswald text-2xl font-black text-orange shrink-0"
                     style={{ textShadow: '0 0 20px rgba(255,92,0,0.6)' }}

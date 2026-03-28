@@ -9,16 +9,34 @@ export default function ShareCard({ personaId, onBack }) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full p-4" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+    <div className="flex flex-col items-center justify-center w-full h-full p-4" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <div
         id="share-card"
         className="w-full max-w-[300px] mx-auto relative overflow-hidden flex flex-col px-8 py-6 items-center text-center shadow-2xl"
         style={{
           aspectRatio: '9 / 16',
-          backgroundColor: '#0c2a30',
+          background: 'linear-gradient(to bottom, #0a3d47, #0d4a57, #1a1721)',
           border: '2px solid rgba(75,184,204,0.3)',
         }}
       >
+        {/* Stars */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute rounded-full bg-white"
+              style={{
+                left: `${(i * 137.5) % 100}%`,
+                top: `${(i * 73.1) % 50}%`,
+                width: 1 + (i % 3) * 0.5,
+                height: 1 + (i % 3) * 0.5,
+                opacity: 0.4 + (i % 3) * 0.2,
+                boxShadow: `0 0 ${2 + (i % 3)}px rgba(255,255,255,0.5)`,
+              }}
+            />
+          ))}
+        </div>
+
         {/* Top branding */}
         <div className="z-10 w-full flex flex-col items-center mb-auto">
           <p className="font-bold uppercase" style={{ fontSize: '6px', letterSpacing: '0.3em', color: '#4bb8cc' }}>
@@ -35,16 +53,19 @@ export default function ShareCard({ personaId, onBack }) {
         {/* Persona + confirmed vibe grouped together */}
         <div className="z-10 flex flex-col items-center">
           <p className="font-caveat" style={{ color: '#ff5c00', fontSize: '22px', transform: 'rotate(-6deg)', marginBottom: '6px' }}>
-            My Festival Persona:
+            My Stage Match:
           </p>
           <h2
             className="font-oswald font-black uppercase text-white"
-            style={{ fontSize: '34px', letterSpacing: '-0.05em', lineHeight: '0.85' }}
+            style={{ fontSize: '38px', letterSpacing: '-0.05em', lineHeight: '0.85' }}
           >
-            {persona.title.replace('The ', '')}
+            {persona.stage}
           </h2>
-          <p className="font-inter font-black uppercase mt-2 mb-3" style={{ fontSize: '9px', letterSpacing: '0.15em', color: 'rgba(255,255,255,0.6)' }}>
-            {persona.subtitle}
+          <p className="font-inter font-black uppercase mt-2" style={{ fontSize: '11px', letterSpacing: '0.1em', color: '#ff5c00' }}>
+            {persona.title}
+          </p>
+          <p className="font-inter italic mb-3" style={{ fontSize: '8px', letterSpacing: '0.05em', color: 'rgba(255,255,255,0.5)', marginTop: '4px' }}>
+            &ldquo;{persona.subtitle}&rdquo;
           </p>
 
           {/* Confirmed vibe - directly below subtitle */}

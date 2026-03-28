@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { FRIDAY_LINEUP, SATURDAY_LINEUP, SUNDAY_LINEUP } from '../../data/lineup';
 
 const DAYS = [
@@ -9,9 +9,17 @@ const DAYS = [
 
 const MAX_PICKS = 5;
 
-export default function DayDraft({ onComplete }) {
+export default function DayDraft({ onComplete, backRef, onBack }) {
   const [dayIndex, setDayIndex] = useState(0);
   const [selectedByDay, setSelectedByDay] = useState([[], [], []]);
+
+  useEffect(() => {
+    if (!backRef) return;
+    backRef.current = dayIndex > 0
+      ? () => { setDayIndex(0); setSelectedByDay([[], [], []]); }
+      : null;
+    return () => { backRef.current = null; };
+  }, [dayIndex, backRef]);
 
   const day = DAYS[dayIndex];
   const selected = selectedByDay[dayIndex];
@@ -51,7 +59,7 @@ export default function DayDraft({ onComplete }) {
   const isLastDay = dayIndex === DAYS.length - 1;
 
   return (
-    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <h2 className={`font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase shrink-0 ${dayIndex === 0 ? 'mb-1' : 'mb-4'}`}>
         Choose Your Top 5 — {day.label}
       </h2>
@@ -72,7 +80,7 @@ export default function DayDraft({ onComplete }) {
               </div>
               <div className="flex-1 pr-4">
                 <div className="text-base font-bold tracking-[0.05em] font-inter text-white">{artist.name}</div>
-                <div className="text-[0.6rem] tracking-[0.2em] text-black uppercase font-inter font-bold">
+                <div className="text-[0.6rem] tracking-[0.2em] text-white/50 uppercase font-inter font-bold">
                   {artist.stage}
                 </div>
               </div>
@@ -90,8 +98,8 @@ export default function DayDraft({ onComplete }) {
       </div>
 
       <div className="w-full max-w-[400px] mx-auto px-2 flex justify-between items-center shrink-0 pt-3 pb-1">
-        <div>
-          <span className="text-[0.6rem] tracking-[0.2em] uppercase opacity-70 font-inter block">Selected</span>
+        <div className="bg-orange/80 rounded-lg px-3 py-1.5">
+          <span className="text-[0.6rem] tracking-[0.2em] uppercase text-white/70 font-inter block">Selected</span>
           <span className="font-oswald text-2xl font-black text-white">
             {selected.length}/{MAX_PICKS}
           </span>

@@ -54,9 +54,9 @@ export default function HeadlinerShowdown({ onComplete }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
-        Which Headliner<br />Would You See?
+        Which Headliner Are You<br />Most Excited to See?
       </h2>
       <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(choose wisely... or don&apos;t)</p>
 

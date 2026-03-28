@@ -127,6 +127,7 @@ export default function Sky() {
   const progress = (time % CYCLE_DURATION) / CYCLE_DURATION;
   const celestialX = -10 + progress * 120;
   const celestialY = 20 - Math.sin(progress * Math.PI) * 15;
+  const celestialOpacity = celestialX < 0 ? 0 : celestialX > 100 ? 0 : Math.min(celestialX / 5, (100 - celestialX) / 5, 1);
 
   return (
     <>
@@ -160,7 +161,8 @@ export default function Sky() {
         style={{
           left: `${celestialX}%`,
           top: `${celestialY}%`,
-          transition: 'left 0.1s linear, top 0.1s linear',
+          opacity: celestialOpacity,
+          transition: 'left 0.1s linear, top 0.1s linear, opacity 0.3s ease',
         }}
       >
         <div

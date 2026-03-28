@@ -14,14 +14,14 @@ function EqBar({ color, delay }) {
   );
 }
 
-export default function LoadingScreen({ onComplete }) {
+export default function LoadingScreen({ onComplete, playerName }) {
   useEffect(() => {
     const timer = setTimeout(onComplete, 2500);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'fadeIn 0.5s ease-out forwards' }}>
+    <div className="flex flex-col items-center justify-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
       <div className="relative w-48 h-48 mb-10 flex items-center justify-center">
         <div
           className="absolute w-full h-full rounded-full bg-neutral-900 border-4 border-neutral-800 shadow-2xl"
@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }) {
 
       <div className="text-center space-y-2">
         <h2 className="font-oswald text-3xl font-black uppercase tracking-tighter text-white animate-pulse">
-          Reading Your Vibes...
+          Checking {playerName ? `${playerName}'s` : 'Your'} Vibes...
         </h2>
         <p className="text-[10px] font-bold tracking-[0.2em] text-accent-teal uppercase opacity-80 font-inter">
           Scanning Frequencies
