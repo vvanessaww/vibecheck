@@ -48,9 +48,10 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
       <AnimatePresence mode="wait">
         <motion.div
           key={roundIndex}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -40 }}
+          transition={{ duration: 0.25 }}
           className="flex flex-col items-center justify-center w-full max-w-[400px] mx-auto px-4 gap-3"
         >
           {['left', 'right'].map((side, idx) => {
