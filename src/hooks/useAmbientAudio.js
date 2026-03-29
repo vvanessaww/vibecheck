@@ -154,36 +154,33 @@ function createCrowdCheers(ctx, master) {
 
 export function useAmbientAudio() {
   const [muted, setMuted] = useState(true);
-  const mutedRef = useRef(true);
-  const ctxRef = useRef(null);
-  const masterRef = useRef(null);
-  const startedRef = useRef(false);
+  const refs = useRef({ ctx: null, master: null, started: false, muted: true });
 
-  const initAudio = useCallback(() => {
-    if (startedRef.current) return;
-    startedRef.current = true;
+  // No useCallback — must be a plain function so iOS treats
+  // AudioContext creation as part of the synchronous tap handler
+  function toggle() {
+    const r = refs.current;
 
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    ctxRef.current = ctx;
+    // Create AudioContext on first tap — must happen synchronously in gesture
+    if (!r.started) {
+      r.started = true;
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      r.ctx = ctx;
+      const master = ctx.createGain();
+      master.gain.value = 0;
+      master.connect(ctx.destination);
+      r.master = master;
+      createBassThump(ctx, master);
+    }
 
-    const master = ctx.createGain();
-    master.gain.value = 0;
-    master.connect(ctx.destination);
-    masterRef.current = master;
-
-    createBassThump(ctx, master);
-  }, []);
-
-  const toggle = useCallback(() => {
-    initAudio();
-    const next = !mutedRef.current;
-    mutedRef.current = next;
+    const next = !r.muted;
+    r.muted = next;
     setMuted(next);
 
-    const ctx = ctxRef.current;
-    const master = masterRef.current;
+    const { ctx, master } = r;
     if (!ctx || !master) return;
 
+    // Resume must also be synchronous in the tap handler
     if (ctx.state === 'suspended') {
       ctx.resume();
     }
@@ -191,12 +188,12 @@ export function useAmbientAudio() {
     master.gain.cancelScheduledValues(now);
     master.gain.setValueAtTime(master.gain.value, now);
     master.gain.linearRampToValueAtTime(next ? 0 : 1, now + 0.5);
-  }, [initAudio]);
+  }
 
   useEffect(() => {
     return () => {
-      if (ctxRef.current) {
-        ctxRef.current.close();
+      if (refs.current.ctx) {
+        refs.current.ctx.close();
       }
     };
   }, []);
