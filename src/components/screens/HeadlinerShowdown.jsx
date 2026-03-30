@@ -45,8 +45,15 @@ export default function HeadlinerShowdown({ onComplete }) {
     setActiveIndex(closest);
   };
 
-  const handleLockIn = () => {
-    onComplete(activeArtist.id, activeArtist.weights);
+  const [selected, setSelected] = useState(null);
+
+  const handleSelect = (index) => {
+    if (selected !== null) return;
+    setSelected(index);
+    const artist = HEADLINER_OPTIONS[index];
+    setTimeout(() => {
+      onComplete(artist.id, artist.weights);
+    }, 600);
   };
 
   useEffect(() => {
@@ -100,13 +107,16 @@ export default function HeadlinerShowdown({ onComplete }) {
                   if (!isFocused) {
                     setActiveIndex(i);
                     scrollToIndex(i);
+                  } else {
+                    handleSelect(i);
                   }
                 }}
               >
                 <ArtistCard
                   artist={artist}
-                  isSelected={isFocused}
-                  isDeselected={false}
+                  isSelected={selected === i}
+                  isDeselected={selected !== null && selected !== i}
+                  isFocused={isFocused}
                   onSelect={() => {}}
                 />
               </div>
@@ -137,19 +147,6 @@ export default function HeadlinerShowdown({ onComplete }) {
         ))}
       </div>
 
-      {/* Lock in button - always visible since focused card is auto-selected */}
-      <div className="w-full max-w-[400px] mx-auto px-8 mt-2 mb-4 shrink-0">
-        <button
-          onClick={handleLockIn}
-          className="w-full bg-orange text-white font-black py-4 rounded-full uppercase tracking-widest text-xs flex items-center justify-center gap-2 active:scale-95 transition-all"
-          style={{ boxShadow: '0 0 20px rgba(255,92,0,0.4)' }}
-        >
-          Lock In Answer
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-          </svg>
-        </button>
-      </div>
     </div>
   );
 }

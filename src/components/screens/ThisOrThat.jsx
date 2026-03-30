@@ -63,18 +63,19 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
                     VS
                   </span>
                 )}
-                <div
-                  onClick={() => handlePick(side)}
-                  className={`w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all duration-300 ${
-                    isWinner ? 'scale-105 border-orange bg-orange/20' :
-                    isLoser ? 'scale-95 opacity-30 border-transparent' :
-                    'border-white/15 bg-[rgba(19,92,107,0.5)] hover:scale-[1.04] hover:border-orange hover:bg-orange/15 hover:shadow-[0_0_20px_rgba(255,92,0,0.3)]'
-                  }`}
-                >
-                  <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
-                    {option.name}
-                  </h3>
-                </div>
+                {!isLoser && (
+                  <div
+                    onClick={() => handlePick(side)}
+                    className={`w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all duration-300 ${
+                      isWinner ? 'scale-105 border-orange bg-orange/20' :
+                      'border-white/15 bg-[rgba(19,92,107,0.5)] hover:scale-[1.04] hover:border-orange hover:bg-orange/15 hover:shadow-[0_0_20px_rgba(255,92,0,0.3)]'
+                    }`}
+                  >
+                    <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
+                      {option.name}
+                    </h3>
+                  </div>
+                )}
               </div>
             );
           })}
