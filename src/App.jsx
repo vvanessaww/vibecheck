@@ -105,6 +105,7 @@ function App() {
           <ResultScreen
             personaId={quiz.personaId}
             playerName={quiz.playerName}
+            scores={quiz.scores}
             dayPicks={quiz.dayPicks}
             challenger={quiz.challenger}
             myPlayerId={myPlayerId}
@@ -127,6 +128,9 @@ function App() {
         return (
           <ShareCard
             personaId={quiz.personaId}
+            playerName={quiz.playerName}
+            scores={quiz.scores}
+            dayPicks={quiz.dayPicks}
             onBack={() => quiz.goToScreen(quiz.challenger ? SCREENS.COMPARE : SCREENS.RESULT)}
           />
         );

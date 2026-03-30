@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { getPersona } from '../../data/personas';
+import { getPersonalizedRecs } from '../../data/lineup';
 import { exportCardAsImage } from '../../utils/exportImage';
 
-export default function ShareCard({ personaId, onBack }) {
+export default function ShareCard({ personaId, playerName, scores, dayPicks, onBack }) {
   const persona = getPersona(personaId);
+  const recommendations = getPersonalizedRecs(scores || {}, dayPicks);
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
     if (saving) return;
     setSaving(true);
     try {
-      const result = await exportCardAsImage('share-card', persona);
+      const result = await exportCardAsImage('share-card', { ...persona, playerName, recommendations });
       if (result && !result.ok) {
         alert(result.error || 'Failed to save image');
       }
@@ -66,7 +68,7 @@ export default function ShareCard({ personaId, onBack }) {
         {/* Persona + confirmed vibe grouped together */}
         <div className="z-10 flex flex-col items-center">
           <p className="font-caveat" style={{ color: '#ff5c00', fontSize: '22px', transform: 'rotate(-6deg)', marginBottom: '6px' }}>
-            My Stage Match:
+            {playerName ? `${playerName}'s Stage Match:` : 'My Stage Match:'}
           </p>
           <h2
             className="font-oswald font-black uppercase text-white"

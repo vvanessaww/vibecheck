@@ -46,14 +46,14 @@ export default function HeadlinerShowdown({ onComplete }) {
   };
 
   const [selected, setSelected] = useState(null);
+  const [fading, setFading] = useState(false);
 
   const handleSelect = (index) => {
     if (selected !== null) return;
     setSelected(index);
     const artist = HEADLINER_OPTIONS[index];
-    setTimeout(() => {
-      onComplete(artist.id, artist.weights);
-    }, 600);
+    setTimeout(() => setFading(true), 1000);
+    setTimeout(() => onComplete(artist.id, artist.weights), 1500);
   };
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function HeadlinerShowdown({ onComplete }) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-full h-full" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
+    <div className="flex flex-col items-center w-full h-full transition-opacity duration-500" style={{ animation: 'fadeIn 0.4s ease-out forwards', opacity: fading ? 0 : 1 }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         Which Headliner Are You<br />Most Excited to See?
       </h2>

@@ -129,7 +129,8 @@ function drawShareCard(canvas, persona) {
   ctx.font = 'italic 46px Caveat, cursive';
   ctx.fillStyle = '#ff5c00';
   ctx.textAlign = 'center';
-  ctx.fillText('My Stage Match:', 0, 0);
+  const matchLabel = persona.playerName ? `${persona.playerName}'s Stage Match:` : 'My Stage Match:';
+  ctx.fillText(matchLabel, 0, 0);
   ctx.restore();
 
   // Stage name — large, auto-fit, multi-line if needed
@@ -191,6 +192,36 @@ function drawShareCard(canvas, persona) {
 
   if (row1.length) drawTraitRow(row1, traitRowY1);
   if (row2.length) drawTraitRow(row2, traitRowY2);
+
+  // Artist recommendations
+  const recs = persona.recommendations || [];
+  if (recs.length > 0) {
+    const recsStartY = (row2.length ? traitRowY2 : traitRowY1) + 45;
+
+    // Divider
+    ctx.strokeStyle = 'rgba(75,184,204,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad, recsStartY);
+    ctx.lineTo(w / 2 - 80, recsStartY);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w / 2 + 80, recsStartY);
+    ctx.lineTo(w - pad, recsStartY);
+    ctx.stroke();
+    centerText('D O N \u2019 T  M I S S', recsStartY + 5, '700 11px Inter, sans-serif', '#4bb8cc');
+
+    recs.forEach((rec, i) => {
+      const recY = recsStartY + 30 + i * 24;
+      centerText(`${rec.name}`, recY, '700 14px Inter, sans-serif', '#ffffff');
+      ctx.font = '600 10px Inter, sans-serif';
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      const nameWidth = (() => { ctx.font = '700 14px Inter, sans-serif'; return ctx.measureText(rec.name).width; })();
+      ctx.font = '600 10px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${rec.day}  \u2022  ${rec.stage}`, w / 2, recY + 14);
+    });
+  }
 
   // Bottom branding
   centerText('vanessazwang.com/vibecheck', h - 30, '600 12px Inter, sans-serif', 'rgba(255,255,255,0.3)');

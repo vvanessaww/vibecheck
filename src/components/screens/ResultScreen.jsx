@@ -1,28 +1,13 @@
 import { useState, useEffect } from 'react';
 import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
-import { ARTIST_RECOMMENDATIONS } from '../../data/lineup';
+import { getPersonalizedRecs } from '../../data/lineup';
 import { buildChallengeUrlById } from '../../utils/shareUrl';
 import { savePlayer } from '../../lib/players';
 
-function pickMixedDays(recs) {
-  const byDay = { Friday: [], Saturday: [], Sunday: [] };
-  for (const r of recs) {
-    if (byDay[r.day]) byDay[r.day].push(r);
-  }
-  const picked = [];
-  for (const day of ['Friday', 'Saturday', 'Sunday']) {
-    if (byDay[day].length > 0) {
-      picked.push(byDay[day][0]);
-    }
-  }
-  return picked;
-}
-
-export default function ResultScreen({ personaId, playerName, dayPicks, challenger, myPlayerId, onPlayerSaved, onShareCard, onCompare, onRestart }) {
+export default function ResultScreen({ personaId, playerName, scores, dayPicks, challenger, myPlayerId, onPlayerSaved, onShareCard, onCompare, onRestart }) {
   const persona = getPersona(personaId);
-  const allRecs = ARTIST_RECOMMENDATIONS[personaId] || [];
-  const recommendations = pickMixedDays(allRecs);
+  const recommendations = getPersonalizedRecs(scores || {}, dayPicks);
   const [copied, setCopied] = useState(false);
 
   // Save player to Supabase on first render of result screen

@@ -4,6 +4,7 @@ import { THIS_OR_THAT } from '../../data/questions';
 export default function ThisOrThat({ onComplete, backRef, onBack }) {
   const [roundIndex, setRoundIndex] = useState(0);
   const [picked, setPicked] = useState(null);
+  const [fading, setFading] = useState(false);
   const [accumulatedWeights, setAccumulatedWeights] = useState({});
 
   useEffect(() => {
@@ -26,6 +27,8 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
       nextWeights[persona] = (nextWeights[persona] || 0) + value;
     }
 
+    // Show winner briefly, then fade out, then advance
+    setTimeout(() => setFading(true), 600);
     setTimeout(() => {
       if (roundIndex >= THIS_OR_THAT.length - 1) {
         onComplete('thisOrThat', nextWeights);
@@ -33,12 +36,13 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
         setAccumulatedWeights(nextWeights);
         setRoundIndex((prev) => prev + 1);
         setPicked(null);
+        setFading(false);
       }
-    }, 800);
+    }, 1000);
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full pt-0" style={{ animation: 'fadeIn 0.4s ease-out forwards' }}>
+    <div className="flex flex-col items-center justify-start w-full h-full pt-0 transition-opacity duration-400" style={{ animation: 'fadeIn 0.4s ease-out forwards', opacity: fading ? 0 : 1 }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         This or That
       </h2>

@@ -76,6 +76,36 @@ export const ALL_DAYS = [
   { label: 'Sunday', lineup: 'SUNDAY_LINEUP' },
 ];
 
+/**
+ * Pick the best artist per day the user DIDN'T already select,
+ * scored by how well the artist's weights match the user's scores.
+ */
+export function getPersonalizedRecs(scores, dayPicks) {
+  const days = [
+    { label: 'Friday', lineup: FRIDAY_LINEUP },
+    { label: 'Saturday', lineup: SATURDAY_LINEUP },
+    { label: 'Sunday', lineup: SUNDAY_LINEUP },
+  ];
+
+  const allPicked = new Set((dayPicks || []).flat());
+
+  return days.map(({ label, lineup }) => {
+    // Score each unpicked artist by dot product with user's scores
+    const candidates = lineup
+      .filter((a) => !allPicked.has(a.id))
+      .map((a) => {
+        let fit = 0;
+        for (const [persona, weight] of Object.entries(a.weights)) {
+          fit += (scores[persona] || 0) * weight;
+        }
+        return { name: a.name, stage: a.stage, day: label, fit };
+      })
+      .sort((a, b) => b.fit - a.fit);
+
+    return candidates[0] || null;
+  }).filter(Boolean);
+}
+
 export const ARTIST_RECOMMENDATIONS = {
   sahara: [
     { name: 'Disclosure', stage: 'Sahara', day: 'Friday' },
