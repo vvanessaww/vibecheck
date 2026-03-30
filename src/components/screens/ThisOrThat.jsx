@@ -1,5 +1,4 @@
 import { useState, useCallback, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { THIS_OR_THAT } from '../../data/questions';
 
 export default function ThisOrThat({ onComplete, backRef, onBack }) {
@@ -45,13 +44,8 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
       </h2>
       <p className="text-[10px] text-white/40 font-inter italic mb-3 shrink-0">(friendships have ended over less)</p>
 
-      <AnimatePresence mode="wait">
-        <motion.div
+        <div
           key={roundIndex}
-          initial={{ opacity: 0, x: 40 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -40 }}
-          transition={{ duration: 0.25 }}
           className="flex flex-col items-center justify-center w-full max-w-[400px] mx-auto px-4 gap-3"
         >
           {['left', 'right'].map((side, idx) => {
@@ -84,8 +78,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
               </div>
             );
           })}
-        </motion.div>
-      </AnimatePresence>
+        </div>
     </div>
   );
 }
