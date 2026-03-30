@@ -58,8 +58,6 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
             const option = round[side];
             const isWinner = picked === side;
             const isLoser = picked !== null && picked !== side;
-            // Top option (idx 0) slides down when losing, bottom (idx 1) slides up
-            const loserY = idx === 0 ? 60 : -60;
 
             return (
               <div key={side} className="contents">
@@ -71,30 +69,18 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
                     VS
                   </span>
                 )}
-                <motion.div
+                <div
                   onClick={() => handlePick(side)}
-                  className="w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer"
-                  style={{
-                    backgroundColor: isWinner ? 'rgba(255, 92, 0, 0.2)' : 'rgba(19, 92, 107, 0.5)',
-                    borderColor: isWinner ? '#ff5c00' : isLoser ? 'transparent' : 'rgba(255,255,255,0.15)',
-                  }}
-                  animate={{
-                    scale: isWinner ? 1.05 : isLoser ? 0.9 : 1,
-                    opacity: isLoser ? 0 : 1,
-                    y: isLoser ? loserY : 0,
-                  }}
-                  whileHover={!picked ? {
-                    scale: 1.04,
-                    borderColor: '#ff5c00',
-                    backgroundColor: 'rgba(255, 92, 0, 0.15)',
-                    boxShadow: '0 0 20px rgba(255, 92, 0, 0.3)',
-                  } : {}}
-                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  className={`w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all duration-300 ${
+                    isWinner ? 'scale-105 border-orange bg-orange/20' :
+                    isLoser ? 'scale-95 opacity-30 border-transparent' :
+                    'border-white/15 bg-[rgba(19,92,107,0.5)] hover:scale-[1.04] hover:border-orange hover:bg-orange/15 hover:shadow-[0_0_20px_rgba(255,92,0,0.3)]'
+                  }`}
                 >
                   <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
                     {option.name}
                   </h3>
-                </motion.div>
+                </div>
               </div>
             );
           })}
