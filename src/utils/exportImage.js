@@ -168,11 +168,11 @@ function drawShareCard(canvas, persona) {
   const matchLabel = persona.playerName ? `${persona.playerName}'s Stage Match:` : 'My Stage Match:';
   ctx.fillText(matchLabel, 0, 0);
   ctx.restore();
-  y += 36;
+  y += 24;
 
-  // Stage name — 38px preview = 76px canvas
+  // Stage name
   if (stageWords.length === 1) {
-    y += 150;
+    y += 100;
     centerTextFit(stageName, y, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
   } else {
     const lineH = 65;
@@ -183,11 +183,11 @@ function drawShareCard(canvas, persona) {
   }
 
   // Title
-  y += 90;
+  y += 60;
   centerTextFit(persona.title.toUpperCase(), y, 22, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
   // Subtitle
-  y += 72;
+  y += 48;
   const subtitle = `\u201C${persona.subtitle}\u201D`;
   y = wrapText(subtitle, y, 'italic 16px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 20);
 
@@ -207,7 +207,7 @@ function drawShareCard(canvas, persona) {
   };
 
   // "Confirmed Vibe"
-  y += 72;
+  y += 48;
   drawDivider(y, 'C O N F I R M E D  V I B E');
 
   // Traits
@@ -220,22 +220,22 @@ function drawShareCard(canvas, persona) {
     ctx.fillText(str, w / 2, rowY);
   };
 
-  y += 90;
+  y += 60;
   drawTraitRow(traits.slice(0, 2), y);
   if (traits.length > 2) {
-    y += 84;
+    y += 56;
     drawTraitRow(traits.slice(2), y);
   }
 
   // Artist recommendations
   if (recs.length > 0) {
-    y += 84;
+    y += 56;
     drawDivider(y, 'D O N \u2019 T  M I S S');
 
     recs.forEach((rec) => {
-      y += 90;
+      y += 60;
       centerText(rec.name, y, '700 22px Inter, sans-serif', '#ffffff');
-      y += 48;
+      y += 32;
       centerText(`${rec.day}  \u2022  ${rec.stage}`, y, '600 14px Inter, sans-serif', 'rgba(255,255,255,0.4)');
     });
   }
