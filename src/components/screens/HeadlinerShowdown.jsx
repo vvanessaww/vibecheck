@@ -52,8 +52,8 @@ export default function HeadlinerShowdown({ onComplete }) {
     if (selected !== null) return;
     setSelected(index);
     const artist = HEADLINER_OPTIONS[index];
-    setTimeout(() => setFading(true), 1000);
-    setTimeout(() => onComplete(artist.id, artist.weights), 1800);
+    setTimeout(() => setFading(true), 700);
+    setTimeout(() => onComplete(artist.id, artist.weights), 1300);
   };
 
   useEffect(() => {

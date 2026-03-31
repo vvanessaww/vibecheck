@@ -28,7 +28,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
     }
 
     // Show winner briefly, then fade out, then advance
-    setTimeout(() => setFading(true), 1000);
+    setTimeout(() => setFading(true), 700);
     setTimeout(() => {
       if (roundIndex >= THIS_OR_THAT.length - 1) {
         onComplete('thisOrThat', nextWeights);
@@ -38,7 +38,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
         setPicked(null);
         setFading(false);
       }
-    }, 1800);
+    }, 1300);
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
