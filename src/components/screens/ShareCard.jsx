@@ -105,6 +105,27 @@ export default function ShareCard({ personaId, playerName, scores, dayPicks, onB
           </div>
         </div>
 
+        {/* Artist recommendations */}
+        {recommendations.length > 0 && (
+          <div className="z-10 w-full mt-3">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <div className="flex-1" style={{ height: '1px', backgroundColor: 'rgba(75,184,204,0.4)' }} />
+              <span className="font-bold uppercase" style={{ fontSize: '8px', color: '#4bb8cc', letterSpacing: '0.15em' }}>
+                Don&apos;t Miss
+              </span>
+              <div className="flex-1" style={{ height: '1px', backgroundColor: 'rgba(75,184,204,0.4)' }} />
+            </div>
+            {recommendations.map((rec) => (
+              <div key={rec.name} className="text-center mb-1.5">
+                <p className="font-inter font-bold text-white" style={{ fontSize: '11px' }}>{rec.name}</p>
+                <p className="font-inter" style={{ fontSize: '7px', color: 'rgba(255,255,255,0.4)' }}>
+                  {rec.day} &bull; {rec.stage}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
         {/* Spacer */}
         <div className="mb-auto" />
 

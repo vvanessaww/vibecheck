@@ -42,7 +42,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full pt-0 transition-opacity duration-400" style={{ animation: 'fadeIn 0.4s ease-out forwards', opacity: fading ? 0 : 1 }}>
+    <div className="flex flex-col items-center justify-start w-full h-full pt-0 transition-opacity duration-500" style={{ animation: 'fadeIn 0.4s ease-out forwards', opacity: fading ? 0 : 1 }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         This or That
       </h2>

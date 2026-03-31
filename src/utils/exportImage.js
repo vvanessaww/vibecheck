@@ -118,70 +118,66 @@ function drawShareCard(canvas, persona) {
     return y;
   };
 
-  // Top branding — positioned like reference
-  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', 70, '700 11px Inter, sans-serif', '#4bb8cc');
-  centerText('VIBECHECK', 115, '900 56px Oswald, sans-serif', '#ffffff');
+  // Top branding
+  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', 50, '700 11px Inter, sans-serif', '#4bb8cc');
+  centerText('VIBECHECK', 90, '900 50px Oswald, sans-serif', '#ffffff');
 
-  // "My Stage Match:" — rotated like reference (slight diagonal tilt)
+  // "Name's Stage Match:" — rotated
   ctx.save();
-  ctx.translate(w / 2, h * 0.38);
+  ctx.translate(w / 2, h * 0.22);
   ctx.rotate(-6 * Math.PI / 180);
-  ctx.font = 'italic 46px Caveat, cursive';
+  ctx.font = 'italic 40px Caveat, cursive';
   ctx.fillStyle = '#ff5c00';
   ctx.textAlign = 'center';
   const matchLabel = persona.playerName ? `${persona.playerName}'s Stage Match:` : 'My Stage Match:';
   ctx.fillText(matchLabel, 0, 0);
   ctx.restore();
 
-  // Stage name — large, auto-fit, multi-line if needed
+  // Stage name — auto-fit, multi-line if needed
   const stageName = persona.stage.toUpperCase();
   const stageWords = stageName.split(' ');
+  let stageEndY;
   if (stageWords.length === 1) {
-    // Single word — one big line
-    centerTextFit(stageName, h * 0.47, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+    centerTextFit(stageName, h * 0.30, 80, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+    stageEndY = h * 0.30;
   } else {
-    // Multi-word — stack on separate lines like reference
-    const lineH = 80;
-    const startY = h * 0.48;
+    const lineH = 70;
+    const startY = h * 0.28;
     for (let i = 0; i < stageWords.length; i++) {
-      centerTextFit(stageWords[i], startY + i * lineH, 90, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+      centerTextFit(stageWords[i], startY + i * lineH, 80, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
     }
+    stageEndY = startY + (stageWords.length - 1) * lineH;
   }
 
   // Title
-  const titleY = stageWords.length > 1 ? h * 0.48 + stageWords.length * 80 + 10 : h * 0.52;
-  centerTextFit(persona.title.toUpperCase(), titleY, 20, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
+  const titleY = stageEndY + 35;
+  centerTextFit(persona.title.toUpperCase(), titleY, 18, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
   // Subtitle
-  const subY = titleY + 35;
+  const subY = titleY + 28;
   const subtitle = `\u201C${persona.subtitle}\u201D`;
-  const subEndY = wrapText(subtitle, subY, 'italic 15px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 22);
+  const subEndY = wrapText(subtitle, subY, 'italic 14px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 20);
 
   // "Confirmed Vibe" divider
-  const vibeY = subEndY + 45;
-  ctx.strokeStyle = 'rgba(75,184,204,0.4)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(pad, vibeY);
-  ctx.lineTo(w / 2 - 80, vibeY);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(w / 2 + 80, vibeY);
-  ctx.lineTo(w - pad, vibeY);
-  ctx.stroke();
-  centerText('C O N F I R M E D  V I B E', vibeY + 5, '700 11px Inter, sans-serif', '#4bb8cc');
+  const vibeY = subEndY + 30;
+  const drawDivider = (y, label) => {
+    ctx.strokeStyle = 'rgba(75,184,204,0.4)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad, y);
+    ctx.lineTo(w / 2 - 70, y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(w / 2 + 70, y);
+    ctx.lineTo(w - pad, y);
+    ctx.stroke();
+    centerText(label, y + 5, '700 10px Inter, sans-serif', '#4bb8cc');
+  };
+  drawDivider(vibeY, 'C O N F I R M E D  V I B E');
 
-  // Traits — 2x2 grid like reference
+  // Traits — 2x2
   const traits = persona.traits.slice(0, 4);
-  const traitFontSize = 16;
-  const traitFont = `900 ${traitFontSize}px Inter, sans-serif`;
-  ctx.font = traitFont;
-
-  const row1 = traits.slice(0, 2);
-  const row2 = traits.slice(2);
-  const traitRowY1 = vibeY + 40;
-  const traitRowY2 = vibeY + 70;
-
+  const traitFont = '900 14px Inter, sans-serif';
   const drawTraitRow = (items, y) => {
     const str = items.map((t) => t.toUpperCase()).join('   \u2022   ');
     ctx.font = traitFont;
@@ -190,36 +186,21 @@ function drawShareCard(canvas, persona) {
     ctx.fillText(str, w / 2, y);
   };
 
-  if (row1.length) drawTraitRow(row1, traitRowY1);
-  if (row2.length) drawTraitRow(row2, traitRowY2);
+  const traitRowY1 = vibeY + 30;
+  const traitRowY2 = vibeY + 55;
+  drawTraitRow(traits.slice(0, 2), traitRowY1);
+  if (traits.length > 2) drawTraitRow(traits.slice(2), traitRowY2);
 
   // Artist recommendations
   const recs = persona.recommendations || [];
   if (recs.length > 0) {
-    const recsStartY = (row2.length ? traitRowY2 : traitRowY1) + 45;
-
-    // Divider
-    ctx.strokeStyle = 'rgba(75,184,204,0.4)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(pad, recsStartY);
-    ctx.lineTo(w / 2 - 80, recsStartY);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(w / 2 + 80, recsStartY);
-    ctx.lineTo(w - pad, recsStartY);
-    ctx.stroke();
-    centerText('D O N \u2019 T  M I S S', recsStartY + 5, '700 11px Inter, sans-serif', '#4bb8cc');
+    const recsY = (traits.length > 2 ? traitRowY2 : traitRowY1) + 35;
+    drawDivider(recsY, 'D O N \u2019 T  M I S S');
 
     recs.forEach((rec, i) => {
-      const recY = recsStartY + 30 + i * 24;
-      centerText(`${rec.name}`, recY, '700 14px Inter, sans-serif', '#ffffff');
-      ctx.font = '600 10px Inter, sans-serif';
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      const nameWidth = (() => { ctx.font = '700 14px Inter, sans-serif'; return ctx.measureText(rec.name).width; })();
-      ctx.font = '600 10px Inter, sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText(`${rec.day}  \u2022  ${rec.stage}`, w / 2, recY + 14);
+      const y = recsY + 28 + i * 36;
+      centerText(rec.name, y, '700 15px Inter, sans-serif', '#ffffff');
+      centerText(`${rec.day}  \u2022  ${rec.stage}`, y + 16, '600 10px Inter, sans-serif', 'rgba(255,255,255,0.4)');
     });
   }
 
