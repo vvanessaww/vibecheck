@@ -42,7 +42,7 @@ export default function StartScreen({ onStart, playerName, onNameChange }) {
             onKeyDown={handleKeyDown}
             placeholder="Enter your name"
             maxLength={12}
-            className="w-full text-center bg-white/10 border-2 border-white/20 rounded-full px-6 py-3 font-inter font-bold text-white text-sm uppercase tracking-widest placeholder:text-white/30 focus:outline-none focus:border-orange transition-colors"
+            className="w-full text-center bg-white/10 border-2 border-white/20 rounded-full px-6 py-3 font-inter font-bold text-white text-sm tracking-wider placeholder:text-white/30 focus:outline-none focus:border-orange transition-colors"
           />
           <p className="text-[9px] text-white/30 mt-1.5 font-inter tracking-wider">{name.length}/12</p>
         </div>
