@@ -22,7 +22,7 @@ export const SWIPE_CARDS = [
 export const GENRE_SLIDERS = [
   { id: 'g1', left: { label: 'Lover Girl Ballads', persona: 'feels' }, right: { label: 'Heavy Hitting House', persona: 'sahara' } },
   { id: 'g2', left: { label: 'Mosh Pit Energy', persona: 'campground' }, right: { label: 'Main Stage Pop', persona: 'influencer' } },
-  { id: 'g3', left: { label: 'Weird & Wonderful', persona: 'dolab' }, right: { label: 'Perfectly Curated', persona: 'scientist' } },
+  { id: 'g3', left: { label: 'Exploring the Campgrounds', persona: 'campground' }, right: { label: 'Pics at the Pop-Ups', persona: 'influencer' } },
 ];
 
 export const VIBE_CHECK_QUESTIONS = [
