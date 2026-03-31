@@ -152,10 +152,10 @@ function App() {
       case SCREENS.SHARE:
         return (
           <ShareCard
-            personaId={quiz.personaId}
-            playerName={quiz.playerName}
+            personaId={directMyData?.personaId || quiz.personaId}
+            playerName={directMyData?.name || quiz.playerName}
             scores={quiz.scores}
-            dayPicks={quiz.dayPicks}
+            dayPicks={directMyData?.dayPicks || quiz.dayPicks}
             onBack={() => quiz.goToScreen(quiz.challenger ? SCREENS.COMPARE : SCREENS.RESULT)}
           />
         );
