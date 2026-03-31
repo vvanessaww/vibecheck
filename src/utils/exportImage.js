@@ -118,21 +118,45 @@ function drawShareCard(canvas, persona) {
     return y;
   };
 
-  // All sizes are 2x the preview CSS (preview is 300px wide, canvas is 600px)
-  // Use a running cursor Y to keep spacing consistent
+  // Calculate content height first to center vertically
+  // Estimate total height of all content sections
+  const stageName = persona.stage.toUpperCase();
+  const stageWords = stageName.split(' ');
+  const recs = persona.recommendations || [];
+  const traits = persona.traits.slice(0, 4);
 
-  let y = 48; // py-6 = 24px at 2x
+  let contentH = 0;
+  contentH += 12 + 38;           // top branding (label + vibecheck)
+  contentH += 30;                // gap to stage match label
+  contentH += 44;                // stage match label
+  contentH += 12;                // gap
+  if (stageWords.length === 1) {
+    contentH += 50 + 76;         // single line stage name
+  } else {
+    contentH += stageWords.length * 65; // multi-line
+  }
+  contentH += 30 + 22;           // title
+  contentH += 24 + 20;           // subtitle (approx 1 line)
+  contentH += 24 + 16;           // confirmed vibe divider
+  contentH += 30 + 20;           // trait row 1
+  if (traits.length > 2) contentH += 28 + 20; // trait row 2
+  if (recs.length > 0) {
+    contentH += 28 + 16;         // don't miss divider
+    contentH += recs.length * 36; // recs
+  }
+
+  // Available space: full height minus mountain area (120px) and bottom branding (40px)
+  const availableH = h - 160;
+  const topOffset = Math.max(40, (availableH - contentH) / 2);
+
+  let y = topOffset;
 
   // Top branding
   centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', y, '700 12px Inter, sans-serif', '#4bb8cc');
   y += 38;
   centerText('VIBECHECK', y, '900 48px Oswald, sans-serif', '#ffffff');
 
-  // mb-auto pushes content to center — estimate center start
-  // Preview: top branding ~30px, then mb-auto centers the rest
-  // Total content height ~380px in 533px card = starts at ~76px from top
-  // At 2x: starts at ~152px. Branding ends at ~86px. Gap = ~66px
-  y += 80;
+  y += 30;
 
   // "Name's Stage Match:" — rotated -6deg
   ctx.save();
