@@ -17,12 +17,12 @@ export const FRIDAY_LINEUP = [
   { id: 'f9', name: 'Kettama', stage: 'Sahara', weights: { scientist: 2, sahara: 1 } },
   { id: 'f4', name: 'Nine Inch Noize', stage: 'Main Stage', weights: { campground: 3, dolab: 1 } },
   { id: 'f7', name: 'Gordo', stage: 'Sahara', weights: { sahara: 2, dolab: 1 } },
-  { id: 'f23', name: 'Hamdi', stage: 'Yuma', weights: { scientist: 2, dolab: 2 } },
+  { id: 'f23', name: 'Hamdi', stage: 'Yuma', weights: { sahara: 2, dolab: 2 } },
   { id: 'f2', name: 'the XX', stage: 'Main Stage', weights: { feels: 3, scientist: 1 } },
   { id: 'f3', name: 'Disclosure', stage: 'Sahara', weights: { sahara: 2, influencer: 1 } },
   { id: 'f18', name: 'Prospa', stage: 'Yuma', weights: { scientist: 3, sahara: 1 } },
   { id: 'f1', name: 'Sabrina Carpenter', stage: 'Main Stage', weights: { influencer: 3, feels: 2 } },
-  { id: 'f11', name: 'Groove Armada', stage: 'Yuma', weights: { scientist: 3, campground: 1 } },
+  { id: 'f11', name: 'Groove Armada', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
 ];
 
 export const SATURDAY_LINEUP = [
@@ -40,11 +40,11 @@ export const SATURDAY_LINEUP = [
   { id: 's12', name: 'Boys Noize', stage: 'Sahara', weights: { sahara: 2, campground: 1 } },
   { id: 's13', name: 'David Byrne', stage: 'Outdoor Theatre', weights: { campground: 2, dolab: 2 } },
   { id: 's14', name: 'Interpol', stage: 'Main Stage', weights: { campground: 3, feels: 1 } },
-  { id: 's15', name: 'Solomun', stage: 'Yuma', weights: { scientist: 3, sahara: 1 } },
+  { id: 's15', name: 'Solomun', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
   { id: 's16', name: 'Labrinth', stage: 'Sahara', weights: { feels: 2, sahara: 1 } },
   { id: 's17', name: 'GIVĒON', stage: 'Main Stage', weights: { feels: 3, influencer: 1 } },
   { id: 's18', name: 'The Strokes', stage: 'Main Stage', weights: { campground: 3, feels: 1 } },
-  { id: 's19', name: 'Green Velvet', stage: 'Yuma', weights: { scientist: 3, dolab: 1 } },
+  { id: 's19', name: 'Green Velvet', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
   { id: 's20', name: 'Justin Bieber', stage: 'Main Stage', weights: { influencer: 3, feels: 2 } },
 ];
 
@@ -66,7 +66,7 @@ export const SUNDAY_LINEUP = [
   { id: 'su15', name: 'Clipse', stage: 'Outdoor Theatre', weights: { campground: 3 } },
   { id: 'su16', name: 'Kaskade', stage: 'Sahara', weights: { sahara: 2, scientist: 1 } },
   { id: 'su17', name: 'Young Thug', stage: 'Main Stage', weights: { campground: 3, influencer: 1 } },
-  { id: 'su18', name: 'Mochakk', stage: 'Yuma', weights: { scientist: 3, campground: 1 } },
+  { id: 'su18', name: 'Mochakk', stage: 'Yuma', weights: { sahara: 2, scientist: 2 } },
   { id: 'su19', name: 'Karol G', stage: 'Main Stage', weights: { influencer: 2, sahara: 1 } },
 ];
 

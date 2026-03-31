@@ -59,7 +59,7 @@ export const VIBE_CHECK_QUESTIONS = [
 ];
 
 export const HOT_TAKES = [
-  { id: 'ht1', text: 'The Sahara tent is overrated', agreeWeights: { dolab: 2, feels: 1 }, disagreeWeights: { sahara: 3 } },
+  { id: 'ht1', text: 'The Yuma tent is the most underrated stage', agreeWeights: { scientist: 3 }, disagreeWeights: { sahara: 2, influencer: 1 } },
   { id: 'ht2', text: 'Camping is the only way to do Coachella', agreeWeights: { campground: 3 }, disagreeWeights: { influencer: 2 } },
   { id: 'ht4', text: 'Outfit changes planned for every sunset?', agreeWeights: { influencer: 3 }, disagreeWeights: { campground: 1, scientist: 1 } },
   { id: 'ht6', text: 'Staying until the very last act plays?', agreeWeights: { sahara: 2, campground: 2 }, disagreeWeights: { scientist: 1 } },
