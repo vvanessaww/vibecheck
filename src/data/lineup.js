@@ -80,7 +80,12 @@ export const ALL_DAYS = [
  * Pick the best artist per day the user DIDN'T already select,
  * scored by how well the artist's weights match the user's scores.
  */
-export function getPersonalizedRecs(scores, dayPicks) {
+export function getPersonalizedRecs(scores, dayPicks, personaId) {
+  // If scores are empty but we know the persona, build synthetic scores
+  const hasScores = scores && Object.values(scores).some((v) => v > 0);
+  if (!hasScores && personaId) {
+    scores = { [personaId]: 10 };
+  }
   const days = [
     { label: 'Friday', lineup: FRIDAY_LINEUP },
     { label: 'Saturday', lineup: SATURDAY_LINEUP },

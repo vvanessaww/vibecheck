@@ -7,7 +7,7 @@ import { savePlayer } from '../../lib/players';
 
 export default function ResultScreen({ personaId, playerName, scores, dayPicks, challenger, myPlayerId, onPlayerSaved, onShareCard, onCompare, onRestart }) {
   const persona = getPersona(personaId);
-  const recommendations = getPersonalizedRecs(scores || {}, dayPicks);
+  const recommendations = getPersonalizedRecs(scores || {}, dayPicks, personaId);
   const [copied, setCopied] = useState(false);
 
   // Save player to Supabase on first render of result screen

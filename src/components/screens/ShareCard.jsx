@@ -5,7 +5,7 @@ import { exportCardAsImage } from '../../utils/exportImage';
 
 export default function ShareCard({ personaId, playerName, scores, dayPicks, onBack }) {
   const persona = getPersona(personaId);
-  const recommendations = getPersonalizedRecs(scores || {}, dayPicks);
+  const recommendations = getPersonalizedRecs(scores || {}, dayPicks, personaId);
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
