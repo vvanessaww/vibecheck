@@ -13,7 +13,9 @@ export default function StartScreen({ onStart, playerName, onNameChange }) {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center w-full h-full text-center" style={{ animation: 'slideUp 0.4s ease-out forwards' }}>
+    <div className="flex flex-col items-center justify-between w-full h-full text-center py-4" style={{ animation: 'slideUp 0.4s ease-out forwards' }}>
+      <div />
+
       <div className="flex flex-col items-center">
         <h2
           className="font-oswald text-5xl font-black uppercase tracking-tighter leading-[0.85] mb-2 bg-gradient-to-r from-white via-amber-200 to-white bg-clip-text text-transparent"
@@ -22,7 +24,7 @@ export default function StartScreen({ onStart, playerName, onNameChange }) {
           Find Your 2026
         </h2>
         <h2
-          className="font-oswald text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-8 bg-gradient-to-r from-white via-amber-200 to-white bg-clip-text text-transparent"
+          className="font-oswald text-6xl font-black uppercase tracking-tighter leading-[0.85] mb-6 bg-gradient-to-r from-white via-amber-200 to-white bg-clip-text text-transparent"
           style={{ animation: 'float 4s ease-in-out infinite' }}
         >
           Home Stage
@@ -32,7 +34,7 @@ export default function StartScreen({ onStart, playerName, onNameChange }) {
           Which Coachella stage matches your soul?
         </p>
 
-        <div className="mt-8 w-full max-w-[280px]">
+        <div className="mt-6 w-full max-w-[280px]">
           <input
             type="text"
             value={name}
@@ -48,7 +50,7 @@ export default function StartScreen({ onStart, playerName, onNameChange }) {
 
       <button
         onClick={name.trim() ? handleStart : undefined}
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 px-8 py-3 font-black uppercase tracking-widest text-sm rounded-full overflow-hidden transition-all active:scale-95 hover:scale-105 ${
+        className={`shrink-0 px-8 py-3 font-black uppercase tracking-widest text-sm rounded-full overflow-hidden transition-all active:scale-95 hover:scale-105 ${
           name.trim() ? 'bg-white text-teal-dark' : 'bg-white/20 text-white/50 cursor-default'
         }`}
       >
