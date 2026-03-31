@@ -3,10 +3,11 @@ import { motion } from 'framer-motion';
 import Divider from '../layout/Divider';
 import { getPersona } from '../../data/personas';
 import { calculateChemistry, getScoreMessage } from '../../data/chemistry';
-import { buildChallengeUrlById } from '../../utils/shareUrl';
+import { buildChallengeUrlById, buildResultsUrl } from '../../utils/shareUrl';
 
 export default function CompareScreen({ myData, challengerData, myPlayerId, onShareCard }) {
   const [copied, setCopied] = useState(false);
+  const [sentBack, setSentBack] = useState(false);
 
   const myPersona = getPersona(myData?.personaId);
   const theirPersona = getPersona(challengerData?.personaId);
@@ -151,11 +152,28 @@ export default function CompareScreen({ myData, challengerData, myPlayerId, onSh
         </motion.p>
       )}
 
-      {/* Actions — primary CTA first, matching ResultScreen order */}
+      {/* Send results back to challenger */}
+      {challengerData?.playerId && myPlayerId && (
+        <button
+          onClick={async () => {
+            const url = buildResultsUrl(challengerData.playerId, myPlayerId);
+            try { await navigator.clipboard.writeText(url); } catch {
+              const t = document.createElement('textarea'); t.value = url; t.style.position = 'fixed'; t.style.opacity = '0';
+              document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t);
+            }
+            setSentBack(true);
+            setTimeout(() => setSentBack(false), 2000);
+          }}
+          className="px-10 py-3 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 bg-orange"
+          style={{ letterSpacing: '0.1em', fontSize: '12px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
+        >
+          {sentBack ? 'Link Copied!' : `Send Results to ${challengerData.name}`}
+        </button>
+      )}
+
       <button
         onClick={handleCopyLink}
-        className="px-10 py-3 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 bg-orange"
-        style={{ letterSpacing: '0.1em', fontSize: '12px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
+        className="mt-2 px-8 py-2.5 bg-white/10 border border-white/20 text-white font-bold uppercase tracking-widest text-[10px] rounded-full transition-all active:scale-95 hover:bg-white/15"
       >
         {copied ? 'Link Copied!' : 'Challenge Another Friend'}
       </button>

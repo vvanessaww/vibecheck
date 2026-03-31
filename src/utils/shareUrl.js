@@ -46,10 +46,23 @@ export function buildChallengeUrlById(playerId) {
 }
 
 /**
- * Parse challenge param from URL — supports both player ID (?c=) and legacy base64 (?challenge=).
+ * Build a results URL that shows chemistry between two players directly.
+ */
+export function buildResultsUrl(myPlayerId, challengerPlayerId) {
+  const base = window.location.origin + window.location.pathname;
+  return `${base}?results=${myPlayerId},${challengerPlayerId}`;
+}
+
+/**
+ * Parse challenge param from URL — supports player ID (?c=), results pair (?results=), and legacy base64 (?challenge=).
  */
 export function parseChallengeParam() {
   const params = new URLSearchParams(window.location.search);
+  const results = params.get('results');
+  if (results && results.includes(',')) {
+    const [player1, player2] = results.split(',');
+    return { type: 'results', value: { player1, player2 } };
+  }
   const playerId = params.get('c');
   if (playerId) return { type: 'id', value: playerId };
   const legacy = params.get('challenge');

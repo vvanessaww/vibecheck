@@ -23,6 +23,7 @@ function App() {
   const quiz = useQuiz();
   const screenBackRef = useRef(null);
   const [myPlayerId, setMyPlayerId] = useState(null);
+  const [directMyData, setDirectMyData] = useState(null);
   const { muted, toggle: toggleAudio } = useAmbientAudio();
 
   // Track screen views for drop-off analysis
@@ -42,18 +43,42 @@ function App() {
   useEffect(() => {
     const challenge = parseChallengeParam();
     if (challenge) {
-      if (challenge.type === 'id') {
+      if (challenge.type === 'results') {
+        // Direct results link — load both players and jump to compare
+        const { player1, player2 } = challenge.value;
+        Promise.all([getPlayer(player1), getPlayer(player2)])
+          .then(([p1, p2]) => {
+            if (p1 && p2) {
+              setDirectMyData({
+                name: p1.name,
+                personaId: p1.persona_id,
+                dayPicks: p1.day_picks || [],
+              });
+              quiz.setPlayerName(p1.name);
+              quiz.setChallenger({
+                playerId: p2.id,
+                name: p2.name,
+                personaId: p2.persona_id,
+                dayPicks: p2.day_picks || [],
+              });
+              setMyPlayerId(p1.id);
+              quiz.goToScreen(SCREENS.COMPARE);
+            }
+          })
+          .catch(() => {});
+      } else if (challenge.type === 'id') {
         getPlayer(challenge.value)
           .then((player) => {
             if (player) {
               quiz.setChallenger({
+                playerId: player.id,
                 name: player.name,
                 personaId: player.persona_id,
                 dayPicks: player.day_picks || [],
               });
             }
           })
-          .catch(() => { /* challenger load failed — user can still take quiz solo */ });
+          .catch(() => {});
       } else {
         const challenger = decodeChallengeData(challenge.value);
         if (challenger) quiz.setChallenger(challenger);
@@ -118,7 +143,7 @@ function App() {
       case SCREENS.COMPARE:
         return (
           <CompareScreen
-            myData={{ name: quiz.playerName, personaId: quiz.personaId, dayPicks: quiz.dayPicks }}
+            myData={directMyData || { name: quiz.playerName, personaId: quiz.personaId, dayPicks: quiz.dayPicks }}
             challengerData={quiz.challenger}
             myPlayerId={myPlayerId}
             onShareCard={() => quiz.goToScreen(SCREENS.SHARE)}

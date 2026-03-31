@@ -113,7 +113,7 @@ export default function ResultScreen({ personaId, playerName, scores, dayPicks, 
             className="px-5 py-2.5 text-white font-black uppercase rounded-full transition-all hover:scale-105 active:scale-95 bg-orange"
             style={{ letterSpacing: '0.05em', fontSize: '10px', boxShadow: '0 0 15px rgba(255,92,0,0.4)' }}
           >
-            {copied ? 'Link Copied!' : 'Challenge a Friend'}
+            {copied ? 'Link Copied!' : 'Compare Vibes with a Friend'}
           </button>
         )}
 

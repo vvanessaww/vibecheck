@@ -33,6 +33,9 @@ export default function StartScreen({ onStart, playerName, onNameChange }) {
         <p className="font-inter font-bold text-sm text-gray-300 tracking-tight uppercase px-2">
           Which Coachella stage matches your soul?
         </p>
+        <p className="font-inter text-[10px] text-white/40 mt-2 px-4">
+          Take the quiz, then challenge your squad to compare vibes
+        </p>
 
         <div className="mt-6 w-full max-w-[280px]">
           <input
