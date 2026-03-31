@@ -168,11 +168,11 @@ function drawShareCard(canvas, persona) {
   const matchLabel = persona.playerName ? `${persona.playerName}'s Stage Match:` : 'My Stage Match:';
   ctx.fillText(matchLabel, 0, 0);
   ctx.restore();
-  y += 12;
+  y += 36;
 
   // Stage name — 38px preview = 76px canvas
   if (stageWords.length === 1) {
-    y += 50;
+    y += 150;
     centerTextFit(stageName, y, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
   } else {
     const lineH = 65;
@@ -182,12 +182,12 @@ function drawShareCard(canvas, persona) {
     }
   }
 
-  // Title — 11px preview = 22px canvas
-  y += 30;
+  // Title
+  y += 90;
   centerTextFit(persona.title.toUpperCase(), y, 22, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
-  // Subtitle — 8px preview = 16px canvas
-  y += 24;
+  // Subtitle
+  y += 72;
   const subtitle = `\u201C${persona.subtitle}\u201D`;
   y = wrapText(subtitle, y, 'italic 16px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 20);
 
@@ -206,11 +206,11 @@ function drawShareCard(canvas, persona) {
     centerText(label, divY + 5, '700 16px Inter, sans-serif', '#4bb8cc');
   };
 
-  // "Confirmed Vibe" — 8px preview = 16px canvas
-  y += 24;
+  // "Confirmed Vibe"
+  y += 72;
   drawDivider(y, 'C O N F I R M E D  V I B E');
 
-  // Traits — 10px preview = 20px canvas
+  // Traits
   const traitFont = '900 20px Inter, sans-serif';
   const drawTraitRow = (items, rowY) => {
     const str = items.map((t) => t.toUpperCase()).join('   \u2022   ');
@@ -220,22 +220,22 @@ function drawShareCard(canvas, persona) {
     ctx.fillText(str, w / 2, rowY);
   };
 
-  y += 30;
+  y += 90;
   drawTraitRow(traits.slice(0, 2), y);
   if (traits.length > 2) {
-    y += 28;
+    y += 84;
     drawTraitRow(traits.slice(2), y);
   }
 
-  // Artist recommendations — 11px name / 7px detail in preview = 22px / 14px
+  // Artist recommendations
   if (recs.length > 0) {
-    y += 28;
+    y += 84;
     drawDivider(y, 'D O N \u2019 T  M I S S');
 
     recs.forEach((rec) => {
-      y += 30;
+      y += 90;
       centerText(rec.name, y, '700 22px Inter, sans-serif', '#ffffff');
-      y += 16;
+      y += 48;
       centerText(`${rec.day}  \u2022  ${rec.stage}`, y, '600 14px Inter, sans-serif', 'rgba(255,255,255,0.4)');
     });
   }
