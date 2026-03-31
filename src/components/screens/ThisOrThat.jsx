@@ -28,7 +28,7 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
     }
 
     // Show winner briefly, then fade out, then advance
-    setTimeout(() => setFading(true), 600);
+    setTimeout(() => setFading(true), 1000);
     setTimeout(() => {
       if (roundIndex >= THIS_OR_THAT.length - 1) {
         onComplete('thisOrThat', nextWeights);
@@ -38,11 +38,11 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
         setPicked(null);
         setFading(false);
       }
-    }, 1000);
+    }, 1800);
   }, [picked, round, roundIndex, accumulatedWeights, onComplete]);
 
   return (
-    <div className="flex flex-col items-center justify-start w-full h-full pt-0 transition-opacity duration-500" style={{ animation: 'fadeIn 0.4s ease-out forwards', opacity: fading ? 0 : 1 }}>
+    <div className="flex flex-col items-center justify-start w-full h-full pt-0 transition-opacity duration-700" style={{ animation: 'fadeIn 0.4s ease-out forwards', opacity: fading ? 0 : 1 }}>
       <h2 className="font-inter text-sm font-black tracking-[0.25em] text-white text-center uppercase mb-1 shrink-0">
         This or That
       </h2>
