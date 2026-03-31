@@ -3,9 +3,9 @@ import { getPersona } from '../../data/personas';
 import { getPersonalizedRecs } from '../../data/lineup';
 import { exportCardAsImage } from '../../utils/exportImage';
 
-export default function ShareCard({ personaId, playerName, scores, dayPicks, onBack }) {
+export default function ShareCard({ personaId, playerName, scores, dayPicks, savedRecs, onBack }) {
   const persona = getPersona(personaId);
-  const recommendations = getPersonalizedRecs(scores || {}, dayPicks, personaId);
+  const recommendations = savedRecs?.length ? savedRecs : getPersonalizedRecs(scores || {}, dayPicks, personaId);
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {

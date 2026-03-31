@@ -3,12 +3,12 @@ import { supabase } from './supabase';
 /**
  * Save a player's quiz result. Returns the new player row, or null if Supabase is unavailable.
  */
-export async function savePlayer({ name, personaId, dayPicks }) {
+export async function savePlayer({ name, personaId, dayPicks, recommendations }) {
   if (!supabase) return null;
 
   const { data, error } = await supabase
     .from('players')
-    .insert({ name, persona_id: personaId, day_picks: dayPicks })
+    .insert({ name, persona_id: personaId, day_picks: dayPicks, recommendations: recommendations || [] })
     .select()
     .single();
 

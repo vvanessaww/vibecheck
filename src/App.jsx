@@ -53,6 +53,7 @@ function App() {
                 name: p1.name,
                 personaId: p1.persona_id,
                 dayPicks: p1.day_picks || [],
+                recommendations: p1.recommendations || [],
               });
               quiz.setPlayerName(p1.name);
               quiz.setChallenger({
@@ -156,6 +157,7 @@ function App() {
             playerName={directMyData?.name || quiz.playerName}
             scores={quiz.scores}
             dayPicks={directMyData?.dayPicks || quiz.dayPicks}
+            savedRecs={directMyData?.recommendations}
             onBack={() => quiz.goToScreen(quiz.challenger ? SCREENS.COMPARE : SCREENS.RESULT)}
           />
         );

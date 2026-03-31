@@ -81,7 +81,7 @@ export const ALL_DAYS = [
  * scored by how well the artist's weights match the user's scores.
  */
 export function getPersonalizedRecs(scores, dayPicks, personaId) {
-  // If scores are empty but we know the persona, build synthetic scores
+  // If scores are empty but we know the persona, build synthetic scores as fallback
   const hasScores = scores && Object.values(scores).some((v) => v > 0);
   if (!hasScores && personaId) {
     scores = { [personaId]: 10 };

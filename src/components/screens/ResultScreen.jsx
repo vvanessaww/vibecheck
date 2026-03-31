@@ -13,7 +13,7 @@ export default function ResultScreen({ personaId, playerName, scores, dayPicks, 
   // Save player to Supabase on first render of result screen
   useEffect(() => {
     if (myPlayerId || !personaId || !playerName) return;
-    savePlayer({ name: playerName, personaId, dayPicks })
+    savePlayer({ name: playerName, personaId, dayPicks, recommendations })
       .then((player) => { if (player?.id) onPlayerSaved(player.id); })
       .catch(() => { /* offline fallback — challenge links won't persist */ });
   }, [personaId, playerName, myPlayerId]);
