@@ -4,7 +4,7 @@ import Sky from './Sky';
 
 const QUIZ_SCREENS = ['headliner', 'thisOrThat', 'genre', 'vibeCheck', 'hotTakes', 'dayDraft'];
 
-export default function PhoneFrame({ children, showHeader = true, showFooter = true, currentScreen, onBack, audioMuted, onToggleAudio }) {
+export default function PhoneFrame({ children, showHeader = true, showFooter = true, currentScreen, onBack, onRestart, audioMuted, onToggleAudio }) {
   const quizIndex = QUIZ_SCREENS.indexOf(currentScreen);
   const isQuizScreen = quizIndex !== -1;
   const progress = isQuizScreen ? ((quizIndex + 1) / QUIZ_SCREENS.length) * 100 : 0;
@@ -12,7 +12,7 @@ export default function PhoneFrame({ children, showHeader = true, showFooter = t
   return (
     <div className="relative w-full h-dvh flex flex-col font-inter overflow-hidden">
       <Sky />
-      {showHeader && <Header />}
+      {showHeader && <Header onLogoClick={onRestart} />}
 
       {onToggleAudio && (
         <button

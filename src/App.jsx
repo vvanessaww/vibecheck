@@ -140,7 +140,7 @@ function App() {
   };
 
   return (
-    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={handleBack} audioMuted={muted} onToggleAudio={toggleAudio}>
+    <PhoneFrame showHeader={!hideChrome} showFooter={!hideChrome} currentScreen={quiz.currentScreen} onBack={handleBack} onRestart={quiz.restart} audioMuted={muted} onToggleAudio={toggleAudio}>
       {renderScreen()}
     </PhoneFrame>
   );

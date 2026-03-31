@@ -59,27 +59,26 @@ export default function ThisOrThat({ onComplete, backRef, onBack }) {
 
             return (
               <div key={side} className="contents">
-                {idx === 1 && !picked && (
+                {idx === 1 && (
                   <span
-                    className="font-oswald text-2xl font-black text-orange shrink-0"
+                    className={`font-oswald text-2xl font-black text-orange shrink-0 transition-opacity duration-300 ${picked ? 'opacity-0' : ''}`}
                     style={{ textShadow: '0 0 20px rgba(255,92,0,0.6)' }}
                   >
                     VS
                   </span>
                 )}
-                {!isLoser && (
-                  <div
-                    onClick={() => handlePick(side)}
-                    className={`w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all duration-300 ${
-                      isWinner ? 'scale-105 border-orange bg-orange/20' :
-                      'border-white/15 bg-[rgba(19,92,107,0.5)] hover:scale-[1.04] hover:border-orange hover:bg-orange/15 hover:shadow-[0_0_20px_rgba(255,92,0,0.3)]'
-                    }`}
-                  >
-                    <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
-                      {option.name}
-                    </h3>
-                  </div>
-                )}
+                <div
+                  onClick={() => handlePick(side)}
+                  className={`w-full h-[100px] rounded-2xl border-2 flex items-center justify-center px-6 text-center cursor-pointer transition-all duration-300 ${
+                    isWinner ? 'scale-105 border-orange bg-orange/20' :
+                    isLoser ? 'opacity-0 border-transparent' :
+                    'border-white/15 bg-[rgba(19,92,107,0.5)] hover:scale-[1.04] hover:border-orange hover:bg-orange/15 hover:shadow-[0_0_20px_rgba(255,92,0,0.3)]'
+                  }`}
+                >
+                  <h3 className="font-oswald text-2xl font-black uppercase tracking-tighter leading-tight text-white">
+                    {option.name}
+                  </h3>
+                </div>
               </div>
             );
           })}
