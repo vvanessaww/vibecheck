@@ -118,89 +118,105 @@ function drawShareCard(canvas, persona) {
     return y;
   };
 
-  // Top branding
-  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', 50, '700 11px Inter, sans-serif', '#4bb8cc');
-  centerText('VIBECHECK', 90, '900 50px Oswald, sans-serif', '#ffffff');
+  // All sizes are 2x the preview CSS (preview is 300px wide, canvas is 600px)
+  // Use a running cursor Y to keep spacing consistent
 
-  // "Name's Stage Match:" — rotated
+  let y = 48; // py-6 = 24px at 2x
+
+  // Top branding
+  centerText('T H E  2 0 2 6  V I B E C H E C K  R E S U L T S', y, '700 12px Inter, sans-serif', '#4bb8cc');
+  y += 38;
+  centerText('VIBECHECK', y, '900 48px Oswald, sans-serif', '#ffffff');
+
+  // mb-auto pushes content to center — estimate center start
+  // Preview: top branding ~30px, then mb-auto centers the rest
+  // Total content height ~380px in 533px card = starts at ~76px from top
+  // At 2x: starts at ~152px. Branding ends at ~86px. Gap = ~66px
+  y += 80;
+
+  // "Name's Stage Match:" — rotated -6deg
   ctx.save();
-  ctx.translate(w / 2, h * 0.22);
+  ctx.translate(w / 2, y);
   ctx.rotate(-6 * Math.PI / 180);
-  ctx.font = 'italic 40px Caveat, cursive';
+  ctx.font = 'italic 44px Caveat, cursive';
   ctx.fillStyle = '#ff5c00';
   ctx.textAlign = 'center';
   const matchLabel = persona.playerName ? `${persona.playerName}'s Stage Match:` : 'My Stage Match:';
   ctx.fillText(matchLabel, 0, 0);
   ctx.restore();
+  y += 12;
 
-  // Stage name — auto-fit, multi-line if needed
+  // Stage name — 38px preview = 76px canvas
   const stageName = persona.stage.toUpperCase();
   const stageWords = stageName.split(' ');
-  let stageEndY;
   if (stageWords.length === 1) {
-    centerTextFit(stageName, h * 0.30, 80, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
-    stageEndY = h * 0.30;
+    y += 50;
+    centerTextFit(stageName, y, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
   } else {
-    const lineH = 70;
-    const startY = h * 0.28;
+    const lineH = 65;
     for (let i = 0; i < stageWords.length; i++) {
-      centerTextFit(stageWords[i], startY + i * lineH, 80, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
+      y += lineH;
+      centerTextFit(stageWords[i], y, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
     }
-    stageEndY = startY + (stageWords.length - 1) * lineH;
   }
 
-  // Title
-  const titleY = stageEndY + 35;
-  centerTextFit(persona.title.toUpperCase(), titleY, 18, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
+  // Title — 11px preview = 22px canvas
+  y += 30;
+  centerTextFit(persona.title.toUpperCase(), y, 22, '900', 'Inter, sans-serif', '#ff5c00', maxContent);
 
-  // Subtitle
-  const subY = titleY + 28;
+  // Subtitle — 8px preview = 16px canvas
+  y += 24;
   const subtitle = `\u201C${persona.subtitle}\u201D`;
-  const subEndY = wrapText(subtitle, subY, 'italic 14px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 20);
+  y = wrapText(subtitle, y, 'italic 16px Inter, sans-serif', 'rgba(255,255,255,0.5)', maxContent, 20);
 
-  // "Confirmed Vibe" divider
-  const vibeY = subEndY + 30;
-  const drawDivider = (y, label) => {
+  // Divider helper
+  const drawDivider = (divY, label) => {
     ctx.strokeStyle = 'rgba(75,184,204,0.4)';
     ctx.lineWidth = 1;
     ctx.beginPath();
-    ctx.moveTo(pad, y);
-    ctx.lineTo(w / 2 - 70, y);
+    ctx.moveTo(pad, divY);
+    ctx.lineTo(w / 2 - 70, divY);
     ctx.stroke();
     ctx.beginPath();
-    ctx.moveTo(w / 2 + 70, y);
-    ctx.lineTo(w - pad, y);
+    ctx.moveTo(w / 2 + 70, divY);
+    ctx.lineTo(w - pad, divY);
     ctx.stroke();
-    centerText(label, y + 5, '700 10px Inter, sans-serif', '#4bb8cc');
+    centerText(label, divY + 5, '700 16px Inter, sans-serif', '#4bb8cc');
   };
-  drawDivider(vibeY, 'C O N F I R M E D  V I B E');
 
-  // Traits — 2x2
+  // "Confirmed Vibe" — 8px preview = 16px canvas
+  y += 24;
+  drawDivider(y, 'C O N F I R M E D  V I B E');
+
+  // Traits — 10px preview = 20px canvas
   const traits = persona.traits.slice(0, 4);
-  const traitFont = '900 14px Inter, sans-serif';
-  const drawTraitRow = (items, y) => {
+  const traitFont = '900 20px Inter, sans-serif';
+  const drawTraitRow = (items, rowY) => {
     const str = items.map((t) => t.toUpperCase()).join('   \u2022   ');
     ctx.font = traitFont;
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.fillText(str, w / 2, y);
+    ctx.fillText(str, w / 2, rowY);
   };
 
-  const traitRowY1 = vibeY + 30;
-  const traitRowY2 = vibeY + 55;
-  drawTraitRow(traits.slice(0, 2), traitRowY1);
-  if (traits.length > 2) drawTraitRow(traits.slice(2), traitRowY2);
+  y += 30;
+  drawTraitRow(traits.slice(0, 2), y);
+  if (traits.length > 2) {
+    y += 28;
+    drawTraitRow(traits.slice(2), y);
+  }
 
-  // Artist recommendations
+  // Artist recommendations — 11px name / 7px detail in preview = 22px / 14px
   const recs = persona.recommendations || [];
   if (recs.length > 0) {
-    const recsY = (traits.length > 2 ? traitRowY2 : traitRowY1) + 35;
-    drawDivider(recsY, 'D O N \u2019 T  M I S S');
+    y += 28;
+    drawDivider(y, 'D O N \u2019 T  M I S S');
 
-    recs.forEach((rec, i) => {
-      const y = recsY + 28 + i * 36;
-      centerText(rec.name, y, '700 15px Inter, sans-serif', '#ffffff');
-      centerText(`${rec.day}  \u2022  ${rec.stage}`, y + 16, '600 10px Inter, sans-serif', 'rgba(255,255,255,0.4)');
+    recs.forEach((rec) => {
+      y += 30;
+      centerText(rec.name, y, '700 22px Inter, sans-serif', '#ffffff');
+      y += 16;
+      centerText(`${rec.day}  \u2022  ${rec.stage}`, y, '600 14px Inter, sans-serif', 'rgba(255,255,255,0.4)');
     });
   }
 
