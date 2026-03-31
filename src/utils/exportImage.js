@@ -171,8 +171,6 @@ function drawShareCard(canvas, persona) {
   y += 12;
 
   // Stage name — 38px preview = 76px canvas
-  const stageName = persona.stage.toUpperCase();
-  const stageWords = stageName.split(' ');
   if (stageWords.length === 1) {
     y += 50;
     centerTextFit(stageName, y, 76, '900', 'Oswald, sans-serif', '#ffffff', maxContent);
@@ -213,7 +211,6 @@ function drawShareCard(canvas, persona) {
   drawDivider(y, 'C O N F I R M E D  V I B E');
 
   // Traits — 10px preview = 20px canvas
-  const traits = persona.traits.slice(0, 4);
   const traitFont = '900 20px Inter, sans-serif';
   const drawTraitRow = (items, rowY) => {
     const str = items.map((t) => t.toUpperCase()).join('   \u2022   ');
@@ -231,7 +228,6 @@ function drawShareCard(canvas, persona) {
   }
 
   // Artist recommendations — 11px name / 7px detail in preview = 22px / 14px
-  const recs = persona.recommendations || [];
   if (recs.length > 0) {
     y += 28;
     drawDivider(y, 'D O N \u2019 T  M I S S');
