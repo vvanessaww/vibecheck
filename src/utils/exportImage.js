@@ -156,7 +156,7 @@ function drawShareCard(canvas, persona) {
   y += 38;
   centerText('VIBECHECK', y, '900 48px Oswald, sans-serif', '#ffffff');
 
-  y += 30;
+  y += 60;
 
   // "Name's Stage Match:" — rotated -6deg
   ctx.save();
