@@ -22,7 +22,7 @@ export const SWIPE_CARDS = [
 export const GENRE_SLIDERS = [
   { id: 'g1', left: { label: 'Lover Girl Ballads', persona: 'feels' }, right: { label: 'Weird & Experimental', persona: 'dolab' } },
   { id: 'g2', left: { label: 'Mosh Pit Energy', persona: 'campground' }, right: { label: 'Main Stage Pop', persona: 'influencer' } },
-  { id: 'g3', left: { label: 'Exploring the Campgrounds', persona: 'campground' }, right: { label: 'Pics at the Pop-Ups', persona: 'influencer' } },
+  { id: 'g3', left: { label: 'Exploring the Campgrounds', persona: 'campground' }, right: { label: 'Pics at the Pop-Ups', persona: 'quasar' } },
 ];
 
 export const VIBE_CHECK_QUESTIONS = [
@@ -61,7 +61,7 @@ export const VIBE_CHECK_QUESTIONS = [
 export const HOT_TAKES = [
   { id: 'ht1', text: 'The Yuma tent is the most underrated stage', agreeWeights: { scientist: 3 }, disagreeWeights: { sahara: 2, influencer: 1 } },
   { id: 'ht2', text: 'Camping is the only way to do Coachella', agreeWeights: { campground: 3 }, disagreeWeights: { influencer: 2 } },
-  { id: 'ht4', text: 'Outfit changes planned for every sunset?', agreeWeights: { influencer: 3 }, disagreeWeights: { campground: 1, scientist: 1 } },
+  { id: 'ht4', text: 'Outfit changes planned for every sunset?', agreeWeights: { influencer: 2, quasar: 1 }, disagreeWeights: { campground: 1, scientist: 1 } },
   { id: 'ht6', text: 'Staying until the very last act plays?', agreeWeights: { sahara: 2, campground: 2 }, disagreeWeights: { scientist: 1 } },
   { id: 'ht7', text: "You don't need to know the lineup to have the best time", agreeWeights: { quasar: 3, dolab: 1 }, disagreeWeights: { scientist: 2 } },
 ];
